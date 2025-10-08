@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="appName" datatype="html">
+        <source>Coffee Journal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginButton" datatype="html">
+        <source>Iniciar Sesión</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="heroTitle" datatype="html">
+        <source>Tu Bitácora Personal de</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="heroTitleHighlight" datatype="html">
+        <source>Cata de Café</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">36,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="heroDescription" datatype="html">
+        <source> Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">39,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="startTastingButton" datatype="html">
+        <source>Comenzar a Catar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">52,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureRecordTitle" datatype="html">
+        <source>Registra Cada Taza</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">68,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureRecordDescription" datatype="html">
+        <source>Documenta origen, método de preparación, notas de sabor y más</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">69,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureRateTitle" datatype="html">
+        <source>Evalúa y Califica</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureRateDescription" datatype="html">
+        <source>Sistema de puntuación para aroma, cuerpo, acidez y sabor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">84,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureHistoryTitle" datatype="html">
+        <source>Historial Completo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureHistoryDescription" datatype="html">
+        <source>Accede a todas tus catas anteriores y descubre patrones</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">99,102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureDiscoverTitle" datatype="html">
+        <source>Descubre Favoritos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">113,114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="featureDiscoverDescription" datatype="html">
+        <source>Identifica tus cafés preferidos y explora nuevos perfiles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">114,117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logoutButton" datatype="html">
+        <source>Cerrar Sesión</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">45,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="welcomeMessage" datatype="html">
+        <source>¡Bienvenido de nuevo, </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dashboardSubtitle" datatype="html">
+        <source>Aquí está el resumen de tu viaje cafetero</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">71,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="newTastingButton" datatype="html">
+        <source>Nueva Cata</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loadingMessage" datatype="html">
+        <source>Cargando tus datos...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="totalTastingsLabel" datatype="html">
+        <source>Catas Totales</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="averageRatingLabel" datatype="html">
+        <source>Calificación Promedio</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="favoriteOriginLabel" datatype="html">
+        <source>Origen Favorito</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recentTastingsTitle" datatype="html">
+        <source>Catas Recientes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="viewAllButton" datatype="html">
+        <source>Ver Todas</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aromaLabel" datatype="html">
+        <source>Aroma</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">229</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bodyLabel" datatype="html">
+        <source>Cuerpo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="acidityLabel" datatype="html">
+        <source>Acidez</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">243</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="flavorLabel" datatype="html">
+        <source>Sabor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">249</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noTastingsTitle" datatype="html">
+        <source>No hay catas registradas</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">271</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noTastingsMessage" datatype="html">
+        <source>Comienza tu viaje cafetero registrando tu primera cata</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="startFirstTasting" datatype="html">
+        <source>Registrar Primera Cata</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">274</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

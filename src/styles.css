@@ -1,1 +1,241 @@
-/* You can add global styles to this file, and also import other style files */
+/* Tipografías (Google Fonts) - COMPLETO */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800;900&family=Merriweather:wght@300;400;700;900&family=Dancing+Script:wght@400;600;700&display=swap');
+
+/* Paleta café */
+:root {
+  --bg: #1a0f0a;
+  --bg-soft: #22140e;
+  --text: #f5e6d3;
+  --text-muted: #d6c6b3;
+  --accent: #c38e5a;   /* latte */
+  --accent-2: #8b5e34; /* espresso */
+  --card: #24140d;
+  --border: #3a261b;
+  --link: #e2b887;
+  --link-hover: #ffd6a3;
+}
+
+/* Reset básico */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+img, svg, video { max-width: 100%; display: block; }
+
+/* Base - OPCIÓN 1: Inter para cuerpo (moderna) */
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Base - OPCIÓN 2: Merriweather para cuerpo (más cálida/clásica) */
+/* Descomenta esto si prefieres Merriweather en lugar de Inter */
+/*
+body {
+  margin: 0;
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+*/
+
+/* Contenedor */
+.container {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+}
+
+/* Tipografía: títulos (Playfair Display - serif elegante) */
+h1, h2, h3, h4, h5, h6, .heading-serif {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 0.6em;
+  letter-spacing: 0.2px;
+}
+
+/* Escala tipográfica */
+h1 { font-size: clamp(2.2rem, 1.6rem + 2vw, 3.2rem); font-weight: 700; }
+h2 { font-size: clamp(1.8rem, 1.4rem + 1.2vw, 2.4rem); font-weight: 600; }
+h3 { font-size: clamp(1.5rem, 1.2rem + 0.8vw, 1.9rem); font-weight: 600; }
+h4 { font-size: 1.25rem; font-weight: 600; }
+h5 { font-size: 1.1rem; font-weight: 600; }
+h6 { font-size: 1rem; font-weight: 600; color: var(--text-muted); }
+
+/* Texto del cuerpo */
+p, li, small {
+  color: var(--text);
+}
+p { margin: 0 0 1.1rem; }
+small { color: var(--text-muted); }
+
+/* Acentos manuscritos (Dancing Script) para citas, etiquetas o nombres de café */
+.accent-script {
+  font-family: 'Dancing Script', 'Segoe Script', 'Comic Sans MS', cursive;
+  color: var(--accent);
+  letter-spacing: 0.2px;
+  font-weight: 600;
+}
+
+/* Enlaces */
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+}
+a:hover {
+  color: var(--link-hover);
+  box-shadow: 0 1px 0 0 currentColor;
+}
+
+/* Botones */
+.button, button, [type="button"], [type="submit"] {
+  font: 600 0.95rem 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #1a0f0a;
+  background: linear-gradient(180deg, var(--accent) 0%, #b97f4c 100%);
+  border: 1px solid #b67a45;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: transform 0.06s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+.button:hover, button:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 6px 18px -8px #000;
+}
+.button:active, button:active { transform: translateY(1px); }
+
+/* Tarjetas (notas de cata, entradas de la bitácora) */
+.card {
+  background: linear-gradient(180deg, var(--card), var(--bg-soft));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 50px -20px #000;
+}
+.card + .card { margin-top: 1rem; }
+
+.card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Etiquetas / chips para variedades, proceso, tostador */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #1f120c;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.tag--accent {
+  border-color: #8c5a33;
+  background: #2a170e;
+  color: #f8e8d6;
+}
+
+/* Listas de datos */
+ul.notes {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+}
+ul.notes li { margin: 0.2rem 0; color: var(--text-muted); }
+
+/* Bloques de cita (cata, cupping notes) */
+blockquote {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--accent-2);
+  background: #20120c;
+  color: var(--text);
+  font-family: 'Merriweather', Georgia, serif;
+  font-style: italic;
+}
+blockquote .accent-script {
+  display: block;
+  font-size: 1.15rem;
+  font-style: normal;
+}
+
+/* Separadores sutiles */
+.hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  border: 0;
+  margin: 1.2rem 0;
+}
+
+/* Formularios (para registrar métodos, ratio, molienda, etc.) */
+input, textarea, select {
+  width: 100%;
+  background: #1b100b;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input::placeholder, textarea::placeholder { color: #a8927a; }
+input:focus, textarea:focus, select:focus {
+  border-color: #8b5e34;
+  box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.25);
+}
+
+/* Tablas (si llevas registros por fecha) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  background: #1b100b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+thead th {
+  text-align: left;
+  font-weight: 600;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--text);
+  background: #22140e;
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+}
+tbody td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #1f120c; }
+
+/* Utilidades */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }

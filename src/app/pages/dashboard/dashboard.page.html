@@ -1,0 +1,290 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="logo">
+        <svg class="coffee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
+          <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
+          <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="logo-text" i18n="@@appName">Coffee Journal</span>
+      </div>
+
+      <div class="header-actions">
+        <div class="user-menu">
+          <div class="user-info">
+            <div class="user-avatar">
+              @if (userPicture() && !imageLoadError()) {
+                
+                <img
+                  [src]="userPicture()"
+                  [alt]="userName()"
+                  class="user-profile-img"
+                  (error)="onImageError()"
+                />
+              } @else {
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                  <path
+                    d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <line x1="6" y1="1" x2="6" y2="4" stroke-width="1.5" stroke-linecap="round" />
+                  <line x1="10" y1="1" x2="10" y2="4" stroke-width="1.5" stroke-linecap="round" />
+                  <line x1="14" y1="1" x2="14" y2="4" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              }
+            </div>
+            <div class="user-details">
+              <span class="user-name">{{ userName() }}</span>
+              <span class="user-email">{{ userEmail() }}</span>
+            </div>
+          </div>
+
+          <button
+            class="logout-btn"
+            (click)="onLogout()"
+            i18n-title="@@logoutButton"
+            title="Cerrar Sesión"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span i18n="@@logoutButton">Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <h1 class="welcome-title">
+        <ng-container i18n="@@welcomeMessage">¡Bienvenido de nuevo, </ng-container>
+        <span class="highlight">{{ userName() }}</span>!
+      </h1>
+      <p class="welcome-subtitle" i18n="@@dashboardSubtitle">
+        Aquí está el resumen de tu viaje cafetero
+      </p>
+
+      <button class="new-tasting-btn" (click)="onNewTasting()">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            d="M12 5v14M5 12h14"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <ng-container i18n="@@newTastingButton">Nueva Cata</ng-container>
+      </button>
+    </section>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p i18n="@@loadingMessage">Cargando tus datos...</p>
+      </div>
+    }
+
+    <!-- Stats Grid -->
+    @if (!isLoading()) {
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon total">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-value">{{ totalTastings() }}</h3>
+            <p class="stat-label" i18n="@@totalTastingsLabel">Catas Totales</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon rating">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-value">{{ averageRating().toFixed(1) }}</h3>
+            <p class="stat-label" i18n="@@averageRatingLabel">Calificación Promedio</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon origin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="10" r="3" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-value">{{ favoriteOrigin() }}</h3>
+            <p class="stat-label" i18n="@@favoriteOriginLabel">Origen Favorito</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Tastings -->
+      <section class="recent-tastings">
+        <div class="section-header">
+          <h2 i18n="@@recentTastingsTitle">Catas Recientes</h2>
+          <button class="view-all-btn" (click)="onViewAllTastings()">
+            <ng-container i18n="@@viewAllButton">Ver Todas</ng-container>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M5 12h14M12 5l7 7-7 7"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        @if (recentTastings().length > 0) {
+          <div class="tastings-grid">
+            @for (tasting of recentTastings(); track tasting.id) {
+              <div class="tasting-card" (click)="onViewTasting(tasting.id)">
+                <div class="tasting-header">
+                  <h3 class="tasting-name">{{ tasting.coffeeName }}</h3>
+                  <div class="tasting-rating">
+                    @for (filled of getStarArray(tasting.rating); track $index) {
+                      <svg
+                        class="star-icon"
+                        [class.filled]="filled"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                          stroke-width="1"
+                        />
+                      </svg>
+                    }
+                    <span class="rating-value">{{ tasting.rating }}</span>
+                  </div>
+                </div>
+
+                <div class="tasting-info">
+                  <div class="info-item">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path
+                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <circle cx="12" cy="10" r="3" stroke-width="2" />
+                    </svg>
+                    <span>{{ tasting.origin }}</span>
+                  </div>
+
+                  <div class="info-item">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="10" stroke-width="2" />
+                      <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <span>{{ formatDate(tasting.date) }}</span>
+                  </div>
+
+                  <div class="info-item">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path
+                        d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span>{{ tasting.brewMethod }}</span>
+                  </div>
+                </div>
+
+                <div class="tasting-attributes">
+                  <div class="attribute">
+                    <span class="attribute-label" i18n="@@aromaLabel">Aroma</span>
+                    <div class="attribute-bar">
+                      <div class="attribute-fill" [style.width.%]="(tasting.aroma / 5) * 100"></div>
+                    </div>
+                  </div>
+                  <div class="attribute">
+                    <span class="attribute-label" i18n="@@bodyLabel">Cuerpo</span>
+                    <div class="attribute-bar">
+                      <div class="attribute-fill" [style.width.%]="(tasting.body / 5) * 100"></div>
+                    </div>
+                  </div>
+                  <div class="attribute">
+                    <span class="attribute-label" i18n="@@acidityLabel">Acidez</span>
+                    <div class="attribute-bar">
+                      <div class="attribute-fill" [style.width.%]="(tasting.acidity / 5) * 100"></div>
+                    </div>
+                  </div>
+                  <div class="attribute">
+                    <span class="attribute-label" i18n="@@flavorLabel">Sabor</span>
+                    <div class="attribute-bar">
+                      <div class="attribute-fill" [style.width.%]="(tasting.flavor / 5) * 100"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="tasting-notes">{{ tasting.notes }}</p>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <h3 i18n="@@noTastingsTitle">No hay catas registradas</h3>
+            <p i18n="@@noTastingsMessage">Comienza tu viaje cafetero registrando tu primera cata</p>
+            <button class="cta-button" (click)="onNewTasting()">
+              <ng-container i18n="@@startFirstTasting">Registrar Primera Cata</ng-container>
+            </button>
+          </div>
+        }
+      </section>
+    }
+  </main>
+</div>
