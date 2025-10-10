@@ -16,6 +16,11 @@ export class AuthService {
   user = toSignal(this.auth0.user$, { initialValue: null });
   error = toSignal(this.auth0.error$, { initialValue: null });
 
+  userId = computed(() => {
+    const user = this.user()?.sub;
+    return user?.split('|')[1] ?? '';
+  });
+
   // Computed signals
   userName = computed(() => {
     const user = this.user();

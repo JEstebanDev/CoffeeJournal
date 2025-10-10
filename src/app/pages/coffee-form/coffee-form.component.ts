@@ -208,6 +208,7 @@ export class CoffeeFormComponent implements OnInit {
         aftertaste: formData.aftertaste,
         impression: formData.overallImpression,
         score: parseFloat(formData.score),
+        created_at: formData.created_at,
         image: imageBase64,
       };
 

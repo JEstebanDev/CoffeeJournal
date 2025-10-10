@@ -2,22 +2,8 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CoffeeService, CoffeeTasting } from '../../services/coffee.service';
 import { filter } from 'rxjs/operators';
-
-interface CoffeeTasting {
-  id: string;
-  coffeeName: string;
-  origin: string;
-  roastLevel: string;
-  brewMethod: string;
-  rating: number;
-  date: Date;
-  notes: string;
-  aroma: number;
-  body: number;
-  acidity: number;
-  flavor: number;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +15,7 @@ interface CoffeeTasting {
 export class DashboardPage implements OnInit {
   private auth = inject(AuthService);
   private router = inject(Router);
+  private coffeeService = inject(CoffeeService);
 
   // User data signals provided by the AuthService
   user = this.auth.user;
@@ -47,20 +34,38 @@ export class DashboardPage implements OnInit {
   averageRating = signal<number>(0);
   favoriteOrigin = signal<string>('');
   recentTastings = signal<CoffeeTasting[]>([]);
+  allTastings = signal<CoffeeTasting[]>([]); // Todas las catas sin filtrar
   isLoading = signal<boolean>(true);
+  errorMessage = signal<string | null>(null);
+
+  // Search filter signal
+  searchQuery = signal<string>('');
+
+  // Computed signal for filtered tastings
+  filteredTastings = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    const tastings = this.allTastings();
+
+    if (!query) {
+      return tastings;
+    }
+
+    return tastings.filter(tasting =>
+      (tasting.coffee_name ?? '').toLowerCase().includes(query) ||
+      (tasting.brand ?? '').toLowerCase().includes(query)
+    );
+  });
 
   // Example of a computed signal if needed in the template
-  averageRatingRounded = computed(() => Math.round(this.averageRating()));
+  averageRatingRounded = computed(() => Math.round(this.averageRating() * 10) / 10);
 
   constructor() {
     // Subscribe to router events to detect child route activation
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        // Check if current URL is exactly '/dashboard' or has child routes
-        const url = this.router.url;
-        this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
-      });
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      // Check if current URL is exactly '/dashboard' or has child routes
+      const url = this.router.url;
+      this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
+    });
   }
 
   ngOnInit() {
@@ -68,66 +73,65 @@ export class DashboardPage implements OnInit {
     const url = this.router.url;
     this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
 
-    // Load dashboard data (simulated)
+    // Load dashboard data from database
     this.loadDashboardData();
   }
 
   loadDashboardData() {
-    // Simulación de carga de datos
-    // En producción, esto vendría de un servicio/API
-    setTimeout(() => {
-      this.totalTastings.set(24);
-      this.averageRating.set(4.2);
-      this.favoriteOrigin.set('Colombia');
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
 
-      // Datos de ejemplo de catas recientes
-      this.recentTastings.set([
-        {
-          id: '1',
-          coffeeName: 'Café Especial Huila',
-          origin: 'Colombia',
-          roastLevel: 'Medio',
-          brewMethod: 'V60',
-          rating: 4.5,
-          date: new Date('2024-01-15'),
-          notes: 'Notas de chocolate y caramelo, muy equilibrado',
-          aroma: 4,
-          body: 5,
-          acidity: 4,
-          flavor: 5,
-        },
-        {
-          id: '2',
-          coffeeName: 'Ethiopian Yirgacheffe',
-          origin: 'Etiopía',
-          roastLevel: 'Claro',
-          brewMethod: 'Chemex',
-          rating: 4.8,
-          date: new Date('2024-01-12'),
-          notes: 'Floral, cítrico, muy aromático',
-          aroma: 5,
-          body: 4,
-          acidity: 5,
-          flavor: 5,
-        },
-        {
-          id: '3',
-          coffeeName: 'Sumatra Mandheling',
-          origin: 'Indonesia',
-          roastLevel: 'Oscuro',
-          brewMethod: 'French Press',
-          rating: 4.0,
-          date: new Date('2024-01-10'),
-          notes: 'Terroso, cuerpo completo, baja acidez',
-          aroma: 4,
-          body: 5,
-          acidity: 3,
-          flavor: 4,
-        },
-      ]);
-
+    const userId = this.auth.userId();
+    if (userId == '') {
+      this.errorMessage.set('No se pudo obtener la información del usuario');
       this.isLoading.set(false);
-    }, 1000);
+      return;
+    }
+
+    // Obtener las catas del usuario desde la base de datos
+    this.coffeeService.getCoffeeTastingsByUser(userId).subscribe({
+      next: (tastings) => {
+        this.allTastings.set(tastings); // Guardar todas las catas
+        this.recentTastings.set(tastings); // También actualizar recentTastings
+        this.calculateStatistics(tastings);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error al cargar las catas:', error);
+        this.errorMessage.set('Error al cargar tus catas. Por favor intenta nuevamente.');
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Calcula estadísticas basadas en las catas del usuario
+   */
+  calculateStatistics(tastings: CoffeeTasting[]) {
+    // Total de catas
+    this.totalTastings.set(tastings.length);
+
+    if (tastings.length === 0) {
+      this.averageRating.set(0);
+      this.favoriteOrigin.set('N/A');
+      return;
+    }
+
+    // Calcular promedio de puntuación
+    const totalScore = tastings.reduce((sum, tasting) => sum + (tasting.score || 0), 0);
+    const average = totalScore / tastings.length;
+    this.averageRating.set(average);
+
+    // Encontrar origen favorito (el más frecuente)
+    const originCount = tastings.reduce((acc, tasting) => {
+      const origin = tasting.origin || 'Desconocido';
+      acc[origin] = (acc[origin] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const favoriteOrigin = Object.entries(originCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
+
+    this.favoriteOrigin.set(favoriteOrigin);
   }
 
   onNewTasting() {
@@ -172,5 +176,14 @@ export class DashboardPage implements OnInit {
       month: 'long',
       day: 'numeric',
     });
+  }
+
+  onSearchChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery.set(input.value);
+  }
+
+  clearSearch() {
+    this.searchQuery.set('');
   }
 }

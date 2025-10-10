@@ -18,6 +18,7 @@ export interface CoffeeTasting {
   aftertaste: string;
   impression: string;
   score: number;
+  created_at: Date;
   image?: string; // base64 or URL
 }
 
@@ -68,6 +69,7 @@ export class CoffeeService {
         aftertaste: tasting.aftertaste,
         impression: tasting.impression,
         score: tasting.score,
+        created_at: tasting.created_at,
         image: imageUrl, // URL de la imagen en Supabase Storage
       };
 
@@ -161,7 +163,7 @@ export class CoffeeService {
         .from('coffeejournal')
         .select('*')
         .eq('user_id', userId)
-        .order('date', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error al obtener catas:', error);
