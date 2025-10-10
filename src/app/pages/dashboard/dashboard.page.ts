@@ -1,7 +1,8 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { filter } from 'rxjs/operators';
 
 interface CoffeeTasting {
   id: string;
@@ -21,7 +22,7 @@ interface CoffeeTasting {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })
@@ -38,6 +39,9 @@ export class DashboardPage implements OnInit {
   // Signal to track if image failed to load
   imageLoadError = signal<boolean>(false);
 
+  // Signal to track if a child route is active
+  isChildRouteActive = signal<boolean>(false);
+
   // Dashboard data signals
   totalTastings = signal<number>(0);
   averageRating = signal<number>(0);
@@ -48,7 +52,22 @@ export class DashboardPage implements OnInit {
   // Example of a computed signal if needed in the template
   averageRatingRounded = computed(() => Math.round(this.averageRating()));
 
+  constructor() {
+    // Subscribe to router events to detect child route activation
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        // Check if current URL is exactly '/dashboard' or has child routes
+        const url = this.router.url;
+        this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
+      });
+  }
+
   ngOnInit() {
+    // Check initial route state
+    const url = this.router.url;
+    this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
+
     // Load dashboard data (simulated)
     this.loadDashboardData();
   }
@@ -112,15 +131,15 @@ export class DashboardPage implements OnInit {
   }
 
   onNewTasting() {
-    this.router.navigate(['/tasting/new']);
+    this.router.navigate(['/dashboard/coffee/new']);
   }
 
   onViewAllTastings() {
-    this.router.navigate(['/tastings']);
+    this.router.navigate(['/coffee']);
   }
 
   onViewTasting(tastingId: string) {
-    this.router.navigate(['/tasting', tastingId]);
+    this.router.navigate(['/coffee', tastingId]);
   }
 
   onLogout() {

@@ -2,24 +2,35 @@ import { Routes } from '@angular/router';
 import { LandingPage } from './pages/landing/landing.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { CallbackPage } from './pages/callback/callback.page';
+import { CoffeeFormComponent } from './pages/coffee-form/coffee-form.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    component: LandingPage
+    component: LandingPage,
   },
   {
     path: 'callback',
-    component: CallbackPage
+    component: CallbackPage,
   },
   {
     path: 'dashboard',
     component: DashboardPage,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'coffee/new',
+        component: CoffeeFormComponent,
+      },
+    ],
+  },
+  {
+    path: 'coffee/new',
+    component: CoffeeFormComponent,
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '',
   },
 ];

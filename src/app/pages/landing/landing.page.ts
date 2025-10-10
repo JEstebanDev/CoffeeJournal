@@ -24,12 +24,7 @@ export class LandingPage {
   }
 
   onStartTasting() {
-    // Check if user is authenticated before navigating
-    if (this.isAuthenticated()) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      // If not authenticated, trigger login
-      this.onLogin();
-    }
+    // Navigate directly to the coffee form without requiring login
+    this.router.navigate(['/coffee/new']);
   }
 }

@@ -1,5 +1,9 @@
 export const environment = {
   production: true,
+  supabase: {
+    url: '_SUPAURL_',
+    anonKey: '_SUPAANONKEY_',
+  },
   auth0: {
     domain: '_AUTHDOMAIN_',
     clientId: '_CLIENTID_',
