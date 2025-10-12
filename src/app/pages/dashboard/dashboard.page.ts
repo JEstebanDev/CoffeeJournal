@@ -202,6 +202,10 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/coffee', tastingId]);
   }
 
+  onSlideClick(): void {
+    this.router.navigate(['/slides']);
+  }
+
   async onLogout() {
     try {
       await this.loginService.signOut();

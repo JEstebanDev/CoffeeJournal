@@ -1,0 +1,60 @@
+<div class="slide-inner">
+  <h1 class="slide-title">🧭 Identidad del Café</h1>
+
+  <form class="form-content">
+    <!-- Marca -->
+    <div class="form-field fade-in" style="animation-delay: 0s">
+      <label for="brand">Marca</label>
+      <input
+        type="text"
+        id="brand"
+        [value]="coffeeData().brand"
+        (input)="updateField('brand', $any($event.target).value)"
+        placeholder="Ej: Lavazza, Starbucks..."
+        aria-label="Marca del café"
+      />
+    </div>
+
+    <!-- Nombre del Café -->
+    <div class="form-field fade-in" style="animation-delay: 0.1s">
+      <label for="coffeeName">Nombre del café</label>
+      <input
+        type="text"
+        id="coffeeName"
+        [value]="coffeeData().coffeeName"
+        (input)="updateField('coffeeName', $any($event.target).value)"
+        placeholder="Ej: Espresso Intenso"
+        aria-label="Nombre del café"
+      />
+    </div>
+
+    <!-- Tipo de Grano -->
+    <div class="form-field fade-in" style="animation-delay: 0.2s">
+      <label for="beanType">Tipo de grano</label>
+      <select
+        id="beanType"
+        [value]="coffeeData().beanType"
+        (change)="updateField('beanType', $any($event.target).value)"
+        aria-label="Tipo de grano"
+      >
+        <option value="">Selecciona un tipo</option>
+        @for (type of beanTypes(); track type) {
+        <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Origen -->
+    <div class="form-field fade-in" style="animation-delay: 0.3s">
+      <label for="origin">Origen</label>
+      <input
+        type="text"
+        id="origin"
+        [value]="coffeeData().origin"
+        (input)="updateField('origin', $any($event.target).value)"
+        placeholder="Ej: Colombia, Brasil..."
+        aria-label="Origen del café"
+      />
+    </div>
+  </form>
+</div>

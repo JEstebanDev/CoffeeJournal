@@ -4,6 +4,7 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { CoffeeFormComponent } from './pages/coffee-form/coffee-form.component';
 import { CoffeeDetailPage } from './pages/coffee-detail/coffee-detail.page';
 import { AuthPage } from './pages/auth/auth.page';
+import { SlidesPage } from './pages/slides/slides.page';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -14,6 +15,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthPage,
+  },
+  {
+    path: 'slides',
+    component: SlidesPage,
   },
   {
     path: 'dashboard',
@@ -27,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'coffee/:id',
         component: CoffeeDetailPage,
+      },
+      {
+        path: 'slides',
+        component: SlidesPage,
       },
     ],
   },

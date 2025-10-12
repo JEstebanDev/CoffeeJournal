@@ -1,0 +1,332 @@
+.slide-inner {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.slide-title {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  color: var(--accent);
+  margin: 0 0 2rem 0;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+  text-shadow: 0 2px 10px rgba(195, 142, 90, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+
+/* Roast Slider */
+.roast-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.roast-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.roast-label-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  text-align: center;
+  flex: 1;
+}
+
+.roast-label-text.active {
+  color: var(--accent);
+  font-size: 1.1rem;
+  transform: scale(1.1);
+  text-shadow: 0 2px 10px rgba(195, 142, 90, 0.3);
+}
+
+.roast-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right,
+    #d4a574 0%,
+    #8b6f47 50%,
+    #3e2723 100%
+  );
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.roast-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--slider-color, var(--accent));
+  cursor: pointer;
+  border: 3px solid var(--bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--slider-color, var(--accent));
+  transition: all 0.3s ease;
+}
+
+.roast-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--slider-color, var(--accent));
+}
+
+.roast-slider::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+.roast-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--slider-color, var(--accent));
+  cursor: pointer;
+  border: 3px solid var(--bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--slider-color, var(--accent));
+  transition: all 0.3s ease;
+}
+
+.roast-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--slider-color, var(--accent));
+}
+
+.roast-slider::-moz-range-thumb:active {
+  transform: scale(1.1);
+}
+
+.roast-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: var(--accent);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.roast-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Brew Methods */
+.brew-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.brew-chip {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  border: 2px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brew-chip .brew-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease;
+}
+
+.brew-chip:hover {
+  border-color: var(--accent);
+  background: rgba(195, 142, 90, 0.1);
+  transform: translateY(-2px);
+}
+
+.brew-chip:hover .brew-icon {
+  filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(195, 142, 90, 0.5));
+}
+
+.brew-chip.selected {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  box-shadow: 0 4px 15px rgba(195, 142, 90, 0.4);
+}
+
+.brew-chip.selected .brew-icon {
+  filter: brightness(0) invert(0);
+}
+
+/* Submit Button */
+.submit-button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent) 0%, #b97f4c 100%);
+  color: var(--bg);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(195, 142, 90, 0.3);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(195, 142, 90, 0.5);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slide-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-content {
+    gap: 1.25rem;
+  }
+
+  .roast-levels {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .roast-option {
+    padding: 1.5rem 0.75rem;
+    min-height: 80px;
+  }
+
+  .roast-label {
+    font-size: 1rem;
+  }
+
+  .brew-chip {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .brew-chip .brew-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .submit-button {
+    font-size: 1rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-content {
+    gap: 1rem;
+  }
+
+  .roast-levels {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .roast-option {
+    padding: 1.25rem 0.5rem;
+    min-height: 70px;
+  }
+
+  .roast-label {
+    font-size: 0.95rem;
+  }
+
+  .brew-methods {
+    gap: 0.5rem;
+  }
+
+  .brew-chip {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .brew-chip .brew-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .submit-button {
+    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+  }
+}

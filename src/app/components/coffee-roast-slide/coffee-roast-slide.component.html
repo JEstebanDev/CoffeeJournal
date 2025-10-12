@@ -1,0 +1,56 @@
+<div class="slide-inner">
+  <h1 class="slide-title">🔹 Tueste y Preparación</h1>
+
+  <form class="form-content" (submit)="onSubmit()">
+    <!-- Nivel de Tueste -->
+    <div class="form-field fade-in" style="animation-delay: 0.1s">
+      <label>Nivel de Tueste</label>
+
+      <div class="roast-slider-container">
+        <!-- Slider Labels -->
+        <div class="roast-labels">
+          @for (level of roastLevels(); track level.value) {
+          <span class="roast-label-text" [class.active]="coffeeData().roastLevel === level.value">
+            {{ level.label }}
+          </span>
+          }
+        </div>
+
+        <!-- Slider Input -->
+        <input
+          type="range"
+          class="roast-slider"
+          min="0"
+          [max]="roastLevels().length - 1"
+          [value]="getCurrentRoastIndex()"
+          (input)="onSliderChange($any($event.target).value)"
+          [style.--slider-color]="getCurrentRoastColor()"
+        />
+
+        <!-- Visual Indicator -->
+        <div class="roast-indicator" [style.background-color]="getCurrentRoastColor()">
+          <span class="roast-emoji">{{ getCurrentRoastEmoji() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Método de Preparación -->
+    <div class="form-field fade-in" style="animation-delay: 0.2s">
+      <label>Método de preparación</label>
+      <div class="brew-methods" role="group" aria-label="Métodos de preparación">
+        @for (method of brewMethodsOptions(); track method.name) {
+        <button
+          type="button"
+          class="brew-chip"
+          [class.selected]="isBrewMethodSelected(method.name)"
+          [attr.aria-pressed]="isBrewMethodSelected(method.name)"
+          (click)="toggleBrewMethod(method.name)"
+        >
+          <img [src]="method.image" [alt]="method.name" class="brew-icon" />
+          <span>{{ method.name }}</span>
+        </button>
+        }
+      </div>
+    </div>
+  </form>
+</div>

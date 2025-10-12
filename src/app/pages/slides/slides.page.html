@@ -1,0 +1,57 @@
+<div class="slides-container">
+  <div class="slides-wrapper">
+    <!-- Slides -->
+    <div class="slides-content">
+      @for (slide of slides; track slide.id) {
+      <div
+        class="slide"
+        [class.active]="currentSlide() === slide.id"
+        [class.prev]="currentSlide() > slide.id"
+        [class.next]="currentSlide() < slide.id"
+        role="tabpanel"
+        [attr.aria-hidden]="currentSlide() !== slide.id"
+      >
+        <div class="slide-inner">
+          <!-- Paso 1: Identidad del Café -->
+          @if (slide.id === 0) {
+          <app-coffee-identity-slide
+            [coffeeData]="coffeeIdentity()"
+            [beanTypes]="beanTypes"
+            (dataChange)="onIdentityChange($event)"
+          />
+          }
+
+          <!-- Paso 2: Tueste y Preparación -->
+          @if (slide.id === 1) {
+          <app-coffee-roast-slide
+            [coffeeData]="coffeeRoast()"
+            [roastLevels]="roastLevels"
+            [brewMethodsOptions]="brewMethodsOptions"
+            (roastLevelChange)="onRoastLevelChange($event)"
+            (brewMethodToggle)="onBrewMethodToggle($event)"
+            (formSubmit)="onFormSubmit()"
+          />
+          }
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="slide-indicators-container">
+    <!-- Indicadores de slides -->
+    <div class="slide-indicators" role="tablist" aria-label="Pasos del formulario">
+      @for (slide of slides; track slide.id) {
+      <button
+        class="indicator"
+        role="tab"
+        [class.active]="currentSlide() === slide.id"
+        [attr.aria-selected]="currentSlide() === slide.id"
+        [attr.aria-label]="'Paso ' + (slide.id + 1) + ': ' + slide.title"
+        (click)="goToSlide(slide.id)"
+        type="button"
+      ></button>
+      }
+    </div>
+  </div>
+</div>
