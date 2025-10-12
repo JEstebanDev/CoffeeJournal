@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { LandingPage } from './pages/landing/landing.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
-import { CallbackPage } from './pages/callback/callback.page';
 import { CoffeeFormComponent } from './pages/coffee-form/coffee-form.component';
 import { CoffeeDetailPage } from './pages/coffee-detail/coffee-detail.page';
+import { AuthPage } from './pages/auth/auth.page';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -12,8 +12,8 @@ export const routes: Routes = [
     component: LandingPage,
   },
   {
-    path: 'callback',
-    component: CallbackPage,
+    path: 'auth',
+    component: AuthPage,
   },
   {
     path: 'dashboard',

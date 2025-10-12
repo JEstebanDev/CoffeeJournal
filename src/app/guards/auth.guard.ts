@@ -1,23 +1,18 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
-import { map, take } from 'rxjs/operators';
+import { Router, type CanActivateFn } from '@angular/router';
+import { SupabaseService } from '../services/supabase.service';
 
-export const authGuard: CanActivateFn = (_route, state) => {
-  const authService = inject(AuthService);
+export const authGuard: CanActivateFn = async (route, state) => {
+  const supabase = inject(SupabaseService);
+  const router = inject(Router);
+  const {
+    data: { session },
+  } = await supabase.client.auth.getSession();
 
-  return authService.isAuthenticated$.pipe(
-    take(1),
-    map(isAuthenticated => {
-      if (isAuthenticated) {
-        return true;
-      } else {
-        // Store the attempted URL for redirecting after login
-        authService.loginWithRedirect({
-          appState: { target: state.url }
-        });
-        return false;
-      }
-    })
-  );
+  if (!session) {
+    router.navigate(['/']);
+    return false;
+  }
+
+  return true;
 };

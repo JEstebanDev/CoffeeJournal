@@ -1,8 +1,8 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { CoffeeService, CoffeeTasting } from '../../services/coffee.service';
+import { Login } from '../../services/login.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -13,15 +13,9 @@ import { filter } from 'rxjs/operators';
   styleUrl: './dashboard.page.css',
 })
 export class DashboardPage implements OnInit {
-  private auth = inject(AuthService);
   private router = inject(Router);
   private coffeeService = inject(CoffeeService);
-
-  // User data signals provided by the AuthService
-  user = this.auth.user;
-  userName = this.auth.userName;
-  userEmail = this.auth.userEmail;
-  userPicture = this.auth.userPicture;
+  private loginService = inject(Login);
 
   // Signal to track if image failed to load
   imageLoadError = signal<boolean>(false);
@@ -41,6 +35,23 @@ export class DashboardPage implements OnInit {
   // Search filter signal
   searchQuery = signal<string>('');
 
+  // Computed signals for user data
+
+  userName = computed(() => {
+    const user = this.loginService.currentUser();
+    return user?.user_metadata?.['username'] || user?.email?.split('@')[0] || 'Usuario';
+  });
+
+  userEmail = computed(() => {
+    const user = this.loginService.currentUser();
+    return user?.email || '';
+  });
+
+  userPicture = computed(() => {
+    const user = this.loginService.currentUser();
+    return user?.user_metadata?.['avatar_url'] || '';
+  });
+
   // Computed signal for filtered tastings
   filteredTastings = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
@@ -50,9 +61,10 @@ export class DashboardPage implements OnInit {
       return tastings;
     }
 
-    return tastings.filter(tasting =>
-      (tasting.coffee_name ?? '').toLowerCase().includes(query) ||
-      (tasting.brand ?? '').toLowerCase().includes(query)
+    return tastings.filter(
+      (tasting) =>
+        (tasting.coffee_name ?? '').toLowerCase().includes(query) ||
+        (tasting.brand ?? '').toLowerCase().includes(query)
     );
   });
 
@@ -66,6 +78,47 @@ export class DashboardPage implements OnInit {
       const url = this.router.url;
       this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
     });
+
+    // Reactive effect to respond to authentication state changes.
+    // This will react when loginService.currentUser() or internal auth signals change.
+    // When a user logs in, we load the dashboard data. When they log out, we clear the data and redirect.
+    effect(() => {
+      // Read current user from the service (assumed to be reactive inside the service)
+      const user = this.loginService.currentUser();
+
+      // Also ensure login service has finished initial loading before reacting
+      const loading = this.loginService.isLoading ? this.loginService.isLoading() : false;
+
+      if (loading) {
+        // still initializing auth, don't act yet
+        return;
+      }
+
+      if (!user) {
+        // User logged out or not authenticated: clear dashboard data and redirect to home
+        this.allTastings.set([]);
+        this.recentTastings.set([]);
+        this.totalTastings.set(0);
+        this.averageRating.set(0);
+        this.favoriteOrigin.set('N/A');
+        this.isLoading.set(false);
+        this.errorMessage.set(null);
+
+        // Only navigate if not already on the public root
+        if (this.router.url !== '/') {
+          this.router.navigate(['/']);
+        }
+      } else {
+        // User is authenticated: load dashboard data
+        // Guard to avoid repeated loads if already loading or data exists
+        if (!this.isLoading() && this.allTastings().length === 0) {
+          this.loadDashboardData();
+        } else if (this.allTastings().length === 0) {
+          // If it's the initial state, trigger load
+          this.loadDashboardData();
+        }
+      }
+    });
   }
 
   ngOnInit() {
@@ -73,17 +126,20 @@ export class DashboardPage implements OnInit {
     const url = this.router.url;
     this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
 
-    // Load dashboard data from database
-    this.loadDashboardData();
+    // The effect in the constructor will handle loading data when auth is ready
+    // No need to manually call loadDashboardData here
   }
 
   loadDashboardData() {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    const userId = this.auth.userId();
-    if (userId == '') {
-      this.errorMessage.set('No se pudo obtener la información del usuario');
+    // Get userId using Supabase
+    const user = this.loginService.user;
+    const userId = user?.id;
+
+    if (!userId) {
+      this.errorMessage.set('No se pudo obtener el ID del usuario');
       this.isLoading.set(false);
       return;
     }
@@ -146,17 +202,13 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/coffee', tastingId]);
   }
 
-  onLogout() {
-    // Delegate to the AuthService logout. The service may wrap Auth0's logout API.
-    if (typeof this.auth.logout === 'function') {
-      try {
-        // If the service accepts params, it can handle them; otherwise this is a simple call.
-        // Provide returnTo for compatibility with Auth0-style logout.
-        (this.auth as any).logout?.({ returnTo: window.location.origin });
-      } catch {
-        // Fallback to calling logout without params
-        (this.auth as any).logout?.();
-      }
+  async onLogout() {
+    try {
+      await this.loginService.signOut();
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.error('Error during logout:', error);
+      this.errorMessage.set('Error al cerrar sesión. Por favor intenta nuevamente.');
     }
   }
 

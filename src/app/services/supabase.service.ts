@@ -3,16 +3,13 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environment/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
 
   constructor() {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.anonKey
-    );
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
 
   get client() {

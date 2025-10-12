@@ -18,7 +18,7 @@ export interface CoffeeTasting {
   aftertaste: string;
   impression: string;
   score: number;
-  created_at: Date;
+  created_at?: Date;
   image?: string; // base64 or URL
 }
 
@@ -50,7 +50,11 @@ export class CoffeeService {
       // Si hay imagen en base64, primero la subimos a Supabase Storage
       let imageUrl = null;
       if (tasting.image && tasting.image.startsWith('data:image')) {
-        imageUrl = await this.uploadImage(tasting.image, tasting.id || Date.now().toString());
+        imageUrl = await this.uploadImage(
+          tasting.image,
+          tasting.user_id,
+          tasting.id || Date.now().toString()
+        );
       }
 
       // Preparar los datos para insertar
@@ -69,7 +73,6 @@ export class CoffeeService {
         aftertaste: tasting.aftertaste,
         impression: tasting.impression,
         score: tasting.score,
-        created_at: tasting.created_at,
         image: imageUrl, // URL de la imagen en Supabase Storage
       };
 
@@ -100,7 +103,11 @@ export class CoffeeService {
    * @param id ID único para el nombre del archivo
    * @returns URL pública de la imagen
    */
-  private async uploadImage(base64Image: string, id: string): Promise<string | null> {
+  private async uploadImage(
+    base64Image: string,
+    userId: string,
+    id: string
+  ): Promise<string | null> {
     try {
       // Convertir base64 a blob
       const base64Data = base64Image.split(',')[1];
@@ -118,7 +125,7 @@ export class CoffeeService {
       // Generar nombre único para el archivo
       const fileExt = mimeType.split('/')[1];
       const fileName = `${id}-${Date.now()}.${fileExt}`;
-      const filePath = `coffee-images/${fileName}`;
+      const filePath = `coffee-images/${userId}/${fileName}`;
 
       // Subir a Supabase Storage
       const { data, error } = await this.supabaseService.client.storage

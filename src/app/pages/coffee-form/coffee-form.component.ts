@@ -2,8 +2,8 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { CoffeeService } from '../../services/coffee.service';
+import { Login } from '../../services/login.service';
 
 @Component({
   selector: 'app-coffee-form',
@@ -15,8 +15,8 @@ import { CoffeeService } from '../../services/coffee.service';
 export class CoffeeFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private coffeeService = inject(CoffeeService);
-  public router = inject(Router); // Hacer público para usar en el template
-  private authService = inject(AuthService);
+  private loginService = inject(Login);
+  public router = inject(Router);
 
   coffeeForm: FormGroup;
   selectedImage = signal<string | null>(null);
@@ -24,7 +24,6 @@ export class CoffeeFormComponent implements OnInit {
   isSubmitting = signal(false);
   errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
-  isAuthenticated = this.authService.isAuthenticated;
 
   // Track if user came from dashboard
   private isFromDashboard = signal<boolean>(false);
@@ -79,7 +78,7 @@ export class CoffeeFormComponent implements OnInit {
         localStorage.removeItem('pendingCoffeeTasting');
 
         // If user is now authenticated, show a message
-        if (this.isAuthenticated()) {
+        if (this.loginService.isAuthenticated()) {
           this.successMessage.set('¡Bienvenido! Ahora puedes enviar tu cata.');
         }
       } catch (error) {
@@ -163,7 +162,7 @@ export class CoffeeFormComponent implements OnInit {
     }
 
     // Check if user is authenticated
-    if (!this.isAuthenticated()) {
+    if (!this.loginService.isAuthenticated()) {
       // Save form data to localStorage
       const formDataToSave = {
         formData: this.coffeeForm.value,
@@ -172,7 +171,7 @@ export class CoffeeFormComponent implements OnInit {
       localStorage.setItem('pendingCoffeeTasting', JSON.stringify(formDataToSave));
 
       // Redirect to login
-      this.authService.loginWithRedirect('/dashboard/coffee/new');
+      this.router.navigate(['/auth']);
       return;
     }
 
@@ -181,9 +180,9 @@ export class CoffeeFormComponent implements OnInit {
     this.successMessage.set(null);
 
     try {
-      // Obtener el user_id del AuthService
-      const user = this.authService.user();
-      const userId = user?.sub || 'anonymous';
+      // Obtener el user_id del Login Service
+      const user = this.loginService.user;
+      const userId = user?.id || 'anonymous';
 
       // Convertir imagen a base64 si existe
       let imageBase64 = '';
@@ -208,7 +207,6 @@ export class CoffeeFormComponent implements OnInit {
         aftertaste: formData.aftertaste,
         impression: formData.overallImpression,
         score: parseFloat(formData.score),
-        created_at: formData.created_at,
         image: imageBase64,
       };
 

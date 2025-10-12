@@ -1,8 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoffeeService, CoffeeTasting } from '../../services/coffee.service';
-import { AuthService } from '../../services/auth.service';
+import { CoffeeService, CoffeeTasting, Login } from '../../services';
 
 @Component({
   selector: 'app-coffee-detail',
@@ -15,13 +14,7 @@ export class CoffeeDetailPage implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private coffeeService = inject(CoffeeService);
-  private auth = inject(AuthService);
-
-  // User data signals
-  user = this.auth.user;
-  userName = this.auth.userName;
-  userEmail = this.auth.userEmail;
-  userPicture = this.auth.userPicture;
+  private loginService = inject(Login);
 
   // Coffee detail signals
   coffee = signal<CoffeeTasting | null>(null);
@@ -43,9 +36,12 @@ export class CoffeeDetailPage implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    const userId = this.auth.userId();
-    if (userId=='') {
-      this.errorMessage.set('No se pudo obtener la información del usuario');
+    // Get userId using Supabase
+    const user = this.loginService.user;
+    const userId = user?.id;
+
+    if (!userId) {
+      this.errorMessage.set('No se pudo obtener el ID del usuario');
       this.isLoading.set(false);
       return;
     }
@@ -53,7 +49,7 @@ export class CoffeeDetailPage implements OnInit {
     // Obtener todas las catas del usuario y buscar la específica
     this.coffeeService.getCoffeeTastingsByUser(userId).subscribe({
       next: (tastings) => {
-        const foundCoffee = tastings.find(tasting => tasting.id === coffeeId);
+        const foundCoffee = tastings.find((tasting) => tasting.id === coffeeId);
         if (foundCoffee) {
           this.coffee.set(foundCoffee);
         } else {
@@ -99,13 +95,13 @@ export class CoffeeDetailPage implements OnInit {
     });
   }
 
-  onLogout() {
-    if (typeof this.auth.logout === 'function') {
-      try {
-        (this.auth as any).logout?.({ returnTo: window.location.origin });
-      } catch {
-        (this.auth as any).logout?.();
-      }
+  async onLogout() {
+    try {
+      await this.loginService.signOut();
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.error('Error during logout:', error);
+      this.errorMessage.set('Error al cerrar sesión. Por favor intenta nuevamente.');
     }
   }
 }

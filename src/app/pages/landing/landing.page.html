@@ -1,4 +1,14 @@
 <div class="landing-container">
+  <!-- Loading overlay for authentication -->
+  @if (isAuthenticating()) {
+    <div class="auth-loading-overlay">
+      <div class="auth-loading-content">
+        <div class="spinner-large"></div>
+        <p class="auth-loading-text">Autenticando...</p>
+      </div>
+    </div>
+  }
+
   <!-- Header with Login Button -->
   <header class="header">
     <div class="logo">
