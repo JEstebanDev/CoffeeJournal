@@ -4,6 +4,31 @@
   margin: 0 auto;
 }
 
+.origin-input-wrapper input {
+  width: 100%;
+  padding: 0.5rem;
+  transition: padding-left 0.2s ease;
+}
+
+.origin-input-wrapper .flag-detected {
+  padding-left: 2.5rem; /* solo cuando hay bandera */
+}
+
+.origin-input-wrapper .fi {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.flag-icon {
+  position: absolute;
+  left: 10px;
+  top: 17px;
+  pointer-events: none; /* evita que interfiera al hacer clic */
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -130,5 +155,153 @@
     font-size: 0.9rem;
     padding: 0.7rem 0.8rem;
     border-radius: 10px;
+  }
+}
+
+/* Chips Styles */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.chip {
+  padding: 0.625rem 1.25rem;
+  border: 2px solid #6d4c41;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3e2723 0%, #4e342e 100%);
+  color: #f5f5dc;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.chip:hover {
+  border-color: #8d6e63;
+  background: linear-gradient(135deg, #4e342e 0%, #5d4037 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chip:active {
+  transform: translateY(0);
+}
+
+.chip-selected {
+  background: #c38e5a;
+  border-color: #c38e5a;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(195, 142, 90, 0.4);
+}
+
+.chip-selected:hover {
+  background: #d4a574;
+  border-color: #d4a574;
+}
+.chip:focus-visible {
+  box-shadow: 0 0 0 3px rgba(195, 142, 90, 0.3);
+}
+
+/* Origin Input with Flag Animation */
+.origin-input-wrapper {
+  position: relative;
+}
+
+/* Flag pop animation used when a flag (country) is detected */
+@keyframes flagPop {
+  0% {
+    transform: scale(0.5) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Subtle glow animation for the input when a flag is detected */
+@keyframes inputGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(195, 142, 90, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(195, 142, 90, 0.18);
+  }
+}
+
+/* When the flag is detected, add a class to the input to trigger glow */
+.form-field input.flag-detected {
+  animation: inputGlow 0.6s ease-out;
+  border-color: rgba(195, 142, 90, 0.9);
+}
+
+/* Flag element inside the origin input */
+.origin-input-wrapper .detected-flag {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Animate the flag popping in */
+.origin-input-wrapper.flag-visible .detected-flag {
+  animation: flagPop 360ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+/* Space the input when a flag is present */
+.origin-input-wrapper.has-flag input {
+  padding-left: 2.5rem; /* adjust to accommodate the flag */
+}
+
+/* Small responsive tweaks */
+@media (max-width: 768px) {
+  .chips-container {
+    gap: 0.625rem;
+  }
+
+  .chip {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .origin-input-wrapper .detected-flag {
+    left: 0.4rem;
+  }
+
+  .origin-input-wrapper.has-flag input {
+    padding-left: 2.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chips-container {
+    gap: 0.5rem;
+  }
+
+  .chip {
+    padding: 0.45rem 0.875rem;
+    font-size: 0.85rem;
+  }
+
+  .origin-input-wrapper .detected-flag {
+    left: 0.35rem;
+  }
+
+  .origin-input-wrapper.has-flag input {
+    padding-left: 2rem;
+    font-size: 0.95rem;
   }
 }

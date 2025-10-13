@@ -22,9 +22,42 @@
     </div>
 
     <div class="section-header">
-      <span class="section-title">Puntuación 0/10</span>
+      <span class="section-title">Puntuación</span>
     </div>
 
-    <input type="text" id="coffeeName" placeholder="5" aria-label="Nombre del café" />
+    <div class="score-input">
+      <input type="number" id="score" />
+      <span class="score-display">0 / 10</span>
+    </div>
   </div>
+
+  <section class="form-section">
+    <div class="section-header">
+      <span class="section-title">Imagen del Café</span>
+    </div>
+
+    <div class="image-upload">
+      @if (!selectedImage()) {
+      <label for="imageInput" class="upload-label">
+        <div class="upload-placeholder">
+          <span class="upload-icon">📷</span>
+          <p>Haz clic para subir una imagen</p>
+          <p class="upload-hint">JPG, PNG o WEBP (máx. 5MB)</p>
+        </div>
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          style="display: none"
+        />
+      </label>
+      } @else {
+      <div class="image-preview">
+        <img [src]="selectedImage()" alt="Preview" />
+        <button type="button" class="remove-image" (click)="removeImage()">✕ Eliminar</button>
+      </div>
+      }
+    </div>
+  </section>
 </div>

@@ -33,31 +33,40 @@
 
     <!-- Tipo de Grano -->
     <div class="form-field fade-in" style="animation-delay: 0.2s">
-      <label for="beanType">Tipo de grano</label>
-      <select
-        id="beanType"
-        [value]="coffeeData().beanType"
-        (change)="updateField('beanType', $any($event.target).value)"
-        aria-label="Tipo de grano"
-      >
-        <option value="">Selecciona un tipo</option>
+      <label>Tipo de grano</label>
+      <div class="chips-container">
         @for (type of beanTypes(); track type) {
-        <option [value]="type">{{ type }}</option>
+        <button
+          type="button"
+          class="chip"
+          [class.chip-selected]="coffeeData().beanType === type"
+          (click)="updateField('beanType', type)"
+          [attr.aria-label]="'Seleccionar ' + type"
+          [attr.aria-pressed]="coffeeData().beanType === type"
+        >
+          {{ type }}
+        </button>
         }
-      </select>
+      </div>
     </div>
 
     <!-- Origen -->
-    <div class="form-field fade-in" style="animation-delay: 0.3s">
+    <div class="form-field fade-in origin-input-wrapper" style="animation-delay: 0.3s">
       <label for="origin">Origen</label>
-      <input
-        type="text"
-        id="origin"
-        [value]="coffeeData().origin"
-        (input)="updateField('origin', $any($event.target).value)"
-        placeholder="Ej: Colombia, Brasil..."
-        aria-label="Origen del café"
-      />
+      <div class="origin-input-wrapper">
+        @if (countryCode && showFlagAnimation) {
+        <span class="fi" [ngClass]="'fi-' + countryCode"></span>
+        }
+        <input
+          type="text"
+          id="origin"
+          [value]="coffeeData().origin"
+          (input)="onOriginInput($any($event.target).value)"
+          placeholder="Ej: Colombia, Brasil..."
+          aria-label="Origen del café"
+          [class.flag-detected]="showFlagAnimation"
+        />
+      </div>
     </div>
   </form>
 </div>

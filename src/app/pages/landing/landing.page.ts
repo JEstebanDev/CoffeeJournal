@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Login } from '../../services/login.service';
+import { FutterComponent } from "../../components/molecule/futter/futter.component";
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FutterComponent],
   templateUrl: './landing.page.html',
   styleUrl: './landing.page.css',
 })
