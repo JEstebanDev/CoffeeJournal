@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
 
 export interface CoffeeIdentity {
   brand: string;
@@ -12,7 +13,7 @@ export interface CoffeeIdentity {
 @Component({
   selector: 'app-coffee-identity-slide',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SliderTitleComponent],
   templateUrl: './coffee-identity-slide.component.html',
   styleUrls: ['./coffee-identity-slide.component.css'],
 })

@@ -20,7 +20,6 @@
             (dataChange)="onIdentityChange($event)"
           />
           }
-
           <!-- Paso 2: Tueste y Preparación -->
           @if (slide.id === 1) {
           <app-coffee-roast-slide
@@ -49,6 +48,13 @@
             [sensoryData]="coffeeSensory()"
             [acidityLevels]="acidityLevels"
             [afterTasteLevels]="afterTasteLevels"
+            (sensoryChange)="onSensoryChange($event)"
+          />
+          }
+          <!-- Paso 5: Calification -->
+          @if (slide.id === 4) {
+          <app-coffee-score-slide
+            [sensoryData]="coffeeSensory()"
             (sensoryChange)="onSensoryChange($event)"
           />
           }

@@ -1,9 +1,8 @@
 <div class="sensory-slide">
-  <div class="title">
-    <h2 class="slide-title">🌙 Huella final</h2>
-    <p class="section-subtitle">Analiza la viveza y la persistencia que deja el café.</p>
-  </div>
-
+  <app-slider-title
+    title="🌙 Experiencia en boca"
+    subtitle="Analiza la persistencia que deja el café."
+  ></app-slider-title>
   <!-- Acidity Section -->
   <div class="sensory-section">
     <div class="section-header">
@@ -71,6 +70,22 @@
         <span class="slider-emoji">{{ getCurrentAftertasteIcon() }}</span>
         <span class="slider-text">{{ getCurrentAftertasteDescription() }}</span>
       </div>
+    </div>
+  </div>
+  <div class="sensory-section">
+    <div class="section-header">
+      <span class="section-title">Retrogusto</span>
+      <span class="section-description">Describe el retrogusto</span>
+    </div>
+
+    <div class="text-input-container">
+      <textarea
+        class="sensory-textarea"
+        placeholder="Ej: Persistente con final dulce"
+        [value]="sensoryData().aroma"
+        (input)="onAromaChange($any($event.target).value)"
+        rows="3"
+      ></textarea>
     </div>
   </div>
 </div>

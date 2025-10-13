@@ -4,17 +4,6 @@
   margin: 0 auto;
 }
 
-.slide-title {
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  color: var(--accent);
-  margin: 0 0 2rem 0;
-  text-align: center;
-  animation: fadeInUp 0.6s ease-out;
-  text-shadow: 0 2px 10px rgba(195, 142, 90, 0.3);
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -52,39 +41,62 @@
 
 .form-field input,
 .form-field select {
-  padding: 0.875rem 1rem;
-  border-radius: 12px;
   border: 2px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
+  border-radius: 12px;
   font-size: 1rem;
-  transition: all 0.3s ease;
   font-family: inherit;
-  width: 100%;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.6;
+  color: var(--text);
+  border-color: #8d6e63;
+}
+
+.form-field select {
+  background: linear-gradient(135deg, #3e2723 0%, #4e342e 100%);
+  color: #f5f5dc;
+  border: 2px solid #6d4c41;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .form-field input:focus,
 .form-field select:focus {
   outline: none;
   border-color: var(--accent);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(195, 142, 90, 0.1);
+  box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.1);
+}
+
+.form-field select:focus {
+  border-color: #8d6e63;
+  box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.3);
 }
 
 .form-field input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #999;
 }
 
-.form-field select {
-  cursor: pointer;
+.form-field select option {
+  background-color: #3e2723;
+  color: #f5f5dc;
+  padding: 0.5rem;
+}
+
+.form-field select:hover {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.2;
+  color: var(--text);
+  border-color: #8d6e63;
 }
 
 @media (max-width: 768px) {
-  .slide-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
   .form-content {
     gap: 1.25rem;
   }
@@ -101,11 +113,6 @@
 }
 
 @media (max-width: 480px) {
-  .slide-title {
-    font-size: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-
   .form-content {
     gap: 1rem;
   }

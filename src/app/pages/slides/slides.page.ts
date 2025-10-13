@@ -4,17 +4,18 @@ import { FormsModule } from '@angular/forms';
 import {
   CoffeeIdentitySlideComponent,
   CoffeeIdentity,
-} from '../../components/coffee-identity-slide/coffee-identity-slide.component';
+} from '../../components/slide/coffee-identity-slide/coffee-identity-slide.component';
 import {
   CoffeeRoastSlideComponent,
   CoffeeRoast,
-} from '../../components/coffee-roast-slide/coffee-roast-slide.component';
+} from '../../components/slide/coffee-roast-slide/coffee-roast-slide.component';
 import {
   CoffeeSensorySlideComponent,
   CoffeeSensory,
   InfoLevel,
-} from '../../components/coffee-sensory-slide/coffee-sensory-slide.component';
-import { CoffeeFlavorSlideComponent } from '../../components/coffe-flavor-slide/coffee-flavor-slide.component';
+} from '../../components/slide/coffee-sensory-slide/coffee-sensory-slide.component';
+import { CoffeeFlavorSlideComponent } from '../../components/slide/coffe-flavor-slide/coffee-flavor-slide.component';
+import { CoffeeScoreSlideComponent } from "../../components/slide/coffee-score-slide/coffee-score-slide.component";
 
 @Component({
   selector: 'app-slides',
@@ -26,7 +27,8 @@ import { CoffeeFlavorSlideComponent } from '../../components/coffe-flavor-slide/
     CoffeeRoastSlideComponent,
     CoffeeSensorySlideComponent,
     CoffeeFlavorSlideComponent,
-  ],
+    CoffeeScoreSlideComponent
+],
   templateUrl: './slides.page.html',
   styleUrls: ['./slides.page.css'],
 })
@@ -141,6 +143,7 @@ export class SlidesPage {
     { id: 1, title: 'Tueste y Preparación' },
     { id: 2, title: 'Notas sensorial' },
     { id: 3, title: 'Sabor' },
+    { id: 4, title: 'Calificacion' },
   ];
 
   // Computed full form data

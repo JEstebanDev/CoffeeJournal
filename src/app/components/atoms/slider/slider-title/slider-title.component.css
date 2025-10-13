@@ -1,0 +1,59 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.slide-title {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  color: var(--accent);
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+  text-shadow: 0 2px 10px rgba(195, 142, 90, 0.3);
+}
+
+.slide-subtitle {
+  color: #795548;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .slide-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+  }
+
+  .slide-title {
+    font-size: 1.75rem;
+  }
+
+  .slide-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .title {
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+  }
+
+  .slide-title {
+    font-size: 1.3rem;
+  }
+
+  .slide-subtitle {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,30 @@
+<div class="sensory-slide">
+  <app-slider-title
+    title="⭐ Evaluación General"
+    subtitle="Tu sensación global después de probarlo: ¿qué te transmitió este café?"
+  ></app-slider-title>
+
+  <!-- Aroma Section -->
+  <div class="section-header">
+    <div class="section-header">
+      <span class="section-title">Impresión General</span>
+      <span class="section-description">Tu opinión general sobre este café</span>
+    </div>
+
+    <div class="text-input-container">
+      <textarea
+        class="sensory-textarea"
+        placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
+        [value]="sensoryData().aroma"
+        (input)="onAromaChange($any($event.target).value)"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Puntuación 0/10</span>
+    </div>
+
+    <input type="text" id="coffeeName" placeholder="5" aria-label="Nombre del café" />
+  </div>
+</div>

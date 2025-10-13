@@ -1,0 +1,58 @@
+.sensory-textarea {
+  width: 100%;
+  padding: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.sensory-textarea:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sensory-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.12);
+}
+
+.sensory-textarea::placeholder {
+  color: #9e9e9e;
+  font-style: italic;
+}
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+.section-description {
+  color: #795548;
+  font-size: 1rem;
+  margin: 0;
+  padding-left: 0.5rem;
+  font-weight: 400;
+}
+
+.section-header {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-width: 390px) {
+}

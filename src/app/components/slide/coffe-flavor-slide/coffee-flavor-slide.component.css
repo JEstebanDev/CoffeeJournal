@@ -2,29 +2,6 @@
   max-width: 900px;
   margin: 0 auto;
 }
-.title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2rem;
-}
-
-.slide-title {
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  color: var(--accent);
-  text-align: center;
-  animation: fadeInUp 0.6s ease-out;
-  text-shadow: 0 2px 10px rgba(195, 142, 90, 0.3);
-}
-
-.section-description {
-  color: #795548;
-  font-size: 1rem;
-  margin: 0;
-  font-weight: 400;
-}
 
 .section-subtitle {
   color: #795548;
@@ -43,6 +20,13 @@
   font-weight: 600;
   color: var(--accent);
   letter-spacing: 0.5px;
+}
+.section-description {
+  color: #795548;
+  font-size: 1rem;
+  margin: 0;
+  padding-left: 0.5rem;
+  font-weight: 400;
 }
 
 .section-header {
@@ -314,10 +298,6 @@
     padding: 0.5rem;
   }
 
-  .slide-title {
-    font-size: 2rem;
-  }
-
   .slide-subtitle {
     font-size: 1rem;
     margin-bottom: 2rem;
@@ -325,12 +305,17 @@
 
   .sensory-section {
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .section-header h3 {
     font-size: 1.4rem;
     padding-bottom: 1rem;
+  }
+
+  .section-description {
+    font-size: 0.95rem;
+    padding-left: 1.5rem;
   }
 
   .slider-labels {
@@ -376,10 +361,6 @@
     padding: 0rem;
   }
 
-  .slide-title {
-    font-size: 1.75rem;
-  }
-
   .slide-subtitle {
     font-size: 0.95rem;
   }
@@ -389,7 +370,7 @@
 
   .section-description {
     font-size: 0.8rem;
-    padding-left: 0.5rem;
+    padding-left: 0.3rem;
   }
 
   .sensory-section {
@@ -458,5 +439,21 @@
   .scale-label,
   .scale-description {
     text-align: left;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .slider-emoji {
+    font-size: 1.5rem;
+  }
+  .slider-indicator {
+    min-height: 4rem;
+    gap: 0.1rem;
+  }
+
+  .sensory-textarea {
+    height: 5.5rem;
+    padding: 0.5rem;
   }
 }
