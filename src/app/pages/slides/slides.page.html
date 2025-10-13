@@ -32,6 +32,17 @@
             (formSubmit)="onFormSubmit()"
           />
           }
+
+          <!-- Paso 3: Notas Sensoriales -->
+          @if (slide.id === 2) {
+          <app-coffee-sensory-slide
+            [sensoryData]="coffeeSensory()"
+            [bodyLevels]="bodyLevels"
+            [acidityLevels]="acidityLevels"
+            [afterTasteLevels]="afterTasteLevels"
+            (sensoryChange)="onSensoryChange($event)"
+          />
+          }
         </div>
       </div>
       }

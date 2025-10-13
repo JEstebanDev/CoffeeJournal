@@ -1,0 +1,142 @@
+<div class="sensory-slide">
+  <div class="title">
+    <h2 class="slide-title">☕ Notas Sensoriales</h2>
+    <p class="section-subtitle">Evalúa las características sensoriales del café</p>
+  </div>
+
+  <!-- Aroma Section -->
+  <div class="section-header">
+    <div class="section-header">
+      <span class="section-title">Aroma</span>
+      <span class="section-description">Describe el aroma del café</span>
+    </div>
+
+    <div class="text-input-container">
+      <textarea
+        class="sensory-textarea"
+        placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
+        [value]="sensoryData().aroma"
+        (input)="onAromaChange($any($event.target).value)"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Sabor</span>
+      <span class="section-description">Describe el sabor del café</span>
+    </div>
+
+    <div class="text-input-container">
+      <textarea
+        class="sensory-textarea"
+        placeholder="Ej: Cítrico, dulce, amargo, especiado, afrutado..."
+        [value]="sensoryData().flavor"
+        (input)="onFlavorChange($any($event.target).value)"
+        rows="3"
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Body Section -->
+  <div class="section-header">
+    <span class="section-title">Cuerpo</span>
+    <span class="section-description">Sensación de peso o textura del café en la boca</span>
+  </div>
+  <div class="slider-container body-slider-container">
+    <!-- Slider Labels -->
+    <div class="slider-labels">
+      @for (level of bodyLevels(); track level.value) {
+      <span class="slider-label-text" [class.active]="sensoryData().body === level.value">
+        {{ level.label }}
+      </span>
+      }
+    </div>
+
+    <!-- Slider Input -->
+    <input
+      type="range"
+      class="sensory-slider body-slider"
+      min="0"
+      [max]="bodyLevels().length - 1"
+      [value]="getCurrentBodyIndex()"
+      (input)="onBodySliderChange($any($event.target).value)"
+      [style.--slider-color]="getCurrentBodyColor()"
+    />
+
+    <!-- Visual Indicator -->
+    <div class="slider-indicator" [style.background-color]="getCurrentBodyColor()">
+      <span class="slider-emoji">{{ getCurrentBodyIcon() }}</span>
+      <span class="slider-text">{{ getCurrentDescription() }}</span>
+    </div>
+  </div>
+
+  <!-- Acidity Section -->
+  <div class="sensory-section">
+    <div class="section-header">
+      <span class="section-title">Acidez</span>
+      <span class="section-description">Sensación de peso o textura del café en la boca</span>
+    </div>
+    <div class="slider-container">
+      <!-- Slider Labels -->
+      <div class="slider-labels">
+        @for (level of acidityLevels(); track level.value) {
+        <span class="slider-label-text" [class.active]="sensoryData().acidity === level.value">
+          {{ level.label }}
+        </span>
+        }
+      </div>
+
+      <!-- Slider Input -->
+      <input
+        type="range"
+        class="sensory-slider"
+        min="0"
+        [max]="acidityLevels().length - 1"
+        [value]="getCurrentAcidityIndex()"
+        (input)="onAciditySliderChange($any($event.target).value)"
+        [style.--slider-color]="getCurrentAcidityColor()"
+      />
+
+      <!-- Visual Indicator -->
+      <div class="slider-indicator" [style.background-color]="getCurrentAcidityColor()">
+        <span class="slider-emoji">{{ getCurrentAcidityIcon() }}</span>
+        <span class="slider-text">{{ getCurrentAcidityDescription() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aftertaste Section -->
+  <div class="sensory-section">
+    <div class="section-header">
+      <span class="section-title">Retrogusto</span>
+      <span class="section-description">Sensación y sabor que quedan después de tragar</span>
+    </div>
+    <div class="slider-container">
+      <!-- Slider Labels -->
+      <div class="slider-labels">
+        @for (level of afterTasteLevels(); track level.value) {
+        <span class="slider-label-text" [class.active]="sensoryData().aftertaste === level.value">
+          {{ level.label }}
+        </span>
+        }
+      </div>
+
+      <!-- Slider Input -->
+      <input
+        type="range"
+        class="sensory-slider"
+        min="0"
+        [max]="afterTasteLevels().length - 1"
+        [value]="getCurrentAftertasteIndex()"
+        (input)="onAftertasteSliderChange($any($event.target).value)"
+        [style.--slider-color]="getCurrentAftertasteColor()"
+      />
+
+      <!-- Visual Indicator -->
+      <div class="slider-indicator" [style.background-color]="getCurrentAftertasteColor()">
+        <span class="slider-emoji">{{ getCurrentAftertasteIcon() }}</span>
+        <span class="slider-text">{{ getCurrentAftertasteDescription() }}</span>
+      </div>
+    </div>
+  </div>
+</div>

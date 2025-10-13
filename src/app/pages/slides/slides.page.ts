@@ -9,11 +9,22 @@ import {
   CoffeeRoastSlideComponent,
   CoffeeRoast,
 } from '../../components/coffee-roast-slide/coffee-roast-slide.component';
+import {
+  CoffeeSensorySlideComponent,
+  CoffeeSensory,
+  InfoLevel,
+} from '../../components/coffee-sensory-slide/coffee-sensory-slide.component';
 
 @Component({
   selector: 'app-slides',
   standalone: true,
-  imports: [CommonModule, FormsModule, CoffeeIdentitySlideComponent, CoffeeRoastSlideComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CoffeeIdentitySlideComponent,
+    CoffeeRoastSlideComponent,
+    CoffeeSensorySlideComponent,
+  ],
   templateUrl: './slides.page.html',
   styleUrls: ['./slides.page.css'],
 })
@@ -31,6 +42,14 @@ export class SlidesPage {
   coffeeRoast = signal<CoffeeRoast>({
     roastLevel: '',
     brewMethods: [],
+  });
+
+  coffeeSensory = signal<CoffeeSensory>({
+    body: 0,
+    acidity: 0,
+    aftertaste: 0,
+    aroma: '',
+    flavor: '',
   });
 
   // Options for selectors
@@ -52,6 +71,69 @@ export class SlidesPage {
     { name: 'Cold Brew', image: '/assets/brew_method/cold_brew.png' },
   ];
 
+  // Notas sensorial
+
+  bodyLevels: InfoLevel[] = [
+    {
+      value: 1,
+      label: 'Suave',
+      icon: '💧',
+      description: 'Acuoso o muy suave',
+      color: '#bfada6',
+    },
+    {
+      value: 2,
+      label: 'Liviano',
+      icon: '☁️',
+      description: 'Suave pero con presencia',
+      color: '#a1887f',
+    },
+    { value: 3, label: 'Medio', icon: '🪶', description: 'Textura balanceada', color: '#8d6e63' },
+    { value: 4, label: 'Pleno', icon: '🍫', description: 'Cremoso y redondo', color: '#6d4c41' },
+    { value: 5, label: 'Denso', icon: '🧈', description: 'Pesado, aceitoso', color: '#4e342e' },
+  ];
+
+  acidityLevels: InfoLevel[] = [
+    { value: 1, label: 'Nula', icon: '⚪', description: 'Plana, sin chispa', color: '#d4c9c4' },
+    { value: 2, label: 'Baja', icon: '🍊', description: 'Suave, equilibrada', color: '#ffcc80' },
+    {
+      value: 3,
+      label: 'Media',
+      icon: '🍋',
+      description: 'Brillante pero armónica',
+      color: '#ffb84d',
+    },
+    { value: 4, label: 'Alta', icon: '🍏', description: 'Viva y punzante', color: '#ffad33' },
+    {
+      value: 5,
+      label: 'Intensa',
+      icon: '🌈',
+      description: 'Dominante, vibrante',
+      color: '#ffa726',
+    },
+  ];
+
+  // Aftertaste scale configuration
+  afterTasteLevels: InfoLevel[] = [
+    { value: 1, label: 'Corto', icon: '🌬️', description: 'Desaparece rápido', color: '#e1bee7' },
+    { value: 2, label: 'Suave', icon: '☁️', description: 'Persistencia leve', color: '#ce93d8' },
+    {
+      value: 3,
+      label: 'Medio',
+      icon: '🌤️',
+      description: 'Buen final, sin amargor',
+      color: '#ba68c8',
+    },
+    { value: 4, label: 'Largo', icon: '🌇', description: 'Permanece agradable', color: '#ab47bc' },
+    {
+      value: 5,
+      label: 'Complejo',
+      icon: '🌌',
+      description: 'Evoluciona con el tiempo',
+      color: '#8e24aa',
+    },
+  ];
+
   slides = [
     { id: 0, title: 'Identidad del Café' },
     { id: 1, title: 'Tueste y Preparación' },
@@ -62,6 +144,7 @@ export class SlidesPage {
   fullCoffeeData = computed(() => ({
     ...this.coffeeIdentity(),
     ...this.coffeeRoast(),
+    ...this.coffeeSensory(),
   }));
 
   // Navigation methods
@@ -112,6 +195,14 @@ export class SlidesPage {
         brewMethods: [...currentMethods, method],
       }));
     }
+  }
+
+  // Sensory slide handlers
+  onSensoryChange(changes: Partial<CoffeeSensory>) {
+    this.coffeeSensory.update((current) => ({
+      ...current,
+      ...changes,
+    }));
   }
 
   onFormSubmit() {

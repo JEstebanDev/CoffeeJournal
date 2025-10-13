@@ -34,7 +34,6 @@ export class CoffeeRoastSlideComponent {
   // Outputs
   roastLevelChange = output<string>();
   brewMethodToggle = output<string>();
-  formSubmit = output<void>();
 
   selectRoastLevel(level: string) {
     this.roastLevelChange.emit(level);
@@ -77,7 +76,4 @@ export class CoffeeRoastSlideComponent {
     return this.coffeeData().brewMethods.includes(method);
   }
 
-  onSubmit() {
-    this.formSubmit.emit();
-  }
 }
