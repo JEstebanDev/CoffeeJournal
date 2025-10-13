@@ -14,6 +14,7 @@ import {
   CoffeeSensory,
   InfoLevel,
 } from '../../components/coffee-sensory-slide/coffee-sensory-slide.component';
+import { CoffeeFlavorSlideComponent } from '../../components/coffe-flavor-slide/coffee-flavor-slide.component';
 
 @Component({
   selector: 'app-slides',
@@ -24,6 +25,7 @@ import {
     CoffeeIdentitySlideComponent,
     CoffeeRoastSlideComponent,
     CoffeeSensorySlideComponent,
+    CoffeeFlavorSlideComponent,
   ],
   templateUrl: './slides.page.html',
   styleUrls: ['./slides.page.css'],
@@ -138,6 +140,7 @@ export class SlidesPage {
     { id: 0, title: 'Identidad del Café' },
     { id: 1, title: 'Tueste y Preparación' },
     { id: 2, title: 'Notas sensorial' },
+    { id: 3, title: 'Sabor' },
   ];
 
   // Computed full form data

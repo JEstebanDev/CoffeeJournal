@@ -43,6 +43,15 @@
             (sensoryChange)="onSensoryChange($event)"
           />
           }
+          <!-- Paso 4: Notas Sensoriales -->
+          @if (slide.id === 3) {
+          <app-coffee-flavor-slide
+            [sensoryData]="coffeeSensory()"
+            [acidityLevels]="acidityLevels"
+            [afterTasteLevels]="afterTasteLevels"
+            (sensoryChange)="onSensoryChange($event)"
+          />
+          }
         </div>
       </div>
       }
