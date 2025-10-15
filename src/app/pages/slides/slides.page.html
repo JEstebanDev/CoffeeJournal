@@ -1,4 +1,23 @@
 <div class="slides-container">
+  <!-- Success/Error Messages -->
+  @if (successMessage()) {
+  <div class="alert alert-success">
+    {{ successMessage() }}
+  </div>
+  } @if (errorMessage()) {
+  <div class="alert alert-error">
+    {{ errorMessage() }}
+  </div>
+  }
+
+  <!-- Loading Overlay -->
+  @if (isSubmitting()) {
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Guardando tu cata...</p>
+  </div>
+  }
+
   <div class="slides-wrapper">
     <!-- Slides -->
     <div class="slides-content">
@@ -54,6 +73,7 @@
           <app-coffee-score-slide
             [scoreData]="coffeeScore()"
             (scoreChange)="onScoreChange($event)"
+            (imageChange)="onImageChange($event)"
             (saveForm)="onSaveCoffeeForm()"
           />
           }

@@ -8,12 +8,9 @@ export interface CoffeeScore {
   score: number;
 }
 
-export interface InfoLevel {
-  value: number;
-  label: string;
-  icon: string;
-  description: string;
-  color: string;
+export interface CoffeeImage {
+  file: File | null;
+  preview: string | null;
 }
 
 @Component({
@@ -26,6 +23,7 @@ export interface InfoLevel {
 export class CoffeeScoreSlideComponent {
   scoreData = input.required<CoffeeScore>();
   scoreChange = output<Partial<CoffeeScore>>();
+  imageChange = output<CoffeeImage>();
   saveForm = output<void>();
   opinionTouched = signal(false);
   selectedFile = signal<File | null>(null);
@@ -76,7 +74,14 @@ export class CoffeeScoreSlideComponent {
       // Crear preview
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.selectedImage.set(e.target?.result as string);
+        const preview = e.target?.result as string;
+        this.selectedImage.set(preview);
+
+        // Emit image change to parent
+        this.imageChange.emit({
+          file: file,
+          preview: preview,
+        });
       };
       reader.readAsDataURL(file);
 
@@ -89,6 +94,12 @@ export class CoffeeScoreSlideComponent {
   removeImage(): void {
     this.selectedImage.set(null);
     this.selectedFile.set(null);
+
+    // Emit null image to parent
+    this.imageChange.emit({
+      file: null,
+      preview: null,
+    });
   }
 
   // Validation methods

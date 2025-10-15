@@ -1,27 +1,27 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   CoffeeIdentitySlideComponent,
-  CoffeeIdentity,
-} from '../../components/slide/coffee-identity-slide/coffee-identity-slide.component';
-import {
   CoffeeRoastSlideComponent,
-  CoffeeRoast,
-} from '../../components/slide/coffee-roast-slide/coffee-roast-slide.component';
-import {
   CoffeeSensorySlideComponent,
-  CoffeeSensory,
-  InfoLevel,
-} from '../../components/slide/coffee-sensory-slide/coffee-sensory-slide.component';
-import {
-  CoffeeFlavor,
-  CoffeeFlavorSlideComponent,
-} from '../../components/slide/coffe-flavor-slide/coffee-flavor-slide.component';
-import {
-  CoffeeScore,
   CoffeeScoreSlideComponent,
-} from '../../components/slide/coffee-score-slide/coffee-score-slide.component';
+  CoffeeFlavorSlideComponent,
+} from '../../components/slide/index';
+
+// Services
+import { CoffeeService } from '../../services/coffee.service';
+import { Login } from '../../services/login.service';
+import {
+  CoffeeTastingFormService,
+  CoffeeIdentity,
+  CoffeeSensory,
+  CoffeeFlavor,
+  CoffeeScore,
+  CoffeeImage,
+} from '../../services/slide/coffee-tasting-form.service';
+import { PendingTastingService, SlideNavigationService } from '../../services/slide';
 
 @Component({
   selector: 'app-slides',
@@ -36,374 +36,339 @@ import {
     CoffeeScoreSlideComponent,
   ],
   templateUrl: './slides.page.html',
-  styleUrls: ['./slides.page.css'],
+  styleUrl: './slides.page.css',
 })
-export class SlidesPage {
-  currentSlide = signal(0);
+export class SlidesPage implements OnInit {
+  // Services
+  private coffeeService = inject(CoffeeService);
+  private loginService = inject(Login);
+  private router = inject(Router);
+  private pendingTastingService = inject(PendingTastingService);
 
-  // Coffee data split into two parts
-  coffeeIdentity = signal<CoffeeIdentity>({
-    brand: '',
-    coffeeName: '',
-    beanType: '',
-    origin: '',
-  });
+  // Public services (used in template)
+  formService = inject(CoffeeTastingFormService);
+  navigationService = inject(SlideNavigationService);
 
-  coffeeRoast = signal<CoffeeRoast>({
-    roastLevel: '',
-    brewMethod: '',
-  });
+  // UI state signals
+  isSubmitting = signal(false);
+  errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
 
-  coffeeSensory = signal<CoffeeSensory>({
-    body: 0,
-    aroma: '',
-    flavor: '',
-  });
+  // Expose form data for template binding
+  get coffeeIdentity() {
+    return this.formService.coffeeIdentity;
+  }
+  get coffeeRoast() {
+    return this.formService.coffeeRoast;
+  }
+  get coffeeSensory() {
+    return this.formService.coffeeSensory;
+  }
+  get coffeeFlavor() {
+    return this.formService.coffeeFlavor;
+  }
+  get coffeeScore() {
+    return this.formService.coffeeScore;
+  }
+  get selectedImage() {
+    return this.formService.selectedImage;
+  }
+  get fullCoffeeData() {
+    return this.formService.fullCoffeeData;
+  }
+  get isFormValid() {
+    return this.formService.isFormValid;
+  }
+  get isSlideInvalid() {
+    return this.formService.isSlideInvalid;
+  }
 
-  coffeeFlavor = signal<CoffeeFlavor>({
-    acidity: 0,
-    aftertaste: 0,
-    aftertasteDescription: '',
-  });
+  // Expose navigation data for template
+  get currentSlide() {
+    return this.navigationService.currentSlide;
+  }
+  get slides() {
+    return this.navigationService.slides;
+  }
 
-  coffeeScore = signal<CoffeeScore>({
-    opinion: '',
-    score: 0,
-  });
+  // Expose options for template
+  get beanTypes() {
+    return this.formService.beanTypes;
+  }
+  get roastLevels() {
+    return this.formService.roastLevels;
+  }
+  get brewMethodsOptions() {
+    return this.formService.brewMethodsOptions;
+  }
+  get bodyLevels() {
+    return this.formService.bodyLevels;
+  }
+  get acidityLevels() {
+    return this.formService.acidityLevels;
+  }
+  get afterTasteLevels() {
+    return this.formService.afterTasteLevels;
+  }
 
-  // Options for selectors
-  beanTypes = ['Arabica', 'Robusta', 'Liberica'];
+  async ngOnInit() {
+    // Check if there's saved form data from before login
+    const pendingData = await this.pendingTastingService.getPendingTasting();
 
-  roastLevels = [
-    { value: 'light', label: 'Claro ☀️', color: '#D4A574' },
-    { value: 'medium', label: 'Medio 🌤️', color: '#8B6F47' },
-    { value: 'dark', label: 'Oscuro 🌑', color: '#3E2723' },
-  ];
+    if (pendingData) {
+      try {
+        // Restore form data
+        this.formService.loadFormData({
+          coffeeIdentity: pendingData.coffeeIdentity,
+          coffeeRoast: pendingData.coffeeRoast,
+          coffeeSensory: pendingData.coffeeSensory,
+          coffeeFlavor: pendingData.coffeeFlavor,
+          coffeeScore: pendingData.coffeeScore,
+          imageFile: pendingData.imageFile,
+        });
 
-  brewMethodsOptions = [
-    { name: 'V60', image: '/assets/brew_method/pourover.png' },
-    { name: 'Espresso', image: '/assets/brew_method/espresso.png' },
-    { name: 'Prensa Francesa', image: '/assets/brew_method/french_press.png' },
-    { name: 'Chemex', image: '/assets/brew_method/chemex.png' },
-    { name: 'Aeropress', image: '/assets/brew_method/aeropress.png' },
-    { name: 'Moka', image: '/assets/brew_method/moka_pot.png' },
-    { name: 'Cold Brew', image: '/assets/brew_method/cold_brew.png' },
-  ];
+        // Restore navigation state
+        if (pendingData.currentSlide !== undefined) {
+          this.navigationService.setCurrentSlide(pendingData.currentSlide);
+        }
 
-  // Notas sensorial
+        // If user is now authenticated, show a message and auto-save
+        if (this.loginService.isAuthenticated()) {
+          this.successMessage.set('¡Bienvenido! Guardando tu cata automáticamente...');
 
-  bodyLevels: InfoLevel[] = [
-    {
-      value: 1,
-      label: 'Suave',
-      icon: '💧',
-      description: 'Acuoso o muy suave',
-      color: '#bfada6',
-    },
-    {
-      value: 2,
-      label: 'Liviano',
-      icon: '☁️',
-      description: 'Suave pero con presencia',
-      color: '#a1887f',
-    },
-    { value: 3, label: 'Medio', icon: '🪶', description: 'Textura balanceada', color: '#8d6e63' },
-    { value: 4, label: 'Pleno', icon: '🍫', description: 'Cremoso y redondo', color: '#6d4c41' },
-    { value: 5, label: 'Denso', icon: '🧈', description: 'Pesado, aceitoso', color: '#4e342e' },
-  ];
-
-  acidityLevels: InfoLevel[] = [
-    { value: 1, label: 'Nula', icon: '⚪', description: 'Plana, sin chispa', color: '#d4c9c4' },
-    { value: 2, label: 'Baja', icon: '🍊', description: 'Suave, equilibrada', color: '#ffcc80' },
-    {
-      value: 3,
-      label: 'Media',
-      icon: '🍋',
-      description: 'Brillante pero armónica',
-      color: '#ffb84d',
-    },
-    { value: 4, label: 'Alta', icon: '🍏', description: 'Viva y punzante', color: '#ffad33' },
-    {
-      value: 5,
-      label: 'Intensa',
-      icon: '🌈',
-      description: 'Dominante, vibrante',
-      color: '#ffa726',
-    },
-  ];
-
-  // Aftertaste scale configuration
-  afterTasteLevels: InfoLevel[] = [
-    { value: 1, label: 'Corto', icon: '🌬️', description: 'Desaparece rápido', color: '#e1bee7' },
-    { value: 2, label: 'Suave', icon: '☁️', description: 'Persistencia leve', color: '#ce93d8' },
-    {
-      value: 3,
-      label: 'Medio',
-      icon: '🌤️',
-      description: 'Buen final, sin amargor',
-      color: '#ba68c8',
-    },
-    { value: 4, label: 'Largo', icon: '🌇', description: 'Permanece agradable', color: '#ab47bc' },
-    {
-      value: 5,
-      label: 'Complejo',
-      icon: '🌌',
-      description: 'Evoluciona con el tiempo',
-      color: '#8e24aa',
-    },
-  ];
-
-  slides = [
-    { id: 0, title: 'Identidad del Café' },
-    { id: 1, title: 'Tueste y Preparación' },
-    { id: 2, title: 'Notas sensorial' },
-    { id: 3, title: 'Sabor' },
-    { id: 4, title: 'Calificacion' },
-  ];
-
-  // Computed full form data
-  fullCoffeeData = computed(() => ({
-    ...this.coffeeIdentity(),
-    ...this.coffeeRoast(),
-    ...this.coffeeSensory(),
-    ...this.coffeeFlavor(),
-    ...this.coffeeScore(),
-  }));
-
-  // Validation computed signals
-  isIdentitySlideValid = computed(() => {
-    const identity = this.coffeeIdentity();
-    return !!(
-      identity.brand &&
-      identity.brand.trim().length > 0 &&
-      identity.coffeeName &&
-      identity.coffeeName.trim().length > 0 &&
-      identity.beanType &&
-      identity.origin &&
-      identity.origin.trim().length > 0
-    );
-  });
-
-  isRoastSlideValid = computed(() => {
-    const roast = this.coffeeRoast();
-    return !!(roast.roastLevel && roast.brewMethod);
-  });
-
-  isSensorySlideValid = computed(() => {
-    const sensory = this.coffeeSensory();
-    return !!(
-      sensory.body > 0 &&
-      sensory.aroma &&
-      sensory.aroma.trim().length > 0 &&
-      sensory.flavor &&
-      sensory.flavor.trim().length > 0
-    );
-  });
-
-  isFlavorSlideValid = computed(() => {
-    const sensory = this.coffeeFlavor();
-    return !!(
-      sensory.acidity > 0 &&
-      sensory.aftertaste > 0 &&
-      sensory.aftertasteDescription &&
-      sensory.aftertasteDescription.trim().length > 0
-    );
-  });
-
-  isScoreSlideValid = computed(() => {
-    const score = this.coffeeScore();
-    return !!(score.score > 0 && score.opinion && score.opinion.trim().length > 0);
-  });
-
-  // Check if a slide has errors (is invalid)
-  isSlideInvalid = computed(() => {
-    return (slideId: number): boolean => {
-      switch (slideId) {
-        case 0:
-          return !this.isIdentitySlideValid();
-        case 1:
-          return !this.isRoastSlideValid();
-        case 2:
-          return !this.isSensorySlideValid();
-        case 3:
-          return !this.isFlavorSlideValid();
-        case 4:
-          return !this.isScoreSlideValid();
-        default:
-          return false;
+          // Auto-save the pending tasting
+          setTimeout(async () => {
+            await this.savePendingTastingToDatabase();
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error loading saved form data:', error);
       }
-    };
-  });
-
-  // Check if all slides are valid (global form validation)
-  isFormValid = computed(() => {
-    return (
-      this.isIdentitySlideValid() &&
-      this.isRoastSlideValid() &&
-      this.isSensorySlideValid() &&
-      this.isFlavorSlideValid() &&
-      this.isScoreSlideValid()
-    );
-  });
-
-  // Navigation methods with validation
-  nextSlide() {
-    const current = this.currentSlide();
-
-    // Check if current slide is valid before advancing
-    if (this.isSlideInvalid()(current)) {
-      // Show error message or highlight invalid fields
-      this.showValidationError(current);
-      return;
     }
+  }
 
-    if (current < this.slides.length - 1) {
-      this.currentSlide.update((val) => val + 1);
+  // Navigation methods
+  nextSlide() {
+    const result = this.navigationService.nextSlide();
+    if (!result.success && result.error) {
+      this.showError(result.error);
     }
   }
 
   prevSlide() {
-    if (this.currentSlide() > 0) {
-      this.currentSlide.update((val) => val - 1);
-    }
+    this.navigationService.prevSlide();
   }
 
   goToSlide(index: number) {
-    // Allow going back to any slide
-    // But prevent skipping ahead if current slide is invalid
-    const current = this.currentSlide();
-
-    if (index > current && this.isSlideInvalid()(current)) {
-      this.showValidationError(current);
-      return;
+    const result = this.navigationService.goToSlide(index);
+    if (!result.success && result.error) {
+      this.showError(result.error);
     }
-
-    this.currentSlide.set(index);
-  }
-
-  // Show validation error for a specific slide
-  showValidationError(slideId: number) {
-    const slideNames = [
-      'Identidad del Café',
-      'Tueste y Preparación',
-      'Notas Sensoriales',
-      'Sabor',
-      'Calificación',
-    ];
-
-    console.warn(`⚠️ Por favor completa todos los campos requeridos en: ${slideNames[slideId]}`);
-    // You could also show a toast notification here
   }
 
   isSlideCompleted(slideId: number): boolean {
-    switch (slideId) {
-      case 0:
-        return this.isIdentitySlideValid();
-      case 1:
-        return this.isRoastSlideValid();
-      case 2:
-        return this.isSensorySlideValid();
-      case 3:
-        return this.isFlavorSlideValid();
-      case 4:
-        return this.isScoreSlideValid();
-      default:
-        return false;
-    }
+    return this.navigationService.isSlideCompleted(slideId);
+  }
+
+  // Show error helper
+  private showError(message: string) {
+    console.warn(message);
+    // You could also show a toast notification here
   }
 
   // Identity slide handlers
   onIdentityChange(changes: Partial<CoffeeIdentity>) {
-    this.coffeeIdentity.update((current) => ({
-      ...current,
-      ...changes,
-    }));
+    this.formService.updateIdentity(changes);
 
     // Auto-navigate to next slide if all fields are filled
-    if (this.isIdentitySlideValid() && this.currentSlide() === 0) {
+    if (this.navigationService.shouldAutoNavigate(0)) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Roast slide handlers
   onRoastLevelChange(level: string) {
-    this.coffeeRoast.update((current) => ({
-      ...current,
-      roastLevel: level,
-    }));
+    this.formService.updateRoastLevel(level);
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.isRoastSlideValid() && this.currentSlide() === 1) {
+    if (this.navigationService.shouldAutoNavigate(1)) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   onBrewMethodChange(method: string) {
-    this.coffeeRoast.update((current) => ({
-      ...current,
-      brewMethod: method,
-    }));
+    this.formService.updateBrewMethod(method);
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.isRoastSlideValid() && this.currentSlide() === 1) {
+    if (this.navigationService.shouldAutoNavigate(1)) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Sensory slide handlers
   onSensoryChange(changes: Partial<CoffeeSensory>) {
-    this.coffeeSensory.update((current) => ({
-      ...current,
-      ...changes,
-    }));
+    this.formService.updateSensory(changes);
 
-    // Auto-navigate when sensory slide is complete (body, aroma, flavor)
-    if (this.isSensorySlideValid() && this.currentSlide() === 2) {
+    // Auto-navigate when sensory slide is complete (body, aroma, acidity)
+    if (this.navigationService.shouldAutoNavigate(2)) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Flavor slide handlers
   onFlavorChange(changes: Partial<CoffeeFlavor>) {
-    this.coffeeFlavor.update((current) => ({
-      ...current,
-      ...changes,
-    }));
+    this.formService.updateFlavor(changes);
 
-    // Auto-navigate when sensory slide is complete ( acidity, aftertaste,)
-    if (this.isSensorySlideValid() && this.currentSlide() === 3) {
+    // Auto-navigate when flavor slide is complete (flavor, aftertaste, description)
+    if (this.navigationService.shouldAutoNavigate(3)) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Score change handler
   onScoreChange(changes: Partial<CoffeeScore>) {
-    this.coffeeScore.update((current) => ({ ...current, ...changes }));
+    this.formService.updateScore(changes);
+  }
+
+  // Image change handler
+  onImageChange(imageData: CoffeeImage) {
+    this.formService.updateImage(imageData);
   }
 
   onFormSubmit() {
-    console.log('Coffee Form Data:', this.fullCoffeeData());
+    console.log('Coffee Form Data:', this.formService.fullCoffeeData());
     // Add logic to send the form data
   }
 
-  onSaveCoffeeForm() {
+  async onSaveCoffeeForm() {
     // Validate entire form before saving
-    if (!this.isFormValid()) {
-      alert('⚠️ Por favor completa todos los campos requeridos antes de guardar.');
+    if (!this.formService.isFormValid()) {
+      this.errorMessage.set('⚠️ Por favor completa todos los campos requeridos antes de guardar.');
 
       // Find first invalid slide and navigate to it
-      for (let i = 0; i < this.slides.length; i++) {
-        if (this.isSlideInvalid()(i)) {
-          this.goToSlide(i);
-          this.showValidationError(i);
-          break;
-        }
+      const firstInvalidSlide = this.navigationService.findFirstInvalidSlide();
+      if (firstInvalidSlide !== null) {
+        this.goToSlide(firstInvalidSlide);
+        const errorMsg = this.navigationService.getValidationErrorMessage(firstInvalidSlide);
+        this.showError(errorMsg);
       }
+
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        this.errorMessage.set(null);
+      }, 5000);
+
       return;
     }
 
-    console.log('💾 Guardando cata de café...', this.fullCoffeeData());
-    // TODO: Implement save logic (API call, local storage, etc.)
-    alert('¡Cata guardada exitosamente! 🎉');
+    // Check if user is authenticated
+    if (!this.loginService.isAuthenticated()) {
+      // Save form data to IndexedDB (including image as File)
+      const formData = this.formService.getFormDataForSaving();
+      const pendingData = {
+        ...formData,
+        currentSlide: this.navigationService.currentSlide(),
+        timestamp: Date.now(),
+      };
+
+      try {
+        await this.pendingTastingService.savePendingTasting(pendingData);
+        this.successMessage.set('💾 Datos guardados. Redirigiendo al inicio de sesión...');
+
+        // Redirect to login after 2 seconds
+        setTimeout(() => {
+          this.router.navigate(['/auth']);
+        }, 2000);
+      } catch (error) {
+        console.error('Error saving pending tasting:', error);
+        this.errorMessage.set('Error al guardar los datos. Por favor intenta nuevamente.');
+      }
+
+      return;
+    }
+
+    // User is authenticated, save directly to database
+    await this.savePendingTastingToDatabase();
+  }
+
+  /**
+   * Save the current tasting data to the database
+   */
+  private async savePendingTastingToDatabase() {
+    this.isSubmitting.set(true);
+    this.errorMessage.set(null);
+    this.successMessage.set(null);
+
+    try {
+      // Get user ID
+      const user = this.loginService.user;
+      const userId = user?.id || 'anonymous';
+
+      // Convert image to base64 if exists
+      let imageBase64 = '';
+      if (this.formService.selectedImage().file) {
+        imageBase64 = await this.coffeeService.convertImageToBase64(
+          this.formService.selectedImage().file!
+        );
+      }
+
+      // Get full data from form service
+      const fullData = this.formService.fullCoffeeData();
+
+      // Use form service methods for data transformation
+      const bodyDescription = this.formService.getBodyDescription(fullData.body);
+      const acidityDescription = this.formService.getAcidityDescription(fullData.acidity);
+      const aftertasteFullDescription = this.formService.getAftertasteDescription(
+        fullData.aftertaste,
+        fullData.aftertasteDescription
+      );
+
+      const coffeeTasting = {
+        user_id: userId,
+        brand: fullData.brand,
+        coffee_name: fullData.coffeeName,
+        bean_type: fullData.beanType,
+        origin: fullData.origin,
+        roast_level: fullData.roastLevel,
+        brew_method: fullData.brewMethod,
+        aroma: fullData.aroma,
+        flavor: fullData.flavor,
+        body: bodyDescription,
+        acidity: acidityDescription,
+        aftertaste: aftertasteFullDescription,
+        impression: fullData.opinion,
+        score: fullData.score,
+        image: imageBase64,
+      };
+
+      console.log('💾 Guardando cata de café...', coffeeTasting);
+
+      // Save to database
+      this.coffeeService.saveCoffeeTasting(coffeeTasting).subscribe({
+        next: async () => {
+          this.successMessage.set('¡Cata guardada exitosamente! ☕🎉');
+
+          // Delete pending tasting from IndexedDB
+          await this.pendingTastingService.deletePendingTasting();
+
+          // Redirect to dashboard after 2 seconds
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error al guardar la cata:', error);
+          this.errorMessage.set('Error al guardar la cata. Por favor intenta nuevamente.');
+          this.isSubmitting.set(false);
+        },
+        complete: () => {
+          this.isSubmitting.set(false);
+        },
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      this.errorMessage.set('Error al procesar la solicitud');
+      this.isSubmitting.set(false);
+    }
   }
 }

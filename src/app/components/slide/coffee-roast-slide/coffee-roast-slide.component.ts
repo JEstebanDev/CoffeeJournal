@@ -2,16 +2,11 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { RoastLevel } from '../roast-level.interface';
 
 export interface CoffeeRoast {
   roastLevel: string;
   brewMethod: string;
-}
-
-export interface RoastLevel {
-  value: string;
-  label: string;
-  color: string;
 }
 
 export interface BrewMethod {

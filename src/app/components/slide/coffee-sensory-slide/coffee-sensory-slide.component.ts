@@ -2,19 +2,12 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { InfoLevel } from '../coffe-flavor-slide/coffee-flavor-slide.component';
 
 export interface CoffeeSensory {
   body: number;
   aroma: string;
   flavor: string;
-}
-
-export interface InfoLevel {
-  value: number;
-  label: string;
-  icon: string;
-  description: string;
-  color: string;
 }
 
 @Component({
