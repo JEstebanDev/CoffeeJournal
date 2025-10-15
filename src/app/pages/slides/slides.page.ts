@@ -345,7 +345,7 @@ export class SlidesPage {
     }));
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.isRoastSlideValid() && this.currentSlide() === 2) {
+    if (this.isRoastSlideValid() && this.currentSlide() === 1) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
@@ -358,7 +358,7 @@ export class SlidesPage {
     }));
 
     // Auto-navigate when sensory slide is complete (body, aroma, flavor)
-    if (this.isSensorySlideValid() && this.currentSlide() === 3) {
+    if (this.isSensorySlideValid() && this.currentSlide() === 2) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
@@ -371,13 +371,13 @@ export class SlidesPage {
     }));
 
     // Auto-navigate when sensory slide is complete ( acidity, aftertaste,)
-    if (this.isSensorySlideValid() && this.currentSlide() === 4) {
+    if (this.isSensorySlideValid() && this.currentSlide() === 3) {
       setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Score change handler
-  onScoreChange(changes: Partial<CoffeeFlavor>) {
+  onScoreChange(changes: Partial<CoffeeScore>) {
     this.coffeeScore.update((current) => ({ ...current, ...changes }));
   }
 

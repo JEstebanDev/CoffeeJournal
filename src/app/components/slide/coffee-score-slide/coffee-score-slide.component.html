@@ -31,11 +31,11 @@
         id="score"
         min="0"
         max="10"
-        [value]="scoreData()"
+        [value]="scoreData().score"
         (input)="onScoreChange(+$any($event.target).value)"
         (blur)="scoreTouched.set(true)"
       />
-      <span class="score-display">{{ scoreData() }} / 10</span>
+      <span class="score-display">{{ scoreData().score }} / 10</span>
     </div>
     @if (shouldShowScoreError()) {
     <span class="validation-message">Debes asignar una puntuación al café</span>
