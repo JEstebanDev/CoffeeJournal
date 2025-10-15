@@ -13,7 +13,7 @@
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of acidityLevels(); track level.value) {
-        <span class="slider-label-text" [class.active]="sensoryData().acidity === level.value">
+        <span class="slider-label-text" [class.active]="flavorData().acidity === level.value">
           {{ level.label }}
         </span>
         }
@@ -38,7 +38,7 @@
       </div>
     </div>
     @if (shouldShowAcidityError()) {
-      <span class="validation-message">Debes seleccionar el nivel de acidez</span>
+    <span class="validation-message">Debes seleccionar el nivel de acidez</span>
     }
   </div>
 
@@ -52,7 +52,7 @@
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of afterTasteLevels(); track level.value) {
-        <span class="slider-label-text" [class.active]="sensoryData().aftertaste === level.value">
+        <span class="slider-label-text" [class.active]="flavorData().aftertaste === level.value">
           {{ level.label }}
         </span>
         }
@@ -77,7 +77,7 @@
       </div>
     </div>
     @if (shouldShowAftertasteError()) {
-      <span class="validation-message">Debes seleccionar el nivel de retrogusto</span>
+    <span class="validation-message">Debes seleccionar el nivel de retrogusto</span>
     }
   </div>
   <div class="sensory-section">
@@ -90,8 +90,8 @@
       <textarea
         class="sensory-textarea"
         placeholder="Ej: Persistente con final dulce"
-        [value]="sensoryData().aroma"
-        (input)="onAromaChange($any($event.target).value)"
+        [value]="flavorData().aftertasteDescription"
+        (input)="onAfterTasteDescChange($any($event.target).value)"
         rows="3"
       ></textarea>
     </div>

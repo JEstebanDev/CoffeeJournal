@@ -37,26 +37,22 @@
           <app-coffee-sensory-slide
             [sensoryData]="coffeeSensory()"
             [bodyLevels]="bodyLevels"
-            [acidityLevels]="acidityLevels"
-            [afterTasteLevels]="afterTasteLevels"
             (sensoryChange)="onSensoryChange($event)"
           />
           }
           <!-- Paso 4: Notas Sensoriales -->
           @if (slide.id === 3) {
           <app-coffee-flavor-slide
-            [sensoryData]="coffeeSensory()"
+            [flavorData]="coffeeFlavor()"
             [acidityLevels]="acidityLevels"
             [afterTasteLevels]="afterTasteLevels"
-            (sensoryChange)="onSensoryChange($event)"
+            (flavorChange)="onFlavorChange($event)"
           />
           }
           <!-- Paso 5: Calification -->
           @if (slide.id === 4) {
           <app-coffee-score-slide
-            [sensoryData]="coffeeSensory()"
-            [score]="score()"
-            (sensoryChange)="onSensoryChange($event)"
+            [scoreData]="coffeeScore()"
             (scoreChange)="onScoreChange($event)"
             (saveForm)="onSaveCoffeeForm()"
           />
@@ -79,14 +75,18 @@
         [class.invalid]="!isSlideCompleted(slide.id) && slide.id < currentSlide()"
         [attr.aria-selected]="currentSlide() === slide.id"
         [attr.aria-label]="'Paso ' + (slide.id + 1) + ': ' + slide.title"
-        [attr.title]="!isSlideCompleted(slide.id) && slide.id < currentSlide() ? 'Este paso tiene campos incompletos' : slide.title"
+        [attr.title]="
+          !isSlideCompleted(slide.id) && slide.id < currentSlide()
+            ? 'Este paso tiene campos incompletos'
+            : slide.title
+        "
         (click)="goToSlide(slide.id)"
         type="button"
       >
         @if (isSlideCompleted(slide.id)) {
-          <span class="check-icon">✓</span>
+        <span class="check-icon">✓</span>
         } @else if (!isSlideCompleted(slide.id) && slide.id < currentSlide()) {
-          <span class="error-icon">⚠</span>
+        <span class="error-icon">⚠</span>
         }
       </button>
       }

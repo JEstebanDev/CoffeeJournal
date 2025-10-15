@@ -15,8 +15,8 @@
       <textarea
         class="sensory-textarea"
         placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
-        [value]="sensoryData().aroma"
-        (input)="onAromaChange($any($event.target).value)"
+        [value]="scoreData().opinion"
+        (input)="onOpinionChange($any($event.target).value)"
         rows="3"
       ></textarea>
     </div>
@@ -31,14 +31,14 @@
         id="score"
         min="0"
         max="10"
-        [value]="score()"
+        [value]="scoreData()"
         (input)="onScoreChange(+$any($event.target).value)"
         (blur)="scoreTouched.set(true)"
       />
-      <span class="score-display">{{ score() }} / 10</span>
+      <span class="score-display">{{ scoreData() }} / 10</span>
     </div>
     @if (shouldShowScoreError()) {
-      <span class="validation-message">Debes asignar una puntuación al café</span>
+    <span class="validation-message">Debes asignar una puntuación al café</span>
     }
   </div>
 
@@ -74,12 +74,6 @@
 
   <!-- Save Button -->
   <div class="save-button-container">
-    <button
-      type="button"
-      class="save-button"
-      (click)="onSaveForm()"
-    >
-      💾 Guardar Cata
-    </button>
+    <button type="button" class="save-button" (click)="onSaveForm()">💾 Guardar Cata</button>
   </div>
 </div>

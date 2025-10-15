@@ -14,8 +14,14 @@ import {
   CoffeeSensory,
   InfoLevel,
 } from '../../components/slide/coffee-sensory-slide/coffee-sensory-slide.component';
-import { CoffeeFlavorSlideComponent } from '../../components/slide/coffe-flavor-slide/coffee-flavor-slide.component';
-import { CoffeeScoreSlideComponent } from '../../components/slide/coffee-score-slide/coffee-score-slide.component';
+import {
+  CoffeeFlavor,
+  CoffeeFlavorSlideComponent,
+} from '../../components/slide/coffe-flavor-slide/coffee-flavor-slide.component';
+import {
+  CoffeeScore,
+  CoffeeScoreSlideComponent,
+} from '../../components/slide/coffee-score-slide/coffee-score-slide.component';
 
 @Component({
   selector: 'app-slides',
@@ -49,15 +55,21 @@ export class SlidesPage {
   });
 
   coffeeSensory = signal<CoffeeSensory>({
-    body: 1,
-    acidity: 0,
-    aftertaste: 0,
+    body: 0,
     aroma: '',
     flavor: '',
   });
 
-  // Score signal
-  score = signal<number>(0);
+  coffeeFlavor = signal<CoffeeFlavor>({
+    acidity: 0,
+    aftertaste: 0,
+    aftertasteDescription: '',
+  });
+
+  coffeeScore = signal<CoffeeScore>({
+    opinion: '',
+    score: 0,
+  });
 
   // Options for selectors
   beanTypes = ['Arabica', 'Robusta', 'Liberica'];
@@ -154,7 +166,8 @@ export class SlidesPage {
     ...this.coffeeIdentity(),
     ...this.coffeeRoast(),
     ...this.coffeeSensory(),
-    score: this.score(),
+    ...this.coffeeFlavor(),
+    ...this.coffeeScore(),
   }));
 
   // Validation computed signals
@@ -180,8 +193,6 @@ export class SlidesPage {
     const sensory = this.coffeeSensory();
     return !!(
       sensory.body > 0 &&
-      sensory.acidity > 0 &&
-      sensory.aftertaste > 0 &&
       sensory.aroma &&
       sensory.aroma.trim().length > 0 &&
       sensory.flavor &&
@@ -190,15 +201,18 @@ export class SlidesPage {
   });
 
   isFlavorSlideValid = computed(() => {
-    const sensory = this.coffeeSensory();
+    const sensory = this.coffeeFlavor();
     return !!(
       sensory.acidity > 0 &&
-      sensory.aftertaste > 0
+      sensory.aftertaste > 0 &&
+      sensory.aftertasteDescription &&
+      sensory.aftertasteDescription.trim().length > 0
     );
   });
 
   isScoreSlideValid = computed(() => {
-    return this.score() > 0;
+    const score = this.coffeeScore();
+    return !!(score.score > 0 && score.opinion && score.opinion.trim().length > 0);
   });
 
   // Check if a slide has errors (is invalid)
@@ -274,7 +288,7 @@ export class SlidesPage {
       'Tueste y Preparación',
       'Notas Sensoriales',
       'Sabor',
-      'Calificación'
+      'Calificación',
     ];
 
     console.warn(`⚠️ Por favor completa todos los campos requeridos en: ${slideNames[slideId]}`);
@@ -307,7 +321,7 @@ export class SlidesPage {
 
     // Auto-navigate to next slide if all fields are filled
     if (this.isIdentitySlideValid() && this.currentSlide() === 0) {
-      setTimeout(() => this.nextSlide(), 300);
+      setTimeout(() => this.nextSlide(), 600);
     }
   }
 
@@ -320,7 +334,7 @@ export class SlidesPage {
 
     // Auto-navigate if both roast level and brew method are selected
     if (this.isRoastSlideValid() && this.currentSlide() === 1) {
-      setTimeout(() => this.nextSlide(), 300);
+      setTimeout(() => this.nextSlide(), 600);
     }
   }
 
@@ -331,8 +345,8 @@ export class SlidesPage {
     }));
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.isRoastSlideValid() && this.currentSlide() === 1) {
-      setTimeout(() => this.nextSlide(), 300);
+    if (this.isRoastSlideValid() && this.currentSlide() === 2) {
+      setTimeout(() => this.nextSlide(), 600);
     }
   }
 
@@ -343,20 +357,28 @@ export class SlidesPage {
       ...changes,
     }));
 
-    // Auto-navigate when sensory slide is complete (body, acidity, aftertaste, aroma, flavor)
-    if (this.isSensorySlideValid() && this.currentSlide() === 2) {
-      setTimeout(() => this.nextSlide(), 300);
+    // Auto-navigate when sensory slide is complete (body, aroma, flavor)
+    if (this.isSensorySlideValid() && this.currentSlide() === 3) {
+      setTimeout(() => this.nextSlide(), 600);
     }
+  }
 
-    // Auto-navigate when flavor slide is complete (acidity, aftertaste)
-    if (this.isFlavorSlideValid() && this.currentSlide() === 3) {
-      setTimeout(() => this.nextSlide(), 300);
+  // Flavor slide handlers
+  onFlavorChange(changes: Partial<CoffeeFlavor>) {
+    this.coffeeFlavor.update((current) => ({
+      ...current,
+      ...changes,
+    }));
+
+    // Auto-navigate when sensory slide is complete ( acidity, aftertaste,)
+    if (this.isSensorySlideValid() && this.currentSlide() === 4) {
+      setTimeout(() => this.nextSlide(), 600);
     }
   }
 
   // Score change handler
-  onScoreChange(value: number) {
-    this.score.set(value);
+  onScoreChange(changes: Partial<CoffeeFlavor>) {
+    this.coffeeScore.update((current) => ({ ...current, ...changes }));
   }
 
   onFormSubmit() {

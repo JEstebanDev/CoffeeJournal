@@ -5,8 +5,6 @@ import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-tit
 
 export interface CoffeeSensory {
   body: number;
-  acidity: number;
-  aftertaste: number;
   aroma: string;
   flavor: string;
 }
@@ -30,8 +28,6 @@ export class CoffeeSensorySlideComponent {
   sensoryData = input.required<CoffeeSensory>();
   sensoryChange = output<Partial<CoffeeSensory>>();
   bodyLevels = input.required<InfoLevel[]>();
-  acidityLevels = input.required<InfoLevel[]>();
-  afterTasteLevels = input.required<InfoLevel[]>();
 
   // Validation state - track if fields have been touched
   bodyTouched = signal(false);
@@ -73,60 +69,6 @@ export class CoffeeSensorySlideComponent {
     }
   }
 
-  // Acidity slider helper methods
-  getCurrentAcidityIndex(): number {
-    const currentAcidity = this.sensoryData().acidity;
-    return this.acidityLevels().findIndex((level) => level.value === currentAcidity);
-  }
-
-  getCurrentAcidityColor(): string {
-    const currentAcidity = this.sensoryData().acidity;
-    const level = this.acidityLevels().find((l) => l.value === currentAcidity);
-    return level?.color || '#ffa726';
-  }
-
-  getCurrentAcidityIcon(): string {
-    const currentAcidity = this.sensoryData().acidity;
-    const level = this.acidityLevels().find((l) => l.value === currentAcidity);
-    return level?.icon || '🍋';
-  }
-
-  onAciditySliderChange(index: string) {
-    this.acidityTouched.set(true);
-    const acidityIndex = parseInt(index, 10);
-    const selectedLevel = this.acidityLevels()[acidityIndex];
-    if (selectedLevel) {
-      this.sensoryChange.emit({ acidity: selectedLevel.value });
-    }
-  }
-
-  // Aftertaste slider helper methods
-  getCurrentAftertasteIndex(): number {
-    const currentAftertaste = this.sensoryData().aftertaste;
-    return this.afterTasteLevels().findIndex((level) => level.value === currentAftertaste);
-  }
-
-  getCurrentAftertasteColor(): string {
-    const currentAftertaste = this.sensoryData().aftertaste;
-    const level = this.afterTasteLevels().find((l) => l.value === currentAftertaste);
-    return level?.color || '#8d6e63';
-  }
-
-  getCurrentAftertasteIcon(): string {
-    const currentAftertaste = this.sensoryData().aftertaste;
-    const level = this.afterTasteLevels().find((l) => l.value === currentAftertaste);
-    return level?.icon || '✨';
-  }
-
-  onAftertasteSliderChange(index: string) {
-    this.aftertasteTouched.set(true);
-    const aftertasteIndex = parseInt(index, 10);
-    const selectedLevel = this.afterTasteLevels()[aftertasteIndex];
-    if (selectedLevel) {
-      this.sensoryChange.emit({ aftertaste: selectedLevel.value });
-    }
-  }
-
   onBodyChange(value: number) {
     this.bodyTouched.set(true);
     this.sensoryChange.emit({ body: value });
@@ -145,14 +87,6 @@ export class CoffeeSensorySlideComponent {
   // Validation methods
   isBodyValid(): boolean {
     return this.sensoryData().body > 0;
-  }
-
-  isAcidityValid(): boolean {
-    return this.sensoryData().acidity > 0;
-  }
-
-  isAftertasteValid(): boolean {
-    return this.sensoryData().aftertaste > 0;
   }
 
   isAromaValid(): boolean {

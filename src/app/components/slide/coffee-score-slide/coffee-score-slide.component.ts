@@ -3,12 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
 
-export interface CoffeeSensory {
-  body: number;
-  acidity: number;
-  aftertaste: number;
-  aroma: string;
-  flavor: string;
+export interface CoffeeScore {
+  opinion: string;
+  score: number;
 }
 
 export interface InfoLevel {
@@ -27,11 +24,10 @@ export interface InfoLevel {
   styleUrls: ['./coffee-score-slide.component.css'],
 })
 export class CoffeeScoreSlideComponent {
-  sensoryData = input.required<CoffeeSensory>();
-  score = input.required<number>();
-  sensoryChange = output<Partial<CoffeeSensory>>();
-  scoreChange = output<number>();
+  scoreData = input.required<CoffeeScore>();
+  scoreChange = output<Partial<CoffeeScore>>();
   saveForm = output<void>();
+  opinionTouched = signal(false);
   selectedFile = signal<File | null>(null);
   selectedImage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
@@ -39,21 +35,16 @@ export class CoffeeScoreSlideComponent {
   // Validation state - track if fields have been touched
   scoreTouched = signal(false);
 
-  onBodyChange(value: number) {
-    this.sensoryChange.emit({ body: value });
-  }
-
-  onAromaChange(value: string) {
-    this.sensoryChange.emit({ aroma: value });
-  }
-
-  onFlavorChange(value: string) {
-    this.sensoryChange.emit({ flavor: value });
-  }
-
   onScoreChange(value: number) {
     this.scoreTouched.set(true);
-    this.scoreChange.emit(value);
+    this.scoreChange.emit({
+      score: value,
+    });
+  }
+
+  onOpinionChange(value: string) {
+    this.opinionTouched.set(true);
+    this.scoreChange.emit({ opinion: value });
   }
 
   onSaveForm() {
@@ -102,7 +93,7 @@ export class CoffeeScoreSlideComponent {
 
   // Validation methods
   isScoreValid(): boolean {
-    return this.score() > 0;
+    return this.scoreData().score > 0;
   }
 
   // Show error methods
