@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
@@ -30,6 +30,12 @@ export class CoffeeIdentitySlideComponent {
   countryCode: string | null = null;
   // Outputs
   dataChange = output<Partial<CoffeeIdentity>>();
+
+  // Validation state - track if fields have been touched
+  brandTouched = signal(false);
+  coffeeNameTouched = signal(false);
+  beanTypeTouched = signal(false);
+  originTouched = signal(false);
 
   // Lista de países productores de café
   countries: Country[] = [
@@ -88,7 +94,60 @@ export class CoffeeIdentitySlideComponent {
   showFlagAnimation = false;
 
   updateField(field: keyof CoffeeIdentity, value: string) {
+    // Mark field as touched
+    this.markFieldAsTouched(field);
     this.dataChange.emit({ [field]: value });
+  }
+
+  markFieldAsTouched(field: keyof CoffeeIdentity) {
+    switch (field) {
+      case 'brand':
+        this.brandTouched.set(true);
+        break;
+      case 'coffeeName':
+        this.coffeeNameTouched.set(true);
+        break;
+      case 'beanType':
+        this.beanTypeTouched.set(true);
+        break;
+      case 'origin':
+        this.originTouched.set(true);
+        break;
+    }
+  }
+
+  // Validation methods
+  isBrandValid(): boolean {
+    return !!this.coffeeData().brand && this.coffeeData().brand.trim().length > 0;
+  }
+
+  isCoffeeNameValid(): boolean {
+    return !!this.coffeeData().coffeeName && this.coffeeData().coffeeName.trim().length > 0;
+  }
+
+  isBeanTypeValid(): boolean {
+    return !!this.coffeeData().beanType;
+  }
+
+  isOriginValid(): boolean {
+    return !!this.coffeeData().origin && this.coffeeData().origin.trim().length > 0;
+  }
+
+  // Show error methods
+  shouldShowBrandError(): boolean {
+    return this.brandTouched() && !this.isBrandValid();
+  }
+
+  shouldShowCoffeeNameError(): boolean {
+    return this.coffeeNameTouched() && !this.isCoffeeNameValid();
+  }
+
+  shouldShowBeanTypeError(): boolean {
+    return this.beanTypeTouched() && !this.isBeanTypeValid();
+  }
+
+  shouldShowOriginError(): boolean {
+    return this.originTouched() && !this.isOriginValid();
   }
 
   /**
@@ -98,6 +157,7 @@ export class CoffeeIdentitySlideComponent {
    * a short animation toggle. Otherwise emits the raw value.
    */
   onOriginInput(value: string) {
+    this.originTouched.set(true);
     // Buscar si el texto contiene un país conocido (coincidencia exacta tras trim)
     const lowerValue = (value || '').toLowerCase().trim();
 

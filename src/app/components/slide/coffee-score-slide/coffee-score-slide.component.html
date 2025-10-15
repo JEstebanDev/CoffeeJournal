@@ -21,14 +21,25 @@
       ></textarea>
     </div>
 
-    <div class="section-header">
+    <div class="section-header" [class.invalid]="shouldShowScoreError()">
       <span class="section-title">Puntuación</span>
     </div>
 
-    <div class="score-input">
-      <input type="number" id="score" />
-      <span class="score-display">0 / 10</span>
+    <div class="score-input" [class.score-invalid]="shouldShowScoreError()">
+      <input
+        type="number"
+        id="score"
+        min="0"
+        max="10"
+        [value]="score()"
+        (input)="onScoreChange(+$any($event.target).value)"
+        (blur)="scoreTouched.set(true)"
+      />
+      <span class="score-display">{{ score() }} / 10</span>
     </div>
+    @if (shouldShowScoreError()) {
+      <span class="validation-message">Debes asignar una puntuación al café</span>
+    }
   </div>
 
   <section class="form-section">
@@ -60,4 +71,15 @@
       }
     </div>
   </section>
+
+  <!-- Save Button -->
+  <div class="save-button-container">
+    <button
+      type="button"
+      class="save-button"
+      (click)="onSaveForm()"
+    >
+      💾 Guardar Cata
+    </button>
+  </div>
 </div>

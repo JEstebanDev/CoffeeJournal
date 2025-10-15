@@ -27,7 +27,7 @@
             [roastLevels]="roastLevels"
             [brewMethodsOptions]="brewMethodsOptions"
             (roastLevelChange)="onRoastLevelChange($event)"
-            (brewMethodToggle)="onBrewMethodToggle($event)"
+            (brewMethodChange)="onBrewMethodChange($event)"
             (formSubmit)="onFormSubmit()"
           />
           }
@@ -55,7 +55,10 @@
           @if (slide.id === 4) {
           <app-coffee-score-slide
             [sensoryData]="coffeeSensory()"
+            [score]="score()"
             (sensoryChange)="onSensoryChange($event)"
+            (scoreChange)="onScoreChange($event)"
+            (saveForm)="onSaveCoffeeForm()"
           />
           }
         </div>
@@ -72,11 +75,20 @@
         class="indicator"
         role="tab"
         [class.active]="currentSlide() === slide.id"
+        [class.completed]="isSlideCompleted(slide.id)"
+        [class.invalid]="!isSlideCompleted(slide.id) && slide.id < currentSlide()"
         [attr.aria-selected]="currentSlide() === slide.id"
         [attr.aria-label]="'Paso ' + (slide.id + 1) + ': ' + slide.title"
+        [attr.title]="!isSlideCompleted(slide.id) && slide.id < currentSlide() ? 'Este paso tiene campos incompletos' : slide.title"
         (click)="goToSlide(slide.id)"
         type="button"
-      ></button>
+      >
+        @if (isSlideCompleted(slide.id)) {
+          <span class="check-icon">✓</span>
+        } @else if (!isSlideCompleted(slide.id) && slide.id < currentSlide()) {
+          <span class="error-icon">⚠</span>
+        }
+      </button>
       }
     </div>
   </div>

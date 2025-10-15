@@ -305,3 +305,54 @@
     font-size: 0.95rem;
   }
 }
+
+/* Validation Styles */
+.form-field.invalid label {
+  color: #e74c3c;
+}
+
+.form-field input.input-invalid,
+.form-field select.input-invalid {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.form-field input.input-invalid:focus,
+.form-field select.input-invalid:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+
+.chips-container.chips-invalid {
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.validation-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.validation-message::before {
+  content: '⚠️';
+  font-size: 0.9rem;
+}
+
+/* Success state (optional - for when field is valid and touched) */
+.form-field input.input-valid,
+.form-field select.input-valid {
+  border-color: #4caf50;
+}
+
+.form-field input.input-valid:focus,
+.form-field select.input-valid:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}

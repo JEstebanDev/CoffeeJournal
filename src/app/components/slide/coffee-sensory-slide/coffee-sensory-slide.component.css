@@ -445,3 +445,49 @@
     padding: 0.5rem;
   }
 }
+
+/* Validation Styles */
+.section-header.invalid .section-title {
+  color: #e74c3c;
+}
+
+.sensory-textarea.textarea-invalid {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.sensory-textarea.textarea-invalid:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2);
+}
+
+.slider-container.container-invalid {
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.validation-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.validation-message::before {
+  content: '⚠️';
+  font-size: 0.9rem;
+}
+
+/* Success state (optional) */
+.sensory-textarea.textarea-valid {
+  border-color: #4caf50;
+}
+
+.slider-container.container-valid {
+  border-color: #4caf50;
+}

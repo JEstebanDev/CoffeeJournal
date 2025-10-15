@@ -5,11 +5,11 @@
   ></app-slider-title>
   <!-- Acidity Section -->
   <div class="sensory-section">
-    <div class="section-header">
+    <div class="section-header" [class.invalid]="shouldShowAcidityError()">
       <span class="section-title">Acidez</span>
       <span class="section-description">Sensación de peso o textura del café en la boca</span>
     </div>
-    <div class="slider-container">
+    <div class="slider-container" [class.container-invalid]="shouldShowAcidityError()">
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of acidityLevels(); track level.value) {
@@ -27,6 +27,7 @@
         [max]="acidityLevels().length - 1"
         [value]="getCurrentAcidityIndex()"
         (input)="onAciditySliderChange($any($event.target).value)"
+        (blur)="acidityTouched.set(true)"
         [style.--slider-color]="getCurrentAcidityColor()"
       />
 
@@ -36,15 +37,18 @@
         <span class="slider-text">{{ getCurrentAcidityDescription() }}</span>
       </div>
     </div>
+    @if (shouldShowAcidityError()) {
+      <span class="validation-message">Debes seleccionar el nivel de acidez</span>
+    }
   </div>
 
   <!-- Aftertaste Section -->
   <div class="sensory-section">
-    <div class="section-header">
+    <div class="section-header" [class.invalid]="shouldShowAftertasteError()">
       <span class="section-title">Retrogusto</span>
       <span class="section-description">Sensación y sabor que quedan después de tragar</span>
     </div>
-    <div class="slider-container">
+    <div class="slider-container" [class.container-invalid]="shouldShowAftertasteError()">
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of afterTasteLevels(); track level.value) {
@@ -62,6 +66,7 @@
         [max]="afterTasteLevels().length - 1"
         [value]="getCurrentAftertasteIndex()"
         (input)="onAftertasteSliderChange($any($event.target).value)"
+        (blur)="aftertasteTouched.set(true)"
         [style.--slider-color]="getCurrentAftertasteColor()"
       />
 
@@ -71,6 +76,9 @@
         <span class="slider-text">{{ getCurrentAftertasteDescription() }}</span>
       </div>
     </div>
+    @if (shouldShowAftertasteError()) {
+      <span class="validation-message">Debes seleccionar el nivel de retrogusto</span>
+    }
   </div>
   <div class="sensory-section">
     <div class="section-header">

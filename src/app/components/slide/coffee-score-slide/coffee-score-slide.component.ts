@@ -28,10 +28,17 @@ export interface InfoLevel {
 })
 export class CoffeeScoreSlideComponent {
   sensoryData = input.required<CoffeeSensory>();
+  score = input.required<number>();
   sensoryChange = output<Partial<CoffeeSensory>>();
+  scoreChange = output<number>();
+  saveForm = output<void>();
   selectedFile = signal<File | null>(null);
   selectedImage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
+
+  // Validation state - track if fields have been touched
+  scoreTouched = signal(false);
+
   onBodyChange(value: number) {
     this.sensoryChange.emit({ body: value });
   }
@@ -42,6 +49,15 @@ export class CoffeeScoreSlideComponent {
 
   onFlavorChange(value: string) {
     this.sensoryChange.emit({ flavor: value });
+  }
+
+  onScoreChange(value: number) {
+    this.scoreTouched.set(true);
+    this.scoreChange.emit(value);
+  }
+
+  onSaveForm() {
+    this.saveForm.emit();
   }
 
   /**
@@ -82,5 +98,15 @@ export class CoffeeScoreSlideComponent {
   removeImage(): void {
     this.selectedImage.set(null);
     this.selectedFile.set(null);
+  }
+
+  // Validation methods
+  isScoreValid(): boolean {
+    return this.score() > 0;
+  }
+
+  // Show error methods
+  shouldShowScoreError(): boolean {
+    return this.scoreTouched() && !this.isScoreValid();
   }
 }

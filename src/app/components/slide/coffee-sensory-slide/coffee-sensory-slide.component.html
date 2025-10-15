@@ -6,7 +6,7 @@
 
   <!-- Aroma Section -->
   <div class="section-header">
-    <div class="section-header">
+    <div class="section-header" [class.invalid]="shouldShowAromaError()">
       <span class="section-title">Aroma</span>
       <span class="section-description">Describe el aroma del café</span>
     </div>
@@ -14,14 +14,19 @@
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
+        [class.textarea-invalid]="shouldShowAromaError()"
         placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
         [value]="sensoryData().aroma"
         (input)="onAromaChange($any($event.target).value)"
+        (blur)="aromaTouched.set(true)"
         rows="3"
       ></textarea>
+      @if (shouldShowAromaError()) {
+        <span class="validation-message">El aroma es requerido</span>
+      }
     </div>
 
-    <div class="section-header">
+    <div class="section-header" [class.invalid]="shouldShowFlavorError()">
       <span class="section-title">Sabor</span>
       <span class="section-description">Describe el sabor del café</span>
     </div>
@@ -29,20 +34,25 @@
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
+        [class.textarea-invalid]="shouldShowFlavorError()"
         placeholder="Ej: Cítrico, dulce, amargo, especiado, afrutado..."
         [value]="sensoryData().flavor"
         (input)="onFlavorChange($any($event.target).value)"
+        (blur)="flavorTouched.set(true)"
         rows="3"
       ></textarea>
+      @if (shouldShowFlavorError()) {
+        <span class="validation-message">El sabor es requerido</span>
+      }
     </div>
   </div>
 
   <!-- Body Section -->
-  <div class="section-header">
+  <div class="section-header" [class.invalid]="shouldShowBodyError()">
     <span class="section-title">Cuerpo</span>
     <span class="section-description">Sensación de peso o textura del café en la boca</span>
   </div>
-  <div class="slider-container body-slider-container">
+  <div class="slider-container body-slider-container" [class.container-invalid]="shouldShowBodyError()">
     <!-- Slider Labels -->
     <div class="slider-labels">
       @for (level of bodyLevels(); track level.value) {
@@ -60,6 +70,7 @@
       [max]="bodyLevels().length - 1"
       [value]="getCurrentBodyIndex()"
       (input)="onBodySliderChange($any($event.target).value)"
+      (blur)="bodyTouched.set(true)"
       [style.--slider-color]="getCurrentBodyColor()"
     />
 
@@ -69,4 +80,7 @@
       <span class="slider-text">{{ getCurrentDescription() }}</span>
     </div>
   </div>
+  @if (shouldShowBodyError()) {
+    <span class="validation-message">Debes seleccionar el nivel de cuerpo</span>
+  }
 </div>

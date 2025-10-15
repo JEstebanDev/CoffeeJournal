@@ -6,35 +6,45 @@
 
   <form class="form-content">
     <!-- Marca -->
-    <div class="form-field fade-in" style="animation-delay: 0s">
+    <div class="form-field fade-in" [class.invalid]="shouldShowBrandError()" style="animation-delay: 0s">
       <label for="brand">Marca</label>
       <input
         type="text"
         id="brand"
         [value]="coffeeData().brand"
         (input)="updateField('brand', $any($event.target).value)"
+        (blur)="brandTouched.set(true)"
         placeholder="Ej: Lavazza, Starbucks..."
         aria-label="Marca del café"
+        [class.input-invalid]="shouldShowBrandError()"
       />
+      @if (shouldShowBrandError()) {
+        <span class="validation-message">La marca es requerida</span>
+      }
     </div>
 
     <!-- Nombre del Café -->
-    <div class="form-field fade-in" style="animation-delay: 0.1s">
+    <div class="form-field fade-in" [class.invalid]="shouldShowCoffeeNameError()" style="animation-delay: 0.1s">
       <label for="coffeeName">Nombre del café</label>
       <input
         type="text"
         id="coffeeName"
         [value]="coffeeData().coffeeName"
         (input)="updateField('coffeeName', $any($event.target).value)"
+        (blur)="coffeeNameTouched.set(true)"
         placeholder="Ej: Espresso Intenso"
         aria-label="Nombre del café"
+        [class.input-invalid]="shouldShowCoffeeNameError()"
       />
+      @if (shouldShowCoffeeNameError()) {
+        <span class="validation-message">El nombre del café es requerido</span>
+      }
     </div>
 
     <!-- Tipo de Grano -->
-    <div class="form-field fade-in" style="animation-delay: 0.2s">
+    <div class="form-field fade-in" [class.invalid]="shouldShowBeanTypeError()" style="animation-delay: 0.2s">
       <label>Tipo de grano</label>
-      <div class="chips-container">
+      <div class="chips-container" [class.chips-invalid]="shouldShowBeanTypeError()">
         @for (type of beanTypes(); track type) {
         <button
           type="button"
@@ -48,10 +58,13 @@
         </button>
         }
       </div>
+      @if (shouldShowBeanTypeError()) {
+        <span class="validation-message">Debes seleccionar un tipo de grano</span>
+      }
     </div>
 
     <!-- Origen -->
-    <div class="form-field fade-in origin-input-wrapper" style="animation-delay: 0.3s">
+    <div class="form-field fade-in origin-input-wrapper" [class.invalid]="shouldShowOriginError()" style="animation-delay: 0.3s">
       <label for="origin">Origen</label>
       <div class="origin-input-wrapper">
         @if (countryCode && showFlagAnimation) {
@@ -62,11 +75,16 @@
           id="origin"
           [value]="coffeeData().origin"
           (input)="onOriginInput($any($event.target).value)"
+          (blur)="originTouched.set(true)"
           placeholder="Ej: Colombia, Brasil..."
           aria-label="Origen del café"
           [class.flag-detected]="showFlagAnimation"
+          [class.input-invalid]="shouldShowOriginError()"
         />
       </div>
+      @if (shouldShowOriginError()) {
+        <span class="validation-message">El origen es requerido</span>
+      }
     </div>
   </form>
 </div>
