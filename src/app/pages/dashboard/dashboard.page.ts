@@ -5,11 +5,27 @@ import { CoffeeService, CoffeeTasting } from '../../services/coffee.service';
 import { Login } from '../../services/login.service';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from '../../components/molecule/header/header.component';
+import {
+  StatsGridComponent,
+  TopOrigin,
+} from '../../components/molecule/stats-grid/stats-grid.component';
+import { TastingCardComponent } from '../../components/molecule/tasting-card/tasting-card.component';
+import {
+  InsightToastComponent,
+  Insight,
+} from '../../components/molecule/insight-toast/insight-toast.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    StatsGridComponent,
+    TastingCardComponent,
+   // InsightToastComponent,
+  ],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })
@@ -33,17 +49,26 @@ export class DashboardPage implements OnInit {
   isLoading = signal<boolean>(0 as unknown as boolean); // ensure boolean initialization
   errorMessage = signal<string | null>(null);
 
+  // New statistics signals
+  topOrigins = signal<TopOrigin[]>([]);
+  favoriteRoast = signal<string>('');
+  favoriteBrewMethod = signal<string>('');
+  tastingTrend = signal<string>('');
+  insights = signal<Insight[]>([]);
+
   // Search filter signal
   searchQuery = signal<string>('');
 
   // Computed signal for user name (used in welcome message)
   userName = computed(() => {
     const user = this.loginService.currentUser();
-    return user?.user_metadata?.['username'] ||
-           user?.user_metadata?.['full_name'] ||
-           user?.user_metadata?.['name'] ||
-           user?.email?.split('@')[0] ||
-           'Usuario';
+    return (
+      user?.user_metadata?.['username'] ||
+      user?.user_metadata?.['full_name'] ||
+      user?.user_metadata?.['name'] ||
+      user?.email?.split('@')[0] ||
+      'Usuario'
+    );
   });
 
   // Computed signal for filtered tastings
@@ -65,7 +90,7 @@ export class DashboardPage implements OnInit {
   // Example of a computed signal if needed in the template
   averageRatingRounded = computed(() => Math.round(this.averageRating() * 10) / 10);
 
-// ... existing code ...
+  // ... existing code ...
 
   constructor() {
     // Subscribe to router events to detect child route activation
@@ -89,7 +114,7 @@ export class DashboardPage implements OnInit {
         hasUser: !!user,
         isLoading: loading,
         dataLoadAttempted: this.dataLoadAttempted(),
-        currentIsLoading: this.isLoading()
+        currentIsLoading: this.isLoading(),
       });
 
       if (loading) {
@@ -123,7 +148,7 @@ export class DashboardPage implements OnInit {
         } else {
           console.log('⏭️ Skipping load:', {
             dataLoadAttempted: this.dataLoadAttempted(),
-            isLoading: this.isLoading()
+            isLoading: this.isLoading(),
           });
         }
       }
@@ -181,6 +206,11 @@ export class DashboardPage implements OnInit {
     if (tastings.length === 0) {
       this.averageRating.set(0);
       this.favoriteOrigin.set('N/A');
+      this.topOrigins.set([]);
+      this.favoriteRoast.set('');
+      this.favoriteBrewMethod.set('');
+      this.tastingTrend.set('');
+      this.insights.set([]);
       return;
     }
 
@@ -197,12 +227,155 @@ export class DashboardPage implements OnInit {
     }, {} as Record<string, number>);
 
     const favoriteOrigin = Object.entries(originCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
-
     this.favoriteOrigin.set(favoriteOrigin);
+
+    // Top 3 orígenes más catados
+    const topOriginsArray = Object.entries(originCount)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3);
+    this.topOrigins.set(topOriginsArray);
+
+    // Tueste favorito
+    const roastCount = tastings.reduce((acc, tasting) => {
+      const roast = tasting.roast_level || 'Desconocido';
+      acc[roast] = (acc[roast] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    const favoriteRoast = Object.entries(roastCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
+    this.favoriteRoast.set(favoriteRoast);
+
+    // Método de preparación favorito
+    const brewMethodCount = tastings.reduce((acc, tasting) => {
+      const method = tasting.brew_method || 'Desconocido';
+      acc[method] = (acc[method] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    const favoriteBrewMethod = Object.entries(brewMethodCount).reduce((a, b) =>
+      a[1] > b[1] ? a : b
+    )[0];
+    this.favoriteBrewMethod.set(favoriteBrewMethod);
+
+    // Calcular tendencia de preferencias
+    const trend = this.calculateTastingTrend(tastings);
+    this.tastingTrend.set(trend);
+
+    // Generar insights
+    const generatedInsights = this.generateInsights(tastings);
+    this.insights.set(generatedInsights);
+  }
+
+  /**
+   * Calcula la tendencia de preferencias del usuario
+   */
+  private calculateTastingTrend(tastings: CoffeeTasting[]): string {
+    if (tastings.length < 3) {
+      return 'Aún no hay suficientes datos para determinar tu tendencia';
+    }
+
+    // Analizar características más comunes
+    const bodyCount: Record<string, number> = {};
+    const acidityCount: Record<string, number> = {};
+
+    tastings.forEach((tasting) => {
+      if (tasting.body) {
+        bodyCount[tasting.body] = (bodyCount[tasting.body] || 0) + 1;
+      }
+      if (tasting.acidity) {
+        acidityCount[tasting.acidity] = (acidityCount[tasting.acidity] || 0) + 1;
+      }
+    });
+
+    const mostCommonBody = Object.entries(bodyCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+    const mostCommonAcidity =
+      Object.entries(acidityCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+
+    if (mostCommonBody && mostCommonAcidity) {
+      return `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()} y acidez ${mostCommonAcidity.toLowerCase()}`;
+    } else if (mostCommonBody) {
+      return `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()}`;
+    } else if (mostCommonAcidity) {
+      return `Prefieres cafés con acidez ${mostCommonAcidity.toLowerCase()}`;
+    }
+
+    return 'Explora más cafés para descubrir tu perfil de preferencias';
+  }
+
+  /**
+   * Genera insights personalizados basados en las catas
+   */
+  private generateInsights(tastings: CoffeeTasting[]): Insight[] {
+    const insights: Insight[] = [];
+
+    if (tastings.length === 0) return insights;
+
+    // Insight 1: Café favorito (mejor calificado)
+    const topRatedTasting = [...tastings].sort((a, b) => b.score - a.score)[0];
+    if (topRatedTasting) {
+      insights.push({
+        message: `Tu café favorito hasta ahora es ${topRatedTasting.coffee_name}, ${topRatedTasting.origin} con ${topRatedTasting.score} de calificación.`,
+        icon: 'star',
+      });
+    }
+
+    // Insight 2: Método favorito
+    const brewMethodCount: Record<string, number> = {};
+    tastings.forEach((t) => {
+      if (t.brew_method) {
+        brewMethodCount[t.brew_method] = (brewMethodCount[t.brew_method] || 0) + 1;
+      }
+    });
+    const favoriteMethod = Object.entries(brewMethodCount).sort((a, b) => b[1] - a[1])[0];
+    if (favoriteMethod) {
+      insights.push({
+        message: `El método ${favoriteMethod[0]} es el que más te gusta con ${favoriteMethod[1]} catas.`,
+        icon: 'coffee',
+      });
+    }
+
+    // Insight 3: Tendencia de preferencias
+    const bodyCount: Record<string, number> = {};
+    const acidityCount: Record<string, number> = {};
+    tastings.forEach((t) => {
+      if (t.body) bodyCount[t.body] = (bodyCount[t.body] || 0) + 1;
+      if (t.acidity) acidityCount[t.acidity] = (acidityCount[t.acidity] || 0) + 1;
+    });
+    const mostCommonBody = Object.entries(bodyCount).sort((a, b) => b[1] - a[1])[0]?.[0];
+    const mostCommonAcidity = Object.entries(acidityCount).sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (mostCommonBody && mostCommonAcidity) {
+      insights.push({
+        message: `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()} y acidez ${mostCommonAcidity.toLowerCase()}.`,
+        icon: 'heart',
+      });
+    }
+
+    // Insight 4: Promedio de calificación
+    const avgScore = tastings.reduce((sum, t) => sum + t.score, 0) / tastings.length;
+    insights.push({
+      message: `Tu calificación promedio es ${avgScore.toFixed(
+        1
+      )} de 10. ¡Sigue explorando nuevos cafés!`,
+      icon: 'trend-up',
+    });
+
+    // Insight 5: Origen más explorado
+    const originCount: Record<string, number> = {};
+    tastings.forEach((t) => {
+      if (t.origin) originCount[t.origin] = (originCount[t.origin] || 0) + 1;
+    });
+    const topOrigin = Object.entries(originCount).sort((a, b) => b[1] - a[1])[0];
+    if (topOrigin) {
+      insights.push({
+        message: `Has catado ${topOrigin[1]} cafés de ${topOrigin[0]}. ¡Es tu origen favorito!`,
+        icon: 'lightbulb',
+      });
+    }
+
+    return insights;
   }
 
   onNewTasting() {
-    this.router.navigate(['/coffee/new']);
+    this.router.navigate(['/dashboard/coffee/new']);
   }
 
   onViewAllTastings() {

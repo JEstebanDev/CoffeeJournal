@@ -20,11 +20,13 @@ export class HeaderComponent {
   // Computed signals for user data
   userName = computed(() => {
     const user = this.loginService.currentUser();
-    return user?.user_metadata?.['username'] || 
-           user?.user_metadata?.['full_name'] || 
-           user?.user_metadata?.['name'] || 
-           user?.email?.split('@')[0] || 
-           'Usuario';
+    return (
+      user?.user_metadata?.['username'] ||
+      user?.user_metadata?.['full_name'] ||
+      user?.user_metadata?.['name'] ||
+      user?.email?.split('@')[0] ||
+      'Usuario'
+    );
   });
 
   userEmail = computed(() => {
@@ -34,15 +36,16 @@ export class HeaderComponent {
 
   userPicture = computed(() => {
     const user = this.loginService.currentUser();
-    
+
     // Try multiple possible locations for the avatar
-    const avatarUrl = user?.user_metadata?.['avatar_url'] || 
-                      user?.user_metadata?.['picture'] || 
-                      user?.user_metadata?.['avatar'] ||
-                      user?.user_metadata?.['profile_picture'] ||
-                      '';
-    
-    // If avatarUrl exists and is not a full URL (doesn't start with http), 
+    const avatarUrl =
+      user?.user_metadata?.['avatar_url'] ||
+      user?.user_metadata?.['picture'] ||
+      user?.user_metadata?.['avatar'] ||
+      user?.user_metadata?.['profile_picture'] ||
+      '';
+
+    // If avatarUrl exists and is not a full URL (doesn't start with http),
     // it might be a path in Supabase storage
     if (avatarUrl && !avatarUrl.startsWith('http')) {
       // This would be a path like "user-id-random.jpg"
@@ -50,7 +53,7 @@ export class HeaderComponent {
       // For now, return empty and we'll handle it in the component
       return '';
     }
-    
+
     return avatarUrl;
   });
 

@@ -73,59 +73,13 @@
 
       <!-- Stats Grid - Only show when there are tastings -->
       @if (!isLoading() && totalTastings() > 0) {
-      <section class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon total">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path
-                d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <div class="stat-content">
-            <h3 class="stat-value">{{ totalTastings() }}</h3>
-            <p class="stat-label" i18n="@@totalTastingsLabel">Catas Totales</p>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon rating">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path
-                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          <div class="stat-content">
-            <h3 class="stat-value">{{ averageRating().toFixed(1) }}</h3>
-            <p class="stat-label" i18n="@@averageRatingLabel">Calificación Promedio</p>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon origin">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path
-                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <circle cx="12" cy="10" r="3" stroke-width="2" />
-            </svg>
-          </div>
-          <div class="stat-content">
-            <h3 class="stat-value">{{ favoriteOrigin() }}</h3>
-            <p class="stat-label" i18n="@@favoriteOriginLabel">Origen Favorito</p>
-          </div>
-        </div>
-      </section>
+      <app-stats-grid
+        [totalTastings]="totalTastings()"
+        [topOrigins]="topOrigins()"
+        [favoriteRoast]="favoriteRoast()"
+        [favoriteBrewMethod]="favoriteBrewMethod()"
+        [tastingTrend]="tastingTrend()"
+      ></app-stats-grid>
       }
 
       <!-- Recent Tastings - Only show when there are tastings -->
@@ -176,181 +130,10 @@
         } @else if (filteredTastings().length > 0) {
         <div class="tastings-grid">
           @for (tasting of filteredTastings(); track tasting.id) {
-          <div class="tasting-card" (click)="onViewTasting(tasting.id!)">
-            <!-- Imagen del café -->
-            @if (tasting.image) {
-            <div class="tasting-image">
-              <img [src]="tasting.image" [alt]="tasting.coffee_name" />
-            </div>
-            } @else {
-            <div class="tasting-image placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
-                <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
-                <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
-              </svg>
-            </div>
-            }
-
-            <div class="tasting-content">
-              <div class="tasting-header">
-                <div>
-                  <h3 class="tasting-name">{{ tasting.coffee_name }}</h3>
-                  <p class="tasting-brand">{{ tasting.brand }}</p>
-                </div>
-                <div class="tasting-score">
-                  <span class="score-value">{{ tasting.score }}</span>
-                  <span class="score-max">/10</span>
-                </div>
-              </div>
-
-              <div class="tasting-info">
-                <div class="info-item">
-                  <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path
-                      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle cx="12" cy="10" r="3" stroke-width="2" />
-                  </svg>
-                  <span>{{ tasting.origin }}</span>
-                </div>
-
-                <div class="info-item">
-                  <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path
-                      d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span>{{ tasting.roast_level }}</span>
-                </div>
-
-                <div class="info-item">
-                  <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path
-                      d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span>{{ tasting.brew_method }}</span>
-                </div>
-              </div>
-
-              <!-- Características del café en formato de badges -->
-              <div class="tasting-characteristics">
-                <div class="characteristic-badge">
-                  <!-- Ícono de Aroma (nariz/olfato) -->
-                  <svg
-                    class="characteristic-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle cx="12" cy="9" r="2" stroke-width="2" />
-                    <path d="M12 13v3" stroke-width="2" stroke-linecap="round" />
-                    <path d="M10 16h4" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <span class="badge-label" i18n="@@aromaLabel">Aroma:</span>
-                  <span class="badge-value">{{ tasting.aroma }}</span>
-                </div>
-                <div class="characteristic-badge">
-                  <!-- Ícono de Sabor (lengua/paladar) -->
-                  <svg
-                    class="characteristic-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.19 0 2.34-.21 3.41-.6"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M22 12c0-1.19-.21-2.34-.6-3.41"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-                    <circle cx="16" cy="8" r="1.5" fill="currentColor" />
-                    <path
-                      d="M8 14s1.5 2 4 2 4-2 4-2"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span class="badge-label" i18n="@@flavorLabel">Sabor:</span>
-                  <span class="badge-value">{{ tasting.flavor }}</span>
-                </div>
-                <div class="characteristic-badge">
-                  <!-- Ícono de Cuerpo (densidad/peso) -->
-                  <svg
-                    class="characteristic-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2" />
-                    <path
-                      d="M9 9h6v6H9z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle cx="12" cy="12" r="2" fill="currentColor" />
-                  </svg>
-                  <span class="badge-label" i18n="@@bodyLabel">Cuerpo:</span>
-                  <span class="badge-value">{{ tasting.body }}</span>
-                </div>
-                <div class="characteristic-badge">
-                  <!-- Ícono de Acidez (gota/pH) -->
-                  <svg
-                    class="characteristic-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle cx="12" cy="12" r="3" stroke-width="2" />
-                    <path d="M12 1v6" stroke-width="2" stroke-linecap="round" />
-                    <path d="M12 17v6" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                  <span class="badge-label" i18n="@@acidityLabel">Acidez:</span>
-                  <span class="badge-value">{{ tasting.acidity }}</span>
-                </div>
-              </div>
-
-              <!-- Impresión general -->
-              @if (tasting.impression) {
-              <p class="tasting-impression">{{ tasting.impression }}</p>
-              }
-            </div>
-          </div>
+          <app-tasting-card
+            [tasting]="tasting"
+            (cardClick)="onViewTasting($event)"
+          ></app-tasting-card>
           }
         </div>
         } @else {
@@ -390,4 +173,10 @@
     <!-- End dashboard-content -->
     }
   </main>
+
+  <!-- Insight Toast - Show when there are insights
+  @if (!isLoading() && insights().length > 0) {
+    <app-insight-toast [insights]="insights()"></app-insight-toast>
+  }
+  -->
 </div>
