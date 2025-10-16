@@ -202,7 +202,7 @@ export class DashboardPage implements OnInit {
   }
 
   onNewTasting() {
-    this.router.navigate(['/dashboard/coffee/new']);
+    this.router.navigate(['/coffee/new']);
   }
 
   onViewAllTastings() {

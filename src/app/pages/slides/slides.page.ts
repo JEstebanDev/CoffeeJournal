@@ -54,6 +54,9 @@ export class SlidesPage implements OnInit {
   errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
 
+  // Auto-navigation timers for debouncing
+  private autoNavTimers: Map<number, any> = new Map();
+
   // Expose form data for template binding
   get coffeeIdentity() {
     return this.formService.coffeeIdentity;
@@ -152,6 +155,8 @@ export class SlidesPage implements OnInit {
 
   // Navigation methods
   nextSlide() {
+    // Cancel any pending auto-navigation timers when user explicitly navigates
+    this.cancelAllAutoNavs();
     const result = this.navigationService.nextSlide();
     if (!result.success && result.error) {
       this.showError(result.error);
@@ -159,10 +164,14 @@ export class SlidesPage implements OnInit {
   }
 
   prevSlide() {
+    // Cancel any pending auto-navigation timers when user explicitly navigates
+    this.cancelAllAutoNavs();
     this.navigationService.prevSlide();
   }
 
   goToSlide(index: number) {
+    // Cancel any pending auto-navigation timers when user explicitly navigates
+    this.cancelAllAutoNavs();
     const result = this.navigationService.goToSlide(index);
     if (!result.success && result.error) {
       this.showError(result.error);
@@ -179,14 +188,47 @@ export class SlidesPage implements OnInit {
     // You could also show a toast notification here
   }
 
+  /**
+   * Helper method to handle auto-navigation with debounce
+   * Cancels previous timer if user is still typing
+   */
+  private scheduleAutoNavigation(slideId: number, delay: number = 1200) {
+    // Clear any existing timer for this slide
+    if (this.autoNavTimers.has(slideId)) {
+      clearTimeout(this.autoNavTimers.get(slideId));
+    }
+
+    // Only schedule if the slide is complete
+    if (this.navigationService.shouldAutoNavigate(slideId)) {
+      const timer = setTimeout(() => {
+        // Navigate without canceling timers (internal navigation)
+        const result = this.navigationService.nextSlide();
+        if (!result.success && result.error) {
+          this.showError(result.error);
+        }
+        this.autoNavTimers.delete(slideId);
+      }, delay);
+
+      this.autoNavTimers.set(slideId, timer);
+    }
+  }
+
+  /**
+   * Cancel all pending auto-navigation timers
+   * Called when user manually navigates
+   */
+  private cancelAllAutoNavs() {
+    this.autoNavTimers.forEach((timer) => clearTimeout(timer));
+    this.autoNavTimers.clear();
+  }
+
   // Identity slide handlers
   onIdentityChange(changes: Partial<CoffeeIdentity>) {
     this.formService.updateIdentity(changes);
 
     // Auto-navigate to next slide if all fields are filled
-    if (this.navigationService.shouldAutoNavigate(0)) {
-      setTimeout(() => this.nextSlide(), 600);
-    }
+    // Uses debounce to wait until user stops typing
+    this.scheduleAutoNavigation(0);
   }
 
   // Roast slide handlers
@@ -194,18 +236,16 @@ export class SlidesPage implements OnInit {
     this.formService.updateRoastLevel(level);
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.navigationService.shouldAutoNavigate(1)) {
-      setTimeout(() => this.nextSlide(), 600);
-    }
+    // Uses debounce to wait until user stops interacting
+    this.scheduleAutoNavigation(1);
   }
 
   onBrewMethodChange(method: string) {
     this.formService.updateBrewMethod(method);
 
     // Auto-navigate if both roast level and brew method are selected
-    if (this.navigationService.shouldAutoNavigate(1)) {
-      setTimeout(() => this.nextSlide(), 600);
-    }
+    // Uses debounce to wait until user stops interacting
+    this.scheduleAutoNavigation(1);
   }
 
   // Sensory slide handlers
@@ -213,9 +253,8 @@ export class SlidesPage implements OnInit {
     this.formService.updateSensory(changes);
 
     // Auto-navigate when sensory slide is complete (body, aroma, acidity)
-    if (this.navigationService.shouldAutoNavigate(2)) {
-      setTimeout(() => this.nextSlide(), 600);
-    }
+    // Uses debounce to wait until user stops typing
+    this.scheduleAutoNavigation(2);
   }
 
   // Flavor slide handlers
@@ -223,9 +262,8 @@ export class SlidesPage implements OnInit {
     this.formService.updateFlavor(changes);
 
     // Auto-navigate when flavor slide is complete (flavor, aftertaste, description)
-    if (this.navigationService.shouldAutoNavigate(3)) {
-      setTimeout(() => this.nextSlide(), 600);
-    }
+    // Uses debounce to wait until user stops typing
+    this.scheduleAutoNavigation(3);
   }
 
   // Score change handler

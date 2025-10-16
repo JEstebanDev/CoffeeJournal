@@ -10,7 +10,7 @@
     @if (!isChildRouteActive()) {
     <div class="dashboard-content">
       <!-- Welcome Section -->
-      @if (isLoading() && totalTastings() !== 0) {
+      @if (!isLoading() && totalTastings() !== 0) {
       <section class="welcome-section">
         <h1 class="welcome-title">
           <ng-container i18n="@@welcomeMessage">¡Bienvenido de nuevo, </ng-container>
@@ -53,8 +53,8 @@
           <h2 class="empty-state-title" i18n="@@emptyStateTitle">¡Comienza tu Viaje Cafetero!</h2>
           <p class="empty-state-description" i18n="@@emptyStateDescription">
             Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que
-            pruebes. <br />Documenta el origen, método de preparación, notas de sabor y califica
-            cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.
+            pruebes. <br /><br />Documenta el origen, método de preparación, notas de sabor y
+            califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.
           </p>
           <button class="new-tasting-btn" (click)="onNewTasting()">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">

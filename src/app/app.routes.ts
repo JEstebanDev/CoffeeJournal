@@ -25,10 +25,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'coffee/new',
-        component: SlidesPage,
-      },
-      {
         path: 'coffee/:id',
         component: CoffeeDetailPage,
       },

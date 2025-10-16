@@ -10,9 +10,9 @@
 }
 
 .header-content {
-  max-width: 1400px;
   margin: 0 auto;
   display: flex;
+  padding: 0rem 3rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -151,4 +151,24 @@
 .logout-btn svg {
   width: 18px;
   height: 18px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.8rem;
+  }
+  .header-content {
+    flex-direction: column;
+  }
+
+  .logo {
+    padding-bottom: 1rem;
+  }
+  .logo .logo-text {
+    font-size: 0.9rem;
+  }
+  .logo-image {
+    width: 30px;
+    height: 30px;
+  }
 }
