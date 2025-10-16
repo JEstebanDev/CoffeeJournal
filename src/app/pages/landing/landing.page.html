@@ -1,28 +1,18 @@
 <div class="landing-container">
   <!-- Loading overlay for authentication -->
   @if (isAuthenticating()) {
-    <div class="auth-loading-overlay">
-      <div class="auth-loading-content">
-        <div class="spinner-large"></div>
-        <p class="auth-loading-text">Autenticando...</p>
-      </div>
+  <div class="auth-loading-overlay">
+    <div class="auth-loading-content">
+      <div class="spinner-large"></div>
+      <p class="auth-loading-text">Autenticando...</p>
     </div>
+  </div>
   }
 
   <!-- Header with Login Button -->
   <header class="header">
     <div class="logo">
-      <svg class="coffee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path
-          d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
-        <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
-        <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
-      </svg>
+      <img src="assets/logo.png" alt="Coffee Journal Logo" class="logo-image" />
       <span class="logo-text" i18n="@@appName">Coffee Journal</span>
     </div>
     <div class="header-actions">

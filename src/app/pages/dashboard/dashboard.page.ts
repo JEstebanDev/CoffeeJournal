@@ -4,11 +4,12 @@ import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CoffeeService, CoffeeTasting } from '../../services/coffee.service';
 import { Login } from '../../services/login.service';
 import { filter } from 'rxjs/operators';
+import { HeaderComponent } from '../../components/molecule/header/header.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, HeaderComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })
@@ -17,11 +18,11 @@ export class DashboardPage implements OnInit {
   private coffeeService = inject(CoffeeService);
   private loginService = inject(Login);
 
-  // Signal to track if image failed to load
-  imageLoadError = signal<boolean>(false);
-
   // Signal to track if a child route is active
   isChildRouteActive = signal<boolean>(false);
+
+  // Flag to track if data has been loaded at least once
+  private dataLoadAttempted = signal<boolean>(false);
 
   // Dashboard data signals
   totalTastings = signal<number>(0);
@@ -29,27 +30,20 @@ export class DashboardPage implements OnInit {
   favoriteOrigin = signal<string>('');
   recentTastings = signal<CoffeeTasting[]>([]);
   allTastings = signal<CoffeeTasting[]>([]); // Todas las catas sin filtrar
-  isLoading = signal<boolean>(true);
+  isLoading = signal<boolean>(0 as unknown as boolean); // ensure boolean initialization
   errorMessage = signal<string | null>(null);
 
   // Search filter signal
   searchQuery = signal<string>('');
 
-  // Computed signals for user data
-
+  // Computed signal for user name (used in welcome message)
   userName = computed(() => {
     const user = this.loginService.currentUser();
-    return user?.user_metadata?.['username'] || user?.email?.split('@')[0] || 'Usuario';
-  });
-
-  userEmail = computed(() => {
-    const user = this.loginService.currentUser();
-    return user?.email || '';
-  });
-
-  userPicture = computed(() => {
-    const user = this.loginService.currentUser();
-    return user?.user_metadata?.['avatar_url'] || '';
+    return user?.user_metadata?.['username'] ||
+           user?.user_metadata?.['full_name'] ||
+           user?.user_metadata?.['name'] ||
+           user?.email?.split('@')[0] ||
+           'Usuario';
   });
 
   // Computed signal for filtered tastings
@@ -71,6 +65,8 @@ export class DashboardPage implements OnInit {
   // Example of a computed signal if needed in the template
   averageRatingRounded = computed(() => Math.round(this.averageRating() * 10) / 10);
 
+// ... existing code ...
+
   constructor() {
     // Subscribe to router events to detect child route activation
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
@@ -89,13 +85,22 @@ export class DashboardPage implements OnInit {
       // Also ensure login service has finished initial loading before reacting
       const loading = this.loginService.isLoading ? this.loginService.isLoading() : false;
 
+      console.log('🔍 Dashboard effect triggered:', {
+        hasUser: !!user,
+        isLoading: loading,
+        dataLoadAttempted: this.dataLoadAttempted(),
+        currentIsLoading: this.isLoading()
+      });
+
       if (loading) {
         // still initializing auth, don't act yet
+        console.log('⏳ Auth still loading, waiting...');
         return;
       }
 
       if (!user) {
         // User logged out or not authenticated: clear dashboard data and redirect to home
+        console.log('👤 No user, clearing data...');
         this.allTastings.set([]);
         this.recentTastings.set([]);
         this.totalTastings.set(0);
@@ -103,6 +108,7 @@ export class DashboardPage implements OnInit {
         this.favoriteOrigin.set('N/A');
         this.isLoading.set(false);
         this.errorMessage.set(null);
+        this.dataLoadAttempted.set(false); // Reset the flag when user logs out
 
         // Only navigate if not already on the public root
         if (this.router.url !== '/') {
@@ -110,12 +116,15 @@ export class DashboardPage implements OnInit {
         }
       } else {
         // User is authenticated: load dashboard data
-        // Guard to avoid repeated loads if already loading or data exists
-        if (!this.isLoading() && this.allTastings().length === 0) {
+        // Only load if we haven't attempted to load data yet and we're not currently loading
+        if (!this.dataLoadAttempted() && !this.isLoading()) {
+          console.log('🔄 Attempting to load dashboard data...');
           this.loadDashboardData();
-        } else if (this.allTastings().length === 0) {
-          // If it's the initial state, trigger load
-          this.loadDashboardData();
+        } else {
+          console.log('⏭️ Skipping load:', {
+            dataLoadAttempted: this.dataLoadAttempted(),
+            isLoading: this.isLoading()
+          });
         }
       }
     });
@@ -125,12 +134,11 @@ export class DashboardPage implements OnInit {
     // Check initial route state
     const url = this.router.url;
     this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
-
-    // The effect in the constructor will handle loading data when auth is ready
-    // No need to manually call loadDashboardData here
   }
 
   loadDashboardData() {
+    // Mark that we've attempted to load data
+    this.dataLoadAttempted.set(true);
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
@@ -144,16 +152,19 @@ export class DashboardPage implements OnInit {
       return;
     }
 
+    console.log('📊 Loading dashboard data for user:', userId);
+
     // Obtener las catas del usuario desde la base de datos
     this.coffeeService.getCoffeeTastingsByUser(userId).subscribe({
       next: (tastings) => {
+        console.log('✅ Tastings loaded:', tastings.length);
         this.allTastings.set(tastings); // Guardar todas las catas
         this.recentTastings.set(tastings); // También actualizar recentTastings
         this.calculateStatistics(tastings);
         this.isLoading.set(false);
       },
       error: (error) => {
-        console.error('Error al cargar las catas:', error);
+        console.error('❌ Error al cargar las catas:', error);
         this.errorMessage.set('Error al cargar tus catas. Por favor intenta nuevamente.');
         this.isLoading.set(false);
       },
@@ -200,25 +211,6 @@ export class DashboardPage implements OnInit {
 
   onViewTasting(tastingId: string) {
     this.router.navigate(['/coffee', tastingId]);
-  }
-
-  onSlideClick(): void {
-    this.router.navigate(['/slides']);
-  }
-
-  async onLogout() {
-    try {
-      await this.loginService.signOut();
-      this.router.navigate(['/']);
-    } catch (error) {
-      console.error('Error during logout:', error);
-      this.errorMessage.set('Error al cerrar sesión. Por favor intenta nuevamente.');
-    }
-  }
-
-  // Method to handle image load errors
-  onImageError() {
-    this.imageLoadError.set(true);
   }
 
   getStarArray(rating: number): boolean[] {

@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LandingPage } from './pages/landing/landing.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
-import { CoffeeFormComponent } from './pages/coffee-form/coffee-form.component';
 import { CoffeeDetailPage } from './pages/coffee-detail/coffee-detail.page';
 import { AuthPage } from './pages/auth/auth.page';
 import { SlidesPage } from './pages/slides/slides.page';
@@ -27,7 +26,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'coffee/new',
-        component: CoffeeFormComponent,
+        component: SlidesPage,
       },
       {
         path: 'coffee/:id',
@@ -41,7 +40,7 @@ export const routes: Routes = [
   },
   {
     path: 'coffee/new',
-    component: CoffeeFormComponent,
+    component: SlidesPage,
   },
   {
     path: '**',

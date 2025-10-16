@@ -1,0 +1,58 @@
+<header class="dashboard-header">
+  <div class="header-content">
+    <div class="logo" (click)="navigateToDashboard()">
+      <img src="assets/logo.png" alt="Coffee Journal Logo" class="logo-image" />
+      <span class="logo-text" i18n="@@appName">Coffee Journal</span>
+    </div>
+
+    <div class="header-actions">
+      <div class="user-menu">
+        <div class="user-info">
+          <div class="user-avatar">
+            @if (userPicture() && !imageLoadError()) {
+            <img
+              [src]="userPicture()"
+              [alt]="userName()"
+              class="user-profile-img"
+              (error)="onImageError()"
+            />
+            } @else {
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+              <path
+                d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <line x1="6" y1="1" x2="6" y2="4" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="10" y1="1" x2="10" y2="4" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="14" y1="1" x2="14" y2="4" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            }
+          </div>
+          <div class="user-details">
+            <span class="user-name">{{ userName() }}</span>
+            <span class="user-email">{{ userEmail() }}</span>
+          </div>
+        </div>
+
+        <button
+          class="logout-btn"
+          (click)="onLogout()"
+          i18n-title="@@logoutButton"
+          title="Cerrar Sesión"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span i18n="@@logoutButton">Cerrar Sesión</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Login } from '../../services/login.service';
-import { FutterComponent } from "../../components/molecule/futter/futter.component";
+import { FutterComponent } from '../../components/molecule/futter/futter.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -34,7 +34,7 @@ export class LandingPage implements OnInit {
       // Wait for Supabase to process the hash and establish the session
       // The onAuthStateChange listener in the login service will handle the redirect
       // We just need to give it time to process
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Check if user is now authenticated
       if (this.loginService.isAuthenticated()) {

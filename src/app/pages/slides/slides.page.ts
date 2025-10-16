@@ -132,17 +132,20 @@ export class SlidesPage implements OnInit {
           this.navigationService.setCurrentSlide(pendingData.currentSlide);
         }
 
-        // If user is now authenticated, show a message and auto-save
+        // If user is now authenticated, show a message and auto-save immediately
         if (this.loginService.isAuthenticated()) {
+          console.log('✅ Usuario autenticado detectado. Guardando cata pendiente...');
           this.successMessage.set('¡Bienvenido! Guardando tu cata automáticamente...');
 
-          // Auto-save the pending tasting
-          setTimeout(async () => {
-            await this.savePendingTastingToDatabase();
-          }, 1000);
+          // Auto-save the pending tasting immediately (no setTimeout)
+          // Use a microtask to ensure the UI updates first
+          Promise.resolve().then(() => {
+            this.savePendingTastingToDatabase();
+          });
         }
       } catch (error) {
         console.error('Error loading saved form data:', error);
+        this.errorMessage.set('Error al cargar los datos guardados.');
       }
     }
   }
@@ -295,18 +298,30 @@ export class SlidesPage implements OnInit {
    * Save the current tasting data to the database
    */
   private async savePendingTastingToDatabase() {
+    console.log('🔄 Iniciando guardado de cata pendiente...');
+
     this.isSubmitting.set(true);
     this.errorMessage.set(null);
     this.successMessage.set(null);
 
     try {
+      // Verify user is still authenticated
+      if (!this.loginService.isAuthenticated()) {
+        console.error('❌ Usuario no autenticado al intentar guardar');
+        this.errorMessage.set('Sesión expirada. Por favor inicia sesión nuevamente.');
+        this.isSubmitting.set(false);
+        return;
+      }
+
       // Get user ID
       const user = this.loginService.user;
       const userId = user?.id || 'anonymous';
+      console.log('👤 Usuario ID:', userId);
 
       // Convert image to base64 if exists
       let imageBase64 = '';
       if (this.formService.selectedImage().file) {
+        console.log('🖼️ Convirtiendo imagen a base64...');
         imageBase64 = await this.coffeeService.convertImageToBase64(
           this.formService.selectedImage().file!
         );
@@ -314,6 +329,7 @@ export class SlidesPage implements OnInit {
 
       // Get full data from form service
       const fullData = this.formService.fullCoffeeData();
+      console.log('📋 Datos completos del formulario:', fullData);
 
       // Use form service methods for data transformation
       const bodyDescription = this.formService.getBodyDescription(fullData.body);
@@ -341,23 +357,31 @@ export class SlidesPage implements OnInit {
         image: imageBase64,
       };
 
-      console.log('💾 Guardando cata de café...', coffeeTasting);
+      console.log('💾 Guardando cata de café en la base de datos...');
 
       // Save to database
       this.coffeeService.saveCoffeeTasting(coffeeTasting).subscribe({
         next: async () => {
+          console.log('✅ Cata guardada exitosamente en la base de datos');
           this.successMessage.set('¡Cata guardada exitosamente! ☕🎉');
 
           // Delete pending tasting from IndexedDB
-          await this.pendingTastingService.deletePendingTasting();
+          try {
+            await this.pendingTastingService.deletePendingTasting();
+            console.log('🗑️ Cata pendiente eliminada de IndexedDB');
+          } catch (deleteError) {
+            console.error('⚠️ Error al eliminar cata pendiente de IndexedDB:', deleteError);
+            // Continue anyway, the tasting was saved successfully
+          }
 
           // Redirect to dashboard after 2 seconds
           setTimeout(() => {
+            console.log('🔄 Redirigiendo al dashboard...');
             this.router.navigate(['/dashboard']);
           }, 2000);
         },
         error: (error) => {
-          console.error('Error al guardar la cata:', error);
+          console.error('❌ Error al guardar la cata:', error);
           this.errorMessage.set('Error al guardar la cata. Por favor intenta nuevamente.');
           this.isSubmitting.set(false);
         },
@@ -366,8 +390,8 @@ export class SlidesPage implements OnInit {
         },
       });
     } catch (error) {
-      console.error('Error:', error);
-      this.errorMessage.set('Error al procesar la solicitud');
+      console.error('❌ Error inesperado:', error);
+      this.errorMessage.set('Error al procesar la solicitud. Por favor intenta nuevamente.');
       this.isSubmitting.set(false);
     }
   }

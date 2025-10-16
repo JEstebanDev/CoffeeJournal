@@ -1,7 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { AuthChangeEvent, AuthSession, Session, User } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import { SupabaseService } from './supabase.service';
 import { Router } from '@angular/router';
+import { PendingTastingService } from './slide/pending-tasting.service';
 
 export interface Profile {
   id?: string;
@@ -16,6 +17,7 @@ export interface Profile {
 export class Login {
   private supabaseService = inject(SupabaseService);
   private router = inject(Router);
+  private pendingTastingService = inject(PendingTastingService);
 
   // Reactive signals for auth state
   currentUser = signal<User | null>(null);
@@ -38,14 +40,23 @@ export class Login {
     this.isLoading.set(false);
 
     // Listen to auth changes
-    this.supabaseService.client.auth.onAuthStateChange((event, session) => {
+    this.supabaseService.client.auth.onAuthStateChange(async (event, session) => {
       this.currentSession.set(session);
       this.currentUser.set(session?.user ?? null);
       this.isAuthenticated.set(!!session);
 
       // Handle different auth events
       if (event === 'SIGNED_IN') {
-        this.router.navigate(['/dashboard']);
+        // Check if there's a pending tasting to complete
+        const pendingTasting = await this.pendingTastingService.getPendingTasting();
+
+        if (pendingTasting) {
+          // Navigate to slides to complete the pending tasting
+          this.router.navigate(['/slides']);
+        } else {
+          // No pending tasting, navigate to dashboard
+          this.router.navigate(['/dashboard']);
+        }
       } else if (event === 'SIGNED_OUT') {
         // Clear localStorage when user signs out
         this.clearLocalStorage();
