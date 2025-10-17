@@ -19,7 +19,7 @@
         [value]="sensoryData().aroma"
         (input)="onAromaChange($any($event.target).value)"
         (blur)="aromaTouched.set(true)"
-        rows="3"
+        rows="2"
       ></textarea>
       @if (shouldShowAromaError()) {
         <span class="validation-message">El aroma es requerido</span>
@@ -39,7 +39,7 @@
         [value]="sensoryData().flavor"
         (input)="onFlavorChange($any($event.target).value)"
         (blur)="flavorTouched.set(true)"
-        rows="3"
+        rows="2"
       ></textarea>
       @if (shouldShowFlavorError()) {
         <span class="validation-message">El sabor es requerido</span>

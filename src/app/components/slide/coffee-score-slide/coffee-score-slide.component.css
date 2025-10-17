@@ -1,6 +1,6 @@
 .sensory-textarea {
   width: 100%;
-  padding: 1.25rem;
+  padding: 1.2rem;
   border: 2px solid var(--border);
   border-radius: 12px;
   font-size: 1rem;
@@ -75,7 +75,7 @@ input {
 .upload-placeholder {
   border: 3px dashed var(--accent);
   border-radius: 12px;
-  padding: 3rem;
+  padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.08);
@@ -87,7 +87,7 @@ input {
 }
 
 .upload-icon {
-  font-size: 4rem;
+  font-size: 3.5rem;
   display: block;
   margin-bottom: 1rem;
 }
@@ -140,7 +140,7 @@ input {
 
 /* Save Button */
 .save-button-container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   padding: 1rem 0;
