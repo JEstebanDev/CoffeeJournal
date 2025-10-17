@@ -194,11 +194,9 @@
   border-bottom: none;
 }
 
-.metric-item:hover {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+.metric-description {
+  font-size: 0.8rem;
+  color: var(--text-muted-2);
 }
 
 .metric-icon {

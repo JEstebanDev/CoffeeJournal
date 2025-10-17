@@ -100,7 +100,6 @@ export class PendingTastingService {
         const request = store.put(data, this.PENDING_KEY);
 
         request.onsuccess = () => {
-          console.log('✅ Pending tasting saved to IndexedDB');
           resolve();
         };
 
@@ -166,7 +165,6 @@ export class PendingTastingService {
         const request = store.delete(this.PENDING_KEY);
 
         request.onsuccess = () => {
-          console.log('✅ Pending tasting deleted from IndexedDB');
           resolve();
         };
 
@@ -195,7 +193,6 @@ export class PendingTastingService {
         const request = store.clear();
 
         request.onsuccess = () => {
-          console.log('✅ All pending tastings cleared');
           resolve();
         };
 

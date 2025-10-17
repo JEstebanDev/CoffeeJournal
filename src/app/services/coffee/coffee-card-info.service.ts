@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CoffeeTasting } from '../coffee.service';
-import { CardTastingInfo, RoastLevel, BrewMethod, InfoLevel } from './slide.interface';
+import { CoffeeTasting } from './coffee.service';
+import { CardTastingInfo, RoastLevel, BrewMethod, InfoLevel } from '../forms/slide.interface';
 import {
   roastLevels,
   brewMethodsOptions,
   bodyLevels,
   acidityLevels,
   afterTasteLevels,
-} from './texts-forms';
+} from '../forms/texts-forms';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +25,9 @@ export class CoffeeCardInfoService {
       brewMethod: this.getBrewMethodInfo(tasting.brew_method),
       aroma: tasting.aroma || '',
       flavor: tasting.flavor || '',
-      body: this.getBodyInfo(parseInt(tasting.body) || 0),
-      acidity: this.getAcidityInfo(parseInt(tasting.acidity) || 0),
-      aftertaste: this.getAftertasteInfo(parseInt(tasting.aftertaste) || 0),
+      body: this.getBodyInfo(tasting.body || ''),
+      acidity: this.getAcidityInfo(tasting.acidity || ''),
+      aftertaste: this.getAftertasteInfo(tasting.aftertaste || ''),
       impression: tasting.impression || '',
       score: tasting.score || 0,
       createdAt: tasting.created_at ? new Date(tasting.created_at) : new Date(),
@@ -42,6 +42,19 @@ export class CoffeeCardInfoService {
     return cardInfo;
   }
 
+  private getBodyInfo(bodyValue: string): InfoLevel {
+    const foundBody = bodyLevels.find((body) => body.label === bodyValue.split(' - ')[0]);
+    return (
+      foundBody || {
+        value: 0,
+        label: 'Desconocido',
+        icon: '❓',
+        description: 'No especificado',
+        color: '#E0E0E0',
+      }
+    );
+  }
+
   private getRoastLevelInfo(roastLevel: string): RoastLevel {
     const foundRoast = roastLevels.find((roast) => roast.value === roastLevel);
     return foundRoast || { value: roastLevel, label: roastLevel, color: '#8B4513' };
@@ -52,24 +65,13 @@ export class CoffeeCardInfoService {
     return foundMethod || { name: brewMethod, image: '' };
   }
 
-  private getBodyInfo(bodyValue: number): InfoLevel {
-    const foundBody = bodyLevels.find((body) => body.value === bodyValue);
-    return (
-      foundBody || {
-        value: bodyValue,
-        label: 'Desconocido',
-        icon: '❓',
-        description: 'No especificado',
-        color: '#E0E0E0',
-      }
+  private getAcidityInfo(acidityValue: string): InfoLevel {
+    const foundAcidity = acidityLevels.find(
+      (acidity) => acidity.label === acidityValue.split(' - ')[0]
     );
-  }
-
-  private getAcidityInfo(acidityValue: number): InfoLevel {
-    const foundAcidity = acidityLevels.find((acidity) => acidity.value === acidityValue);
     return (
       foundAcidity || {
-        value: acidityValue,
+        value: 0,
         label: 'Desconocido',
         icon: '❓',
         description: 'No especificado',
@@ -78,13 +80,13 @@ export class CoffeeCardInfoService {
     );
   }
 
-  private getAftertasteInfo(aftertasteValue: number): InfoLevel {
+  private getAftertasteInfo(aftertasteValue: string): InfoLevel {
     const foundAftertaste = afterTasteLevels.find(
-      (aftertaste) => aftertaste.value === aftertasteValue
+      (aftertaste) => aftertaste.label === aftertasteValue.split(' - ')[0]
     );
     return (
       foundAftertaste || {
-        value: aftertasteValue,
+        value: 0,
         label: 'Desconocido',
         icon: '❓',
         description: 'No especificado',

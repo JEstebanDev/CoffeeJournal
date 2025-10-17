@@ -1,10 +1,41 @@
 /* Header styles moved to the header component */
 
+/* Dashboard Container */
+.dashboard-container {
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Main Content */
 .dashboard-main {
-  max-width: 1400px;
-  margin: 0 auto;
   padding: 3rem 5rem;
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-soft) 50%, #2a1710 100%);
+}
+
+/* When child route is active (like coffee/new) */
+.dashboard-main.has-child-route {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  flex: 1;
+  height: 100%;
+}
+
+/* Router outlet styling */
+router-outlet {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* When child route is active, make router-outlet fill available space */
+.dashboard-main.has-child-route router-outlet {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Welcome Section */
@@ -105,11 +136,10 @@
 
 /* Search Filter Styles */
 .search-filter {
-  flex: 1;
-  max-width: 500px;
+  max-width: 900px;
   min-width: 300px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -377,8 +407,19 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-container {
+    min-height: 100vh;
+    width: 100%;
+  }
+
   .dashboard-main {
     padding: 1.5rem 1.5rem;
+  }
+
+  /* When child route is active on mobile */
+  .dashboard-main.has-child-route {
+    flex: 1;
+    height: 100%;
   }
 
   .welcome-title {
@@ -392,9 +433,11 @@
   }
 
   .search-filter {
+    flex: 1;
     width: 100%;
     max-width: none;
     min-width: auto;
+    flex-direction: column;
   }
 
   .sort-buttons {

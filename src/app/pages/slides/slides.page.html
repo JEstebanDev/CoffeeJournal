@@ -10,6 +10,32 @@
   </div>
   }
 
+  <!-- Post-Save Options -->
+  @if (showPostSaveOptions()) {
+  <div class="post-save-options">
+    <div class="options-container">
+      <h3>¿Qué quieres hacer ahora?</h3>
+      <div class="options-buttons">
+        <button class="option-btn same-coffee" (click)="onNewTastingWithSameCoffee()">
+          <span class="icon">☕</span>
+          <span class="text">Nueva cata con el mismo café</span>
+          <span class="description">Mantiene la información del café, solo cambia las notas sensoriales</span>
+        </button>
+        <button class="option-btn new-coffee" (click)="onNewTastingFromScratch()">
+          <span class="icon">🆕</span>
+          <span class="text">Nueva cata desde cero</span>
+          <span class="description">Comienza con un café completamente nuevo</span>
+        </button>
+        <button class="option-btn dashboard" (click)="onGoToDashboard()">
+          <span class="icon">📊</span>
+          <span class="text">Ir al Dashboard</span>
+          <span class="description">Ver todas tus catas guardadas</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
   <!-- Loading Overlay -->
   @if (isSubmitting()) {
   <div class="loading-overlay">

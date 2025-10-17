@@ -133,6 +133,13 @@ export class SlideNavigationService {
   }
 
   /**
+   * Reset navigation to sensory slide (slide 2) for new tasting with same coffee
+   */
+  resetToSensorySlide() {
+    this.currentSlide.set(2);
+  }
+
+  /**
    * Set current slide (useful for restoring state)
    */
   setCurrentSlide(slideIndex: number) {

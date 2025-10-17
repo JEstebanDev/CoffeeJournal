@@ -55,4 +55,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Confirmation Dialog -->
+  <app-confirmation-dialog
+    [isVisible]="showConfirmationDialog"
+    [title]="confirmationTitle"
+    [message]="confirmationMessage"
+    [details]="confirmationDetails"
+    (confirmed)="onConfirmDeleteTasting()"
+    (cancelled)="onCancelDeleteTasting()">
+  </app-confirmation-dialog>
 </header>

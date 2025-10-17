@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
-import { SupabaseService } from './supabase.service';
 import { Router } from '@angular/router';
-import { PendingTastingService } from './slide/pending-tasting.service';
+import { SupabaseService } from '../database/supabase.service';
+import { PendingTastingService } from '../forms/pending-tasting.service';
 
 export interface Profile {
   id?: string;

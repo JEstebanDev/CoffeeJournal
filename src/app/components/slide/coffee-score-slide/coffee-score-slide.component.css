@@ -178,9 +178,38 @@ input {
 }
 
 @media (max-width: 480px) {
+  .upload-placeholder {
+    padding: 0rem;
+  }
+  .section-header {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .save-button-container {
+    margin-top: 2rem;
+    padding: 0rem;
+  }
 }
 
 @media (max-width: 390px) {
+  .sensory-textarea {
+    height: 5.5rem;
+    padding: 0.5rem;
+  }
+
+  .section-header {
+    padding-top: 0rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .upload-placeholder {
+    padding: 0rem;
+  }
+
+  .upload-icon {
+    font-size: 3rem;
+    margin-bottom: 0rem;
+  }
 }
 
 /* Validation Styles */

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { SupabaseService } from './supabase.service';
+import { SupabaseService } from '../database';
 
 export interface CoffeeTasting {
   id?: string;

@@ -2,7 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
-import { InfoLevel } from '../../../services/slide/slide.interface';
+import { InfoLevel } from '../../../services/forms';
 
 export interface CoffeeSensory {
   body: number;

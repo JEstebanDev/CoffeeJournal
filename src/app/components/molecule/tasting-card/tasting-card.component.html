@@ -89,7 +89,10 @@
         <div class="metric-icon">{{ tasting.body.icon }}</div>
         <div class="metric-content">
           <span class="metric-label">Cuerpo</span>
-          <span class="metric-value">{{ tasting.body.label }}: {{ tasting.body.description }}</span>
+          <span class="metric-value">
+            {{ tasting.body.label }}:
+            <span class="metric-description">{{ tasting.body.description }}</span>
+          </span>
         </div>
       </div>
       } @if (tasting.acidity) {
@@ -97,9 +100,10 @@
         <div class="metric-icon">{{ tasting.acidity.icon }}</div>
         <div class="metric-content">
           <span class="metric-label">Acidez</span>
-          <span class="metric-value"
-            >{{ tasting.acidity.label }}: {{ tasting.acidity.description }}</span
-          >
+          <span class="metric-value">
+            {{ tasting.acidity.label }}:
+            <span class="metric-description">{{ tasting.acidity.description }}</span>
+          </span>
         </div>
       </div>
       } @if (tasting.aftertaste) {
@@ -107,9 +111,10 @@
         <div class="metric-icon">{{ tasting.aftertaste.icon }}</div>
         <div class="metric-content">
           <span class="metric-label">Retrogusto</span>
-          <span class="metric-value"
-            >{{ tasting.aftertaste.label }}: {{ tasting.aftertaste.description }}</span
-          >
+          <span class="metric-value">
+            {{ tasting.aftertaste.label }}:
+            <span class="metric-description">{{ tasting.aftertaste.description }}</span>
+          </span>
         </div>
       </div>
       }

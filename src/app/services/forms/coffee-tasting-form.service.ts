@@ -222,6 +222,34 @@ export class CoffeeTastingFormService {
     });
   }
 
+  /**
+   * Reset only the sensory and scoring data, keeping identity and roast info
+   * This is useful when the user wants to create another tasting with the same coffee
+   */
+  resetSensoryAndScoringData() {
+    this.coffeeSensory.set({
+      aroma: '',
+      body: 0,
+      flavor: '',
+    });
+
+    this.coffeeFlavor.set({
+      acidity: 0,
+      aftertaste: 0,
+      aftertasteDescription: '',
+    });
+
+    this.coffeeScore.set({
+      opinion: '',
+      score: 0,
+    });
+
+    this.selectedImage.set({
+      file: null,
+      preview: null,
+    });
+  }
+
   // Load form data (for restoring from pending tasting)
   loadFormData(data: {
     coffeeIdentity?: CoffeeIdentity;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface TopOrigin {
@@ -28,6 +28,8 @@ export class StatsGridComponent implements OnInit, OnDestroy {
 
   currentInsightIndex = 0;
   private intervalId: any;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   // Mapeo de países a códigos de bandera
   countryFlags: Record<string, string> = {
@@ -95,6 +97,7 @@ export class StatsGridComponent implements OnInit, OnDestroy {
   private startInsightRotation() {
     this.intervalId = setInterval(() => {
       this.currentInsightIndex = (this.currentInsightIndex + 1) % this.insights.length;
+      this.cdr.detectChanges();
     }, 4000); // Cambiar cada 4 segundos
   }
 }

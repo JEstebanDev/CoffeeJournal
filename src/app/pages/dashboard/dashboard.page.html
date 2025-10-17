@@ -3,7 +3,7 @@
   <app-header></app-header>
 
   <!-- Main Content -->
-  <main class="dashboard-main">
+  <main class="dashboard-main" [class.has-child-route]="isChildRouteActive()">
     <!-- Router outlet for child routes (like coffee form) -->
     <router-outlet></router-outlet>
     <!-- Dashboard content (only shown when no child route is active) -->

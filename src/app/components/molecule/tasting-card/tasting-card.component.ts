@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardTastingInfo } from '../../../services/slide/slide.interface';
+import { CardTastingInfo } from '../../../services/forms';
 
 @Component({
   selector: 'app-tasting-card',

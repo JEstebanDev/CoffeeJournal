@@ -11,10 +11,9 @@ import {
 } from '../../components/slide/index';
 
 // Services
-import { CoffeeService } from '../../services/coffee.service';
-import { Login } from '../../services/login.service';
-import { CoffeeTastingFormService } from '../../services/slide/coffee-tasting-form.service';
-import { PendingTastingService, SlideNavigationService } from '../../services/slide';
+import { CoffeeService } from '../../services/coffee';
+import { Login } from '../../services/auth';
+import { PendingTastingService, SlideNavigationService, TastingStateService } from '../../services/forms';
 import {
   beanTypes,
   roastLevels,
@@ -22,13 +21,12 @@ import {
   bodyLevels,
   acidityLevels,
   afterTasteLevels,
-} from '../../services/slide/texts-forms';
-import {
+  CoffeeTastingFormService,
   CoffeeIdentity,
   CoffeeScore,
   CoffeeImage,
   CoffeeFlavor,
-} from '../../services/slide/slide.interface';
+} from '../../services/forms';
 import { CoffeeSensory } from '../../components/slide/coffee-sensory-slide/coffee-sensory-slide.component';
 
 @Component({
@@ -52,6 +50,7 @@ export class SlidesPage implements OnInit {
   private loginService = inject(Login);
   private router = inject(Router);
   private pendingTastingService = inject(PendingTastingService);
+  private tastingStateService = inject(TastingStateService);
 
   // Public services (used in template)
   formService = inject(CoffeeTastingFormService);
@@ -61,6 +60,7 @@ export class SlidesPage implements OnInit {
   isSubmitting = signal(false);
   errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
+  showPostSaveOptions = signal(false);
 
   // Auto-navigation timers for debouncing
   private autoNavTimers: Map<number, any> = new Map();
@@ -143,9 +143,11 @@ export class SlidesPage implements OnInit {
           this.navigationService.setCurrentSlide(pendingData.currentSlide);
         }
 
+        // Mark that there's an active tasting session
+        this.tastingStateService.setActiveTasting(true);
+
         // If user is now authenticated, show a message and auto-save immediately
         if (this.loginService.isAuthenticated()) {
-          console.log('✅ Usuario autenticado detectado. Guardando cata pendiente...');
           this.successMessage.set('¡Bienvenido! Guardando tu cata automáticamente...');
 
           // Auto-save the pending tasting immediately (no setTimeout)
@@ -157,6 +159,11 @@ export class SlidesPage implements OnInit {
       } catch (error) {
         console.error('Error loading saved form data:', error);
         this.errorMessage.set('Error al cargar los datos guardados.');
+      }
+    } else {
+      // No pending data, but check if there's any form data
+      if (this.tastingStateService.hasTastingData()) {
+        this.tastingStateService.setActiveTasting(true);
       }
     }
   }
@@ -192,7 +199,6 @@ export class SlidesPage implements OnInit {
 
   // Show error helper
   private showError(message: string) {
-    console.warn(message);
     // You could also show a toast notification here
   }
 
@@ -285,7 +291,6 @@ export class SlidesPage implements OnInit {
   }
 
   onFormSubmit() {
-    console.log('Coffee Form Data:', this.formService.fullCoffeeData());
     // Add logic to send the form data
   }
 
@@ -344,7 +349,6 @@ export class SlidesPage implements OnInit {
    * Save the current tasting data to the database
    */
   private async savePendingTastingToDatabase() {
-    console.log('🔄 Iniciando guardado de cata pendiente...');
 
     this.isSubmitting.set(true);
     this.errorMessage.set(null);
@@ -362,12 +366,10 @@ export class SlidesPage implements OnInit {
       // Get user ID
       const user = this.loginService.user;
       const userId = user?.id || 'anonymous';
-      console.log('👤 Usuario ID:', userId);
 
       // Convert image to base64 if exists
       let imageBase64 = '';
       if (this.formService.selectedImage().file) {
-        console.log('🖼️ Convirtiendo imagen a base64...');
         imageBase64 = await this.coffeeService.convertImageToBase64(
           this.formService.selectedImage().file!
         );
@@ -375,7 +377,6 @@ export class SlidesPage implements OnInit {
 
       // Get full data from form service
       const fullData = this.formService.fullCoffeeData();
-      console.log('📋 Datos completos del formulario:', fullData);
 
       // Use form service methods for data transformation
       const bodyDescription = this.formService.getBodyDescription(fullData.body);
@@ -403,28 +404,32 @@ export class SlidesPage implements OnInit {
         image: imageBase64,
       };
 
-      console.log('💾 Guardando cata de café en la base de datos...');
 
       // Save to database
       this.coffeeService.saveCoffeeTasting(coffeeTasting).subscribe({
         next: async () => {
-          console.log('✅ Cata guardada exitosamente en la base de datos');
           this.successMessage.set('¡Cata guardada exitosamente! ☕🎉');
 
           // Delete pending tasting from IndexedDB
           try {
             await this.pendingTastingService.deletePendingTasting();
-            console.log('🗑️ Cata pendiente eliminada de IndexedDB');
           } catch (deleteError) {
             console.error('⚠️ Error al eliminar cata pendiente de IndexedDB:', deleteError);
             // Continue anyway, the tasting was saved successfully
           }
 
-          // Redirect to dashboard after 2 seconds
+          // Clear tasting state since we've successfully saved
+          this.tastingStateService.setActiveTasting(false);
+
+          // Keep form data for potential new tasting
+          // Reset only sensory and scoring data, keeping coffee identity and roast info
+          this.formService.resetSensoryAndScoringData();
+          this.navigationService.resetToSensorySlide();
+
+          // Show options to user
           setTimeout(() => {
-            console.log('🔄 Redirigiendo al dashboard...');
-            this.router.navigate(['/dashboard']);
-          }, 2000);
+            this.showPostSaveOptionsModal();
+          }, 1500);
         },
         error: (error) => {
           console.error('❌ Error al guardar la cata:', error);
@@ -440,5 +445,48 @@ export class SlidesPage implements OnInit {
       this.errorMessage.set('Error al procesar la solicitud. Por favor intenta nuevamente.');
       this.isSubmitting.set(false);
     }
+  }
+
+  /**
+   * Show options to user after successfully saving a tasting
+   */
+  private showPostSaveOptionsModal() {
+    this.showPostSaveOptions.set(true);
+  }
+
+  /**
+   * Handle user choice to create another tasting with the same coffee
+   */
+  onNewTastingWithSameCoffee() {
+    this.showPostSaveOptions.set(false);
+    this.successMessage.set('');
+    // Mark that there's an active tasting session again
+    this.tastingStateService.setActiveTasting(true);
+    // Form data is already prepared (identity and roast info kept, sensory data reset)
+    // Navigation is already set to sensory slide
+    console.log('🔄 Creando nueva cata con el mismo café...');
+  }
+
+  /**
+   * Handle user choice to create a completely new tasting
+   */
+  onNewTastingFromScratch() {
+    this.showPostSaveOptions.set(false);
+    this.successMessage.set('');
+    this.formService.resetForm();
+    this.navigationService.resetNavigation();
+    // Mark that there's an active tasting session again
+    this.tastingStateService.setActiveTasting(true);
+    console.log('🆕 Creando nueva cata desde cero...');
+  }
+
+  /**
+   * Handle user choice to go back to dashboard
+   */
+  onGoToDashboard() {
+    this.showPostSaveOptions.set(false);
+    // Clear tasting state when going to dashboard
+    this.tastingStateService.setActiveTasting(false);
+    this.router.navigate(['/dashboard']);
   }
 }

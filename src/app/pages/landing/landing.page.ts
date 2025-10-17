@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Login } from '../../services/login.service';
+import { Login } from '../../services/auth';
 import { FutterComponent } from '../../components/molecule/futter/futter.component';
 
 @Component({
