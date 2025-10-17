@@ -1,38 +1,8 @@
 <div class="slides-container">
-  <!-- Success/Error Messages -->
-  @if (successMessage()) {
-  <div class="alert alert-success">
-    {{ successMessage() }}
-  </div>
-  } @if (errorMessage()) {
+  <!-- Error Messages -->
+  @if (errorMessage()) {
   <div class="alert alert-error">
     {{ errorMessage() }}
-  </div>
-  }
-
-  <!-- Post-Save Options -->
-  @if (showPostSaveOptions()) {
-  <div class="post-save-options">
-    <div class="options-container">
-      <h3>¿Qué quieres hacer ahora?</h3>
-      <div class="options-buttons">
-        <button class="option-btn same-coffee" (click)="onNewTastingWithSameCoffee()">
-          <span class="icon">☕</span>
-          <span class="text">Nueva cata con el mismo café</span>
-          <span class="description">Mantiene la información del café, solo cambia las notas sensoriales</span>
-        </button>
-        <button class="option-btn new-coffee" (click)="onNewTastingFromScratch()">
-          <span class="icon">🆕</span>
-          <span class="text">Nueva cata desde cero</span>
-          <span class="description">Comienza con un café completamente nuevo</span>
-        </button>
-        <button class="option-btn dashboard" (click)="onGoToDashboard()">
-          <span class="icon">📊</span>
-          <span class="text">Ir al Dashboard</span>
-          <span class="description">Ver todas tus catas guardadas</span>
-        </button>
-      </div>
-    </div>
   </div>
   }
 
@@ -41,6 +11,28 @@
   <div class="loading-overlay">
     <div class="loading-spinner"></div>
     <p>Guardando tu cata...</p>
+  </div>
+  }
+
+  <!-- Redirecting Overlay with Coffee Animation -->
+  @if (isRedirecting()) {
+  <div class="redirecting-overlay">
+    <div class="coffee-loading-container">
+      <div class="coffee-cup">
+        <div class="coffee-liquid"></div>
+        <div class="coffee-steam">
+          <div class="steam steam-1"></div>
+          <div class="steam steam-2"></div>
+          <div class="steam steam-3"></div>
+        </div>
+      </div>
+      <div class="coffee-beans">
+        <div class="bean bean-1"></div>
+        <div class="bean bean-2"></div>
+        <div class="bean bean-3"></div>
+      </div>
+    </div>
+    <p class="redirecting-text">{{ getRedirectingMessage() }}</p>
   </div>
   }
 
@@ -54,7 +46,6 @@
         [class.prev]="currentSlide() > slide.id"
         [class.next]="currentSlide() < slide.id"
         role="tabpanel"
-        [attr.aria-hidden]="currentSlide() !== slide.id"
       >
         <div class="slide-inner">
           <!-- Paso 1: Identidad del Café -->
@@ -138,4 +129,8 @@
       }
     </div>
   </div>
+  <div class="coffee-bean bean-1"></div>
+  <div class="coffee-bean bean-2"></div>
+  <div class="coffee-bean bean-3"></div>
+  <div class="coffee-bean bean-4"></div>
 </div>

@@ -13,7 +13,11 @@ import {
 // Services
 import { CoffeeService } from '../../services/coffee';
 import { Login } from '../../services/auth';
-import { PendingTastingService, SlideNavigationService, TastingStateService } from '../../services/forms';
+import {
+  PendingTastingService,
+  SlideNavigationService,
+  TastingStateService,
+} from '../../services/forms';
 import {
   beanTypes,
   roastLevels,
@@ -58,9 +62,8 @@ export class SlidesPage implements OnInit {
 
   // UI state signals
   isSubmitting = signal(false);
+  isRedirecting = signal(false);
   errorMessage = signal<string | null>(null);
-  successMessage = signal<string | null>(null);
-  showPostSaveOptions = signal(false);
 
   // Auto-navigation timers for debouncing
   private autoNavTimers: Map<number, any> = new Map();
@@ -148,8 +151,6 @@ export class SlidesPage implements OnInit {
 
         // If user is now authenticated, show a message and auto-save immediately
         if (this.loginService.isAuthenticated()) {
-          this.successMessage.set('¡Bienvenido! Guardando tu cata automáticamente...');
-
           // Auto-save the pending tasting immediately (no setTimeout)
           // Use a microtask to ensure the UI updates first
           Promise.resolve().then(() => {
@@ -200,6 +201,15 @@ export class SlidesPage implements OnInit {
   // Show error helper
   private showError(message: string) {
     // You could also show a toast notification here
+  }
+
+  // Get dynamic redirecting message based on authentication status
+  getRedirectingMessage(): string {
+    if (this.loginService.isAuthenticated()) {
+      return '¡Cata guardada! Redirigiendo al Dashboard...';
+    } else {
+      return 'Datos guardados. Redirigiendo al inicio de sesión...';
+    }
   }
 
   /**
@@ -327,7 +337,9 @@ export class SlidesPage implements OnInit {
 
       try {
         await this.pendingTastingService.savePendingTasting(pendingData);
-        this.successMessage.set('💾 Datos guardados. Redirigiendo al inicio de sesión...');
+
+        // Show redirecting loading with coffee animation
+        this.isRedirecting.set(true);
 
         // Redirect to login after 2 seconds
         setTimeout(() => {
@@ -349,10 +361,8 @@ export class SlidesPage implements OnInit {
    * Save the current tasting data to the database
    */
   private async savePendingTastingToDatabase() {
-
     this.isSubmitting.set(true);
     this.errorMessage.set(null);
-    this.successMessage.set(null);
 
     try {
       // Verify user is still authenticated
@@ -404,12 +414,9 @@ export class SlidesPage implements OnInit {
         image: imageBase64,
       };
 
-
       // Save to database
       this.coffeeService.saveCoffeeTasting(coffeeTasting).subscribe({
         next: async () => {
-          this.successMessage.set('¡Cata guardada exitosamente! ☕🎉');
-
           // Delete pending tasting from IndexedDB
           try {
             await this.pendingTastingService.deletePendingTasting();
@@ -421,15 +428,17 @@ export class SlidesPage implements OnInit {
           // Clear tasting state since we've successfully saved
           this.tastingStateService.setActiveTasting(false);
 
-          // Keep form data for potential new tasting
-          // Reset only sensory and scoring data, keeping coffee identity and roast info
-          this.formService.resetSensoryAndScoringData();
-          this.navigationService.resetToSensorySlide();
+          // Clear form data and reset navigation for new tasting
+          this.formService.resetForm();
+          this.navigationService.resetNavigation();
 
-          // Show options to user
+          // Show redirecting loading with coffee animation
+          this.isRedirecting.set(true);
+
+          // Redirect to dashboard after showing success message
           setTimeout(() => {
-            this.showPostSaveOptionsModal();
-          }, 1500);
+            this.router.navigate(['/dashboard']);
+          }, 2000);
         },
         error: (error) => {
           console.error('❌ Error al guardar la cata:', error);
@@ -445,48 +454,5 @@ export class SlidesPage implements OnInit {
       this.errorMessage.set('Error al procesar la solicitud. Por favor intenta nuevamente.');
       this.isSubmitting.set(false);
     }
-  }
-
-  /**
-   * Show options to user after successfully saving a tasting
-   */
-  private showPostSaveOptionsModal() {
-    this.showPostSaveOptions.set(true);
-  }
-
-  /**
-   * Handle user choice to create another tasting with the same coffee
-   */
-  onNewTastingWithSameCoffee() {
-    this.showPostSaveOptions.set(false);
-    this.successMessage.set('');
-    // Mark that there's an active tasting session again
-    this.tastingStateService.setActiveTasting(true);
-    // Form data is already prepared (identity and roast info kept, sensory data reset)
-    // Navigation is already set to sensory slide
-    console.log('🔄 Creando nueva cata con el mismo café...');
-  }
-
-  /**
-   * Handle user choice to create a completely new tasting
-   */
-  onNewTastingFromScratch() {
-    this.showPostSaveOptions.set(false);
-    this.successMessage.set('');
-    this.formService.resetForm();
-    this.navigationService.resetNavigation();
-    // Mark that there's an active tasting session again
-    this.tastingStateService.setActiveTasting(true);
-    console.log('🆕 Creando nueva cata desde cero...');
-  }
-
-  /**
-   * Handle user choice to go back to dashboard
-   */
-  onGoToDashboard() {
-    this.showPostSaveOptions.set(false);
-    // Clear tasting state when going to dashboard
-    this.tastingStateService.setActiveTasting(false);
-    this.router.navigate(['/dashboard']);
   }
 }
