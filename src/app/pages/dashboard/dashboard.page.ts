@@ -14,6 +14,8 @@ import {
   InsightToastComponent,
   Insight,
 } from '../../components/molecule/insight-toast/insight-toast.component';
+import { CardTastingInfo } from '../../services/slide/slide.interface';
+import { CoffeeCardInfoService } from '../../services/slide/coffee-card-info.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,7 @@ import {
     HeaderComponent,
     StatsGridComponent,
     TastingCardComponent,
-   // InsightToastComponent,
+    // InsightToastComponent,
   ],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
@@ -33,6 +35,7 @@ export class DashboardPage implements OnInit {
   private router = inject(Router);
   private coffeeService = inject(CoffeeService);
   private loginService = inject(Login);
+  private coffeeCardInfoService = inject(CoffeeCardInfoService);
 
   // Signal to track if a child route is active
   isChildRouteActive = signal<boolean>(false);
@@ -46,6 +49,7 @@ export class DashboardPage implements OnInit {
   favoriteOrigin = signal<string>('');
   recentTastings = signal<CoffeeTasting[]>([]);
   allTastings = signal<CoffeeTasting[]>([]); // Todas las catas sin filtrar
+  mappedTastings = signal<CardTastingInfo[]>([]); // Catas mapeadas para las tarjetas
   isLoading = signal<boolean>(0 as unknown as boolean); // ensure boolean initialization
   errorMessage = signal<string | null>(null);
 
@@ -59,6 +63,9 @@ export class DashboardPage implements OnInit {
   // Search filter signal
   searchQuery = signal<string>('');
 
+  // Sort order signal
+  sortOrder = signal<'recent' | 'best' | 'worst'>('recent');
+
   // Computed signal for user name (used in welcome message)
   userName = computed(() => {
     const user = this.loginService.currentUser();
@@ -71,26 +78,41 @@ export class DashboardPage implements OnInit {
     );
   });
 
-  // Computed signal for filtered tastings
+  // Computed signal for filtered and sorted tastings
   filteredTastings = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
-    const tastings = this.allTastings();
+    const tastings = this.mappedTastings();
+    const sort = this.sortOrder();
 
-    if (!query) {
-      return tastings;
+    // Filter tastings
+    let filtered = tastings;
+    if (query) {
+      filtered = tastings.filter(
+        (tasting) =>
+          (tasting.coffeeName ?? '').toLowerCase().includes(query) ||
+          (tasting.brand ?? '').toLowerCase().includes(query)
+      );
     }
 
-    return tastings.filter(
-      (tasting) =>
-        (tasting.coffee_name ?? '').toLowerCase().includes(query) ||
-        (tasting.brand ?? '').toLowerCase().includes(query)
-    );
+    // Sort tastings
+    return [...filtered].sort((a, b) => {
+      switch (sort) {
+        case 'best':
+          return b.score - a.score; // Mejor puntuación primero
+        case 'worst':
+          return a.score - b.score; // Peor puntuación primero
+        case 'recent':
+        default:
+          // Más recientes primero (por fecha de creación)
+          const dateA = new Date(a.createdAt || 0).getTime();
+          const dateB = new Date(b.createdAt || 0).getTime();
+          return dateB - dateA;
+      }
+    });
   });
 
   // Example of a computed signal if needed in the template
   averageRatingRounded = computed(() => Math.round(this.averageRating() * 10) / 10);
-
-  // ... existing code ...
 
   constructor() {
     // Subscribe to router events to detect child route activation
@@ -128,6 +150,8 @@ export class DashboardPage implements OnInit {
         console.log('👤 No user, clearing data...');
         this.allTastings.set([]);
         this.recentTastings.set([]);
+        this.mappedTastings.set([]);
+        this.coffeeCardInfoService.clearIdMap();
         this.totalTastings.set(0);
         this.averageRating.set(0);
         this.favoriteOrigin.set('N/A');
@@ -185,6 +209,13 @@ export class DashboardPage implements OnInit {
         console.log('✅ Tastings loaded:', tastings.length);
         this.allTastings.set(tastings); // Guardar todas las catas
         this.recentTastings.set(tastings); // También actualizar recentTastings
+
+        // Mapear las catas a CardTastingInfo
+        const mappedTastings = tastings.map((tasting) =>
+          this.coffeeCardInfoService.mapCoffeeTastingToCardInfo(tasting)
+        );
+        this.mappedTastings.set(mappedTastings);
+
         this.calculateStatistics(tastings);
         this.isLoading.set(false);
       },
@@ -196,9 +227,6 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  /**
-   * Calcula estadísticas basadas en las catas del usuario
-   */
   calculateStatistics(tastings: CoffeeTasting[]) {
     // Total de catas
     this.totalTastings.set(tastings.length);
@@ -243,7 +271,15 @@ export class DashboardPage implements OnInit {
       return acc;
     }, {} as Record<string, number>);
     const favoriteRoast = Object.entries(roastCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
-    this.favoriteRoast.set(favoriteRoast);
+
+    // Traducir nivel de tueste a español
+    const roastTranslation: Record<string, string> = {
+      light: 'Claro',
+      medium: 'Medio',
+      dark: 'Oscuro',
+    };
+    const translatedRoast = roastTranslation[favoriteRoast] || favoriteRoast;
+    this.favoriteRoast.set(translatedRoast);
 
     // Método de preparación favorito
     const brewMethodCount = tastings.reduce((acc, tasting) => {
@@ -406,5 +442,25 @@ export class DashboardPage implements OnInit {
 
   clearSearch() {
     this.searchQuery.set('');
+  }
+
+  // Métodos de ordenamiento
+  sortByBest() {
+    this.sortOrder.set('best');
+  }
+
+  sortByWorst() {
+    this.sortOrder.set('worst');
+  }
+
+  sortByRecent() {
+    this.sortOrder.set('recent');
+  }
+
+  /**
+   * Obtiene el ID original de una CardTastingInfo
+   */
+  getTastingId(tasting: CardTastingInfo): string | undefined {
+    return this.coffeeCardInfoService.getTastingId(tasting);
   }
 }

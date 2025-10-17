@@ -2,20 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
-
-export interface CoffeeFlavor {
-  acidity: number;
-  aftertaste: number;
-  aftertasteDescription: string;
-}
-
-export interface InfoLevel {
-  value: number;
-  label: string;
-  icon: string;
-  description: string;
-  color: string;
-}
+import { CoffeeFlavor, InfoLevel } from '../../../services/slide/slide.interface';
 
 @Component({
   selector: 'app-coffee-flavor-slide',

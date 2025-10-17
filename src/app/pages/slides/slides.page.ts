@@ -13,15 +13,23 @@ import {
 // Services
 import { CoffeeService } from '../../services/coffee.service';
 import { Login } from '../../services/login.service';
+import { CoffeeTastingFormService } from '../../services/slide/coffee-tasting-form.service';
+import { PendingTastingService, SlideNavigationService } from '../../services/slide';
 import {
-  CoffeeTastingFormService,
+  beanTypes,
+  roastLevels,
+  brewMethodsOptions,
+  bodyLevels,
+  acidityLevels,
+  afterTasteLevels,
+} from '../../services/slide/texts-forms';
+import {
   CoffeeIdentity,
-  CoffeeSensory,
-  CoffeeFlavor,
   CoffeeScore,
   CoffeeImage,
-} from '../../services/slide/coffee-tasting-form.service';
-import { PendingTastingService, SlideNavigationService } from '../../services/slide';
+  CoffeeFlavor,
+} from '../../services/slide/slide.interface';
+import { CoffeeSensory } from '../../components/slide/coffee-sensory-slide/coffee-sensory-slide.component';
 
 @Component({
   selector: 'app-slides',
@@ -96,22 +104,22 @@ export class SlidesPage implements OnInit {
 
   // Expose options for template
   get beanTypes() {
-    return this.formService.beanTypes;
+    return beanTypes;
   }
   get roastLevels() {
-    return this.formService.roastLevels;
+    return roastLevels;
   }
   get brewMethodsOptions() {
-    return this.formService.brewMethodsOptions;
+    return brewMethodsOptions;
   }
   get bodyLevels() {
-    return this.formService.bodyLevels;
+    return bodyLevels;
   }
   get acidityLevels() {
-    return this.formService.acidityLevels;
+    return acidityLevels;
   }
   get afterTasteLevels() {
-    return this.formService.afterTasteLevels;
+    return afterTasteLevels;
   }
 
   async ngOnInit() {

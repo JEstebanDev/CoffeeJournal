@@ -9,11 +9,15 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         />
+        <!-- Líneas de humo del café -->
+        <line x1="6" y1="1" x2="6" y2="4" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="10" y1="1" x2="10" y2="4" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="14" y1="1" x2="14" y2="4" stroke-width="1.5" stroke-linecap="round" />
       </svg>
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ totalTastings }}</h3>
-      <p class="stat-label" i18n="@@totalTastingsLabel">Catas Totales</p>
+      <p class="stat-label" i18n="@@totalTastingsLabel">Experiencias de Cata Registradas</p>
     </div>
   </div>
 
@@ -31,17 +35,18 @@
       </svg>
     </div>
     <div class="stat-content">
-      <p class="stat-label" i18n="@@topOriginsLabel">Top Orígenes</p>
+      <p class="stat-label" i18n="@@topOriginsLabel">Orígenes Más Degustados</p>
       <div class="origins-list">
         @for (origin of topOrigins; track origin.name; let i = $index) {
           <div class="origin-item">
             <span class="origin-rank">{{ i + 1 }}.</span>
+            <span class="fi fi-{{ getCountryFlag(origin.name) }} origin-flag"></span>
             <span class="origin-name">{{ origin.name }}</span>
             <span class="origin-count">({{ origin.count }})</span>
           </div>
         }
         @if (topOrigins.length === 0) {
-          <span class="no-data">Sin datos</span>
+          <span class="no-data">Registra más catas para ver estadísticas</span>
         }
       </div>
     </div>
@@ -61,28 +66,32 @@
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ favoriteRoast || 'N/A' }}</h3>
-      <p class="stat-label" i18n="@@favoriteRoastLabel">Tueste Favorito</p>
+      <p class="stat-label" i18n="@@favoriteRoastLabel">Nivel de Tueste Preferido</p>
     </div>
   </div>
 
   <!-- Método Favorito -->
   <div class="stat-card favorite-method">
     <div class="stat-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path
-          d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
-        <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
-        <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
-      </svg>
+      @if (favoriteBrewMethod && favoriteBrewMethod !== 'N/A') {
+        <img [src]="getBrewMethodImage(favoriteBrewMethod)" [alt]="favoriteBrewMethod" class="brew-method-image">
+      } @else {
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
+          <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
+          <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      }
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ favoriteBrewMethod || 'N/A' }}</h3>
-      <p class="stat-label" i18n="@@favoriteMethodLabel">Método Favorito</p>
+      <p class="stat-label" i18n="@@favoriteMethodLabel">Método de Preparación Favorito</p>
     </div>
   </div>
 
@@ -94,8 +103,18 @@
       </svg>
     </div>
     <div class="stat-content">
-      <p class="stat-label" i18n="@@trendLabel">Tu Tendencia</p>
-      <p class="trend-text">{{ tastingTrend || 'Aún no hay suficientes datos' }}</p>
+      <p class="stat-label" i18n="@@trendLabel">Patrón de Degustación</p>
+      @if (insights.length > 0) {
+        <div class="insights-rotator">
+          @for (insight of insights; track insight.message; let i = $index) {
+            <p class="trend-text insight-item" [class.active]="i === currentInsightIndex">
+              {{ insight.message }}
+            </p>
+          }
+        </div>
+      } @else {
+        <p class="trend-text">{{ tastingTrend || 'Continúa registrando catas para descubrir tu patrón' }}</p>
+      }
     </div>
   </div>
 </section>

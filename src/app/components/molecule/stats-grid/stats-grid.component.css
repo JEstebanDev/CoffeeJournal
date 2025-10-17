@@ -6,20 +6,20 @@
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(180deg, var(--card), var(--bg-soft));
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 50px -20px #000;
   transition: all 0.3s ease;
-  border: 1px solid rgba(139, 69, 19, 0.1);
+  border: 1px solid var(--border);
 }
 
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(139, 69, 19, 0.15);
+  box-shadow: 0 8px 24px rgba(195, 142, 90, 0.2);
 }
 
 .stat-icon {
@@ -39,28 +39,28 @@
 }
 
 .total-tastings .stat-icon {
-  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent) 0%, #b97f4c 100%);
+  color: var(--bg);
 }
 
 .top-origins .stat-icon {
-  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-2) 0%, #6b4c2a 100%);
+  color: var(--text);
 }
 
 .favorite-roast .stat-icon {
-  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--link) 0%, #d4a574 100%);
+  color: var(--bg);
 }
 
 .favorite-method .stat-icon {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: var(--bg);
 }
 
 .trend-card .stat-icon {
-  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--link-hover) 0%, var(--link) 100%);
+  color: var(--bg);
 }
 
 .stat-content {
@@ -73,14 +73,15 @@
 .stat-value {
   font-size: 2rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--text);
   margin: 0;
   line-height: 1;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 .stat-label {
   font-size: 0.875rem;
-  color: #7f8c8d;
+  color: var(--text-muted);
   font-weight: 500;
   margin: 0;
   text-transform: uppercase;
@@ -104,23 +105,23 @@
 
 .origin-rank {
   font-weight: 700;
-  color: #8b4513;
+  color: var(--accent);
   min-width: 20px;
 }
 
 .origin-name {
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--text);
   flex: 1;
 }
 
 .origin-count {
-  color: #7f8c8d;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
 .no-data {
-  color: #95a5a6;
+  color: var(--text-muted);
   font-style: italic;
   font-size: 0.9rem;
 }
@@ -128,10 +129,50 @@
 /* Trend Card Specific Styles */
 .trend-text {
   font-size: 0.95rem;
-  color: #2c3e50;
+  color: var(--text);
   font-weight: 500;
   line-height: 1.5;
   margin: 0.5rem 0 0 0;
+}
+
+/* Insights Rotator */
+.insights-rotator {
+  position: relative;
+  height: 3rem; /* Altura fija para evitar saltos */
+  overflow: hidden;
+}
+
+.insight-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+  margin: 0.5rem 0 0 0;
+}
+
+.insight-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Country Flags */
+.origin-flag {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Brew Method Images */
+.brew-method-image {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
 /* Responsive Design */

@@ -108,6 +108,9 @@
   flex: 1;
   max-width: 500px;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .search-input-wrapper {
@@ -173,11 +176,55 @@
   height: 16px;
 }
 
+/* Sort Buttons */
+.sort-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sort-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sort-btn.active {
+  background: linear-gradient(135deg, var(--accent) 0%, #b97f4c 100%);
+  color: var(--bg);
+  border-color: #b67a45;
+}
+
+.sort-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sort-btn span {
+  white-space: nowrap;
+}
+
 /* Tastings Grid */
 .tastings-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 /* Loading State */
@@ -325,6 +372,7 @@
 
   .tastings-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    align-items: stretch;
   }
 }
 
@@ -349,9 +397,24 @@
     min-width: auto;
   }
 
+  .sort-buttons {
+    justify-content: center;
+  }
+
+  .sort-btn {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .sort-btn span {
+    display: none;
+  }
+
   .tastings-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    align-items: stretch;
   }
 
   .empty-state-title {

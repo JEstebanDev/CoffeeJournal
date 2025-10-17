@@ -73,13 +73,14 @@
 
       <!-- Stats Grid - Only show when there are tastings -->
       @if (!isLoading() && totalTastings() > 0) {
-      <app-stats-grid
-        [totalTastings]="totalTastings()"
-        [topOrigins]="topOrigins()"
-        [favoriteRoast]="favoriteRoast()"
-        [favoriteBrewMethod]="favoriteBrewMethod()"
-        [tastingTrend]="tastingTrend()"
-      ></app-stats-grid>
+    <app-stats-grid
+      [totalTastings]="totalTastings()"
+      [topOrigins]="topOrigins()"
+      [favoriteRoast]="favoriteRoast()"
+      [favoriteBrewMethod]="favoriteBrewMethod()"
+      [tastingTrend]="tastingTrend()"
+      [insights]="insights()"
+    ></app-stats-grid>
       }
 
       <!-- Recent Tastings - Only show when there are tastings -->
@@ -88,7 +89,7 @@
         <div class="section-header">
           <h2 i18n="@@recentTastingsTitle">Mis Catas de Café</h2>
 
-          <!-- Filtro de búsqueda -->
+          <!-- Filtro de búsqueda y ordenamiento -->
           <div class="search-filter">
             <div class="search-input-wrapper">
               <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -104,13 +105,54 @@
                 i18n-placeholder="@@searchPlaceholder"
               />
               @if (searchQuery()) {
-              <button class="clear-search-btn" (click)="clearSearch()" type="button">
+              <button class="clear-search-btn" (click)="clearSearch()" type="button" title="Limpiar búsqueda">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
                   <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </button>
               }
+            </div>
+            
+            <!-- Botones de ordenamiento -->
+            <div class="sort-buttons">
+              <button 
+                class="sort-btn" 
+                [class.active]="sortOrder() === 'best'"
+                (click)="sortByBest()" 
+                title="Mejor rankeados primero"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Mejores</span>
+              </button>
+              
+              <button 
+                class="sort-btn" 
+                [class.active]="sortOrder() === 'worst'"
+                (click)="sortByWorst()" 
+                title="Peor rankeados primero"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 5v14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Peores</span>
+              </button>
+              
+              <button 
+                class="sort-btn" 
+                [class.active]="sortOrder() === 'recent'"
+                (click)="sortByRecent()" 
+                title="Más recientes primero"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                  <polyline points="12 6 12 12 16 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Recientes</span>
+              </button>
             </div>
           </div>
         </div>
@@ -129,9 +171,10 @@
         </div>
         } @else if (filteredTastings().length > 0) {
         <div class="tastings-grid">
-          @for (tasting of filteredTastings(); track tasting.id) {
+          @for (tasting of filteredTastings(); track tasting.coffeeName) {
           <app-tasting-card
             [tasting]="tasting"
+            [tastingId]="getTastingId(tasting)"
             (cardClick)="onViewTasting($event)"
           ></app-tasting-card>
           }
