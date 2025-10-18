@@ -162,6 +162,142 @@
           <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="topOriginsLabel" datatype="html">
+        <source>Top Orígenes</source>
+        <target>Top Origins</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noDataMessage" datatype="html">
+        <source>Sin datos</source>
+        <target>No data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="favoriteBrewMethodLabel" datatype="html">
+        <source>Método Favorito</source>
+        <target>Favorite Method</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendLabel" datatype="html">
+        <source>Tendencia</source>
+        <target>Trend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownOrigin" datatype="html">
+        <source>Origen Desconocido</source>
+        <target>Unknown Origin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownRoast" datatype="html">
+        <source>Tueste Desconocido</source>
+        <target>Unknown Roast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownMethod" datatype="html">
+        <source>Método Desconocido</source>
+        <target>Unknown Method</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insufficientDataMessage" datatype="html">
+        <source>Datos insuficientes para calcular tendencia</source>
+        <target>Insufficient data to calculate trend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreMoreMessage" datatype="html">
+        <source>Explora más cafés para descubrir tus preferencias</source>
+        <target>Explore more coffees to discover your preferences</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendBodyAndAcidity" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}} y acidez {{acidity}}</source>
+        <target>You prefer coffees with {{body}} body and {{acidity}} acidity</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendBody" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}}</source>
+        <target>You prefer coffees with {{body}} body</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendAcidity" datatype="html">
+        <source>Prefieres cafés con acidez {{acidity}}</source>
+        <target>You prefer coffees with {{acidity}} acidity</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteCoffee" datatype="html">
+        <source>Tu café favorito hasta ahora es {{coffeeName}}, {{origin}} con {{score}} de calificación.</source>
+        <target>Your favorite coffee so far is {{coffeeName}}, {{origin}} with a {{score}} rating.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteMethod" datatype="html">
+        <source>El método {{method}} es el que más te gusta con {{count}} catas.</source>
+        <target>The {{method}} method is your favorite with {{count}} tastings.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightPreferenceBodyAndAcidity" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}} y acidez {{acidity}}.</source>
+        <target>You prefer coffees with {{body}} body and {{acidity}} acidity.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightAverageScore" datatype="html">
+        <source>Tu calificación promedio es {{score}} de 10. ¡Sigue explorando nuevos cafés!</source>
+        <target>Your average rating is {{score}} out of 10. Keep exploring new coffees!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteOrigin" datatype="html">
+        <source>Has catado {{count}} cafés de {{origin}}. ¡Es tu origen favorito!</source>
+        <target>You've tasted {{count}} coffees from {{origin}}. It's your favorite origin!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">226</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="averageRatingLabel" datatype="html">
         <source>Calificación Promedio</source>
         <target>Average Rating</target>
@@ -181,6 +317,102 @@
       <trans-unit id="recentTastingsTitle" datatype="html">
         <source>Catas Recientes</source>
         <target>Recent Tastings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emptyStateTitle" datatype="html">
+        <source>¡Comienza tu Viaje Cafetero!</source>
+        <target>Start Your Coffee Journey!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emptyStateDescription" datatype="html">
+        <source>Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que pruebes. Documenta el origen, método de preparación, notas de sabor y califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.</source>
+        <target>Coffee Journal is your perfect companion to record and evaluate every cup of coffee you try. Document the origin, brewing method, flavor notes, and rate each experience to refine your palate and discover your favorite coffees.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="searchPlaceholder" datatype="html">
+        <source>Buscar por nombre o marca...</source>
+        <target>Search by name or brand...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noResultsTitle" datatype="html">
+        <source>No se encontraron resultados</source>
+        <target>No results found</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">230</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noResultsMessage" datatype="html">
+        <source>No hay catas que coincidan con "{{ searchQuery() }}"</source>
+        <target>No tastings match "{{ searchQuery() }}"</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">231</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="clearSearchButton" datatype="html">
+        <source>Limpiar Búsqueda</source>
+        <target>Clear Search</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">233</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="retryButton" datatype="html">
+        <source>Reintentar</source>
+        <target>Retry</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortBestButton" datatype="html">
+        <source>Mejores</source>
+        <target>Best</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortWorstButton" datatype="html">
+        <source>Peores</source>
+        <target>Worst</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortRecentButton" datatype="html">
+        <source>Recientes</source>
+        <target>Recent</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortBestTooltip" datatype="html">
+        <source>Mejor rankeados primero</source>
+        <target>Best rated first</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortWorstTooltip" datatype="html">
+        <source>Peor rankeados primero</source>
+        <target>Worst rated first</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
           <context context-type="linenumber">158</context>

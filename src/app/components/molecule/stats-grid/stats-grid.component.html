@@ -76,7 +76,7 @@
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ favoriteBrewMethod || 'N/A' }}</h3>
-      <p class="stat-label">{{ 'favoriteMethodLabel' | translate }}</p>
+      <p class="stat-label">{{ 'favoriteBrewMethodLabel' | translate }}</p>
     </div>
   </div>
 
@@ -94,7 +94,7 @@
         </svg>
       </div>
       <div class="pattern-text">
-        <h4 class="pattern-title">{{ 'trendLabel' | translate }}</h4>
+        <h4 class="pattern-title">{{ 'tastingTrendLabel' | translate }}</h4>
         @if (insights.length > 0) {
         <p class="pattern-message">
           {{ insights[currentInsightIndex]?.message || ('analyzingPreferences' | translate) }}

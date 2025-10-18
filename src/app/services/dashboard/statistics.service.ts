@@ -1,6 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, computed } from '@angular/core';
 import { CoffeeTasting } from '../coffee';
 import { TopOrigin, Insight } from '../../components/molecule/stats-grid/stats-grid.component';
+import { TranslationService } from '../language/translation.service';
+import { LanguageService } from '../language/language.service';
 
 export interface DashboardStatistics {
   totalTastings: number;
@@ -17,18 +19,46 @@ export interface DashboardStatistics {
   providedIn: 'root'
 })
 export class StatisticsService {
+  private translationService = inject(TranslationService);
+  private languageService = inject(LanguageService);
+
+  // Método reactivo para obtener traducciones
+  private getTranslation(key: string, params?: { [key: string]: string | number }): string {
+    // Forzar la reactividad al idioma actual
+    const currentLanguage = this.languageService.language();
+    const result = this.translationService.translate(key, params);
+    
+    // Si la traducción no se encuentra, usar un fallback
+    if (result === key) {
+      console.warn(`[StatisticsService] Translation not found for key: "${key}" in language: ${currentLanguage}`);
+      // Fallbacks básicos
+      const fallbacks: { [key: string]: string } = {
+        'noDataMessage': currentLanguage === 'es' ? 'Sin datos' : 'No data',
+        'unknownOrigin': currentLanguage === 'es' ? 'Origen desconocido' : 'Unknown Origin',
+        'unknownRoast': currentLanguage === 'es' ? 'Tueste desconocido' : 'Unknown Roast',
+        'unknownMethod': currentLanguage === 'es' ? 'Método desconocido' : 'Unknown Method',
+        'insufficientDataMessage': currentLanguage === 'es' ? 'Datos insuficientes para calcular tendencia' : 'Insufficient data to calculate trend',
+        'exploreMoreMessage': currentLanguage === 'es' ? 'Explora más cafés para descubrir tus preferencias' : 'Explore more coffees to discover your preferences'
+      };
+      return fallbacks[key] || key;
+    }
+    return result;
+  }
 
   /**
    * Calcula todas las estadísticas del dashboard basadas en las catas
+   * Ahora es reactivo a los cambios de idioma
    */
   calculateStatistics(tastings: CoffeeTasting[]): DashboardStatistics {
+    // Forzar la reactividad al idioma actual
+    const currentLanguage = this.languageService.language();
     const totalTastings = tastings.length;
 
     if (totalTastings === 0) {
       return {
         totalTastings: 0,
         averageRating: 0,
-        favoriteOrigin: 'N/A',
+        favoriteOrigin: this.getTranslation('noDataMessage'),
         topOrigins: [],
         favoriteRoast: '',
         favoriteBrewMethod: '',
@@ -43,7 +73,7 @@ export class StatisticsService {
 
     // Encontrar origen favorito (el más frecuente)
     const originCount = tastings.reduce((acc, tasting) => {
-      const origin = tasting.origin || 'Desconocido';
+      const origin = tasting.origin || this.getTranslation('unknownOrigin');
       acc[origin] = (acc[origin] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -58,29 +88,25 @@ export class StatisticsService {
 
     // Tueste favorito
     const roastCount = tastings.reduce((acc, tasting) => {
-      const roast = tasting.roast_level || 'Desconocido';
+      const roast = tasting.roast_level || this.getTranslation('unknownRoast');
       acc[roast] = (acc[roast] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     const favoriteRoastKey = Object.entries(roastCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
 
-    // Traducir nivel de tueste a español
-    const roastTranslation: Record<string, string> = {
-      light: 'Claro',
-      medium: 'Medio',
-      dark: 'Oscuro',
-    };
-    const favoriteRoast = roastTranslation[favoriteRoastKey] || favoriteRoastKey;
+    // Traducir nivel de tueste
+    const favoriteRoast = this.getTranslation(`roastLevel${favoriteRoastKey.charAt(0).toUpperCase() + favoriteRoastKey.slice(1)}`) || favoriteRoastKey;
 
     // Método de preparación favorito
     const brewMethodCount = tastings.reduce((acc, tasting) => {
-      const method = tasting.brew_method || 'Desconocido';
+      const method = tasting.brew_method || this.getTranslation('unknownMethod');
       acc[method] = (acc[method] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-    const favoriteBrewMethod = Object.entries(brewMethodCount).reduce((a, b) =>
+    const favoriteBrewMethodKey = Object.entries(brewMethodCount).reduce((a, b) =>
       a[1] > b[1] ? a : b
     )[0];
+    const favoriteBrewMethod = this.getTranslation(favoriteBrewMethodKey) || favoriteBrewMethodKey;
 
     // Calcular tendencia de preferencias
     const tastingTrend = this.calculateTastingTrend(tastings);
@@ -105,7 +131,7 @@ export class StatisticsService {
    */
   private calculateTastingTrend(tastings: CoffeeTasting[]): string {
     if (tastings.length < 3) {
-      return 'insufficientDataMessage';
+      return this.getTranslation('insufficientDataMessage');
     }
 
     // Analizar características más comunes
@@ -126,14 +152,25 @@ export class StatisticsService {
       Object.entries(acidityCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
 
     if (mostCommonBody && mostCommonAcidity) {
-      return `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()} y acidez ${mostCommonAcidity.toLowerCase()}`;
+      const bodyTranslated = this.getTranslation(mostCommonBody) || mostCommonBody;
+      const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
+      return this.getTranslation('tastingTrendBodyAndAcidity', {
+        body: bodyTranslated.toLowerCase(),
+        acidity: acidityTranslated.toLowerCase()
+      });
     } else if (mostCommonBody) {
-      return `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()}`;
+      const bodyTranslated = this.getTranslation(mostCommonBody) || mostCommonBody;
+      return this.getTranslation('tastingTrendBody', {
+        body: bodyTranslated.toLowerCase()
+      });
     } else if (mostCommonAcidity) {
-      return `Prefieres cafés con acidez ${mostCommonAcidity.toLowerCase()}`;
+      const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
+      return this.getTranslation('tastingTrendAcidity', {
+        acidity: acidityTranslated.toLowerCase()
+      });
     }
 
-    return 'exploreMoreMessage';
+      return this.getTranslation('exploreMoreMessage');
   }
 
   /**
@@ -148,7 +185,11 @@ export class StatisticsService {
     const topRatedTasting = [...tastings].sort((a, b) => b.score - a.score)[0];
     if (topRatedTasting) {
       insights.push({
-        message: `Tu café favorito hasta ahora es ${topRatedTasting.coffee_name}, ${topRatedTasting.origin} con ${topRatedTasting.score} de calificación.`,
+        message: this.getTranslation('insightFavoriteCoffee', {
+          coffeeName: topRatedTasting.coffee_name,
+          origin: topRatedTasting.origin,
+          score: topRatedTasting.score
+        }),
         icon: 'star',
       });
     }
@@ -162,8 +203,12 @@ export class StatisticsService {
     });
     const favoriteMethod = Object.entries(brewMethodCount).sort((a, b) => b[1] - a[1])[0];
     if (favoriteMethod) {
+      const methodTranslated = this.getTranslation(favoriteMethod[0]) || favoriteMethod[0];
       insights.push({
-        message: `El método ${favoriteMethod[0]} es el que más te gusta con ${favoriteMethod[1]} catas.`,
+        message: this.getTranslation('insightFavoriteMethod', {
+          method: methodTranslated,
+          count: favoriteMethod[1]
+        }),
         icon: 'coffee',
       });
     }
@@ -178,8 +223,13 @@ export class StatisticsService {
     const mostCommonBody = Object.entries(bodyCount).sort((a, b) => b[1] - a[1])[0]?.[0];
     const mostCommonAcidity = Object.entries(acidityCount).sort((a, b) => b[1] - a[1])[0]?.[0];
     if (mostCommonBody && mostCommonAcidity) {
+      const bodyTranslated = this.getTranslation(mostCommonBody) || mostCommonBody;
+      const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
       insights.push({
-        message: `Prefieres cafés con cuerpo ${mostCommonBody.toLowerCase()} y acidez ${mostCommonAcidity.toLowerCase()}.`,
+        message: this.getTranslation('insightPreferenceBodyAndAcidity', {
+          body: bodyTranslated.toLowerCase(),
+          acidity: acidityTranslated.toLowerCase()
+        }),
         icon: 'heart',
       });
     }
@@ -187,9 +237,9 @@ export class StatisticsService {
     // Insight 4: Promedio de calificación
     const avgScore = tastings.reduce((sum, t) => sum + t.score, 0) / tastings.length;
     insights.push({
-      message: `Tu calificación promedio es ${avgScore.toFixed(
-        1
-      )} de 10. ¡Sigue explorando nuevos cafés!`,
+        message: this.getTranslation('insightAverageScore', {
+          score: avgScore.toFixed(1)
+        }),
       icon: 'trend-up',
     });
 
@@ -201,7 +251,10 @@ export class StatisticsService {
     const topOrigin = Object.entries(originCount).sort((a, b) => b[1] - a[1])[0];
     if (topOrigin) {
       insights.push({
-        message: `Has catado ${topOrigin[1]} cafés de ${topOrigin[0]}. ¡Es tu origen favorito!`,
+        message: this.getTranslation('insightFavoriteOrigin', {
+          count: topOrigin[1],
+          origin: topOrigin[0]
+        }),
         icon: 'lightbulb',
       });
     }

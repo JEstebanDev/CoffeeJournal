@@ -48,12 +48,8 @@
           <div class="empty-state-icon">
             <i data-lucide="coffee" class="coffee-icon-large"></i>
           </div>
-          <h2 class="empty-state-title" i18n="@@emptyStateTitle">¡Comienza tu Viaje Cafetero!</h2>
-          <p class="empty-state-description" i18n="@@emptyStateDescription">
-            Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que
-            pruebes. <br /><br />Documenta el origen, método de preparación, notas de sabor y
-            califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.
-          </p>
+          <h2 class="empty-state-title">{{ 'emptyStateTitle' | translate }}</h2>
+          <p class="empty-state-description">{{ 'emptyStateDescription' | translate }}</p>
           <button class="new-tasting-btn" (click)="onNewTasting()">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path
@@ -63,7 +59,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <ng-container i18n="@@newTastingButton">Crear Cata de Café</ng-container>
+            {{ 'newTastingButton' | translate }}
           </button>
         </div>
       </section>
@@ -84,7 +80,7 @@
       @if (!isLoading() && totalTastings() > 0) {
       <section class="recent-tastings">
         <div class="section-header">
-          <h2 i18n="@@recentTastingsTitle">Mis Catas de Café</h2>
+          <h2>{{ 'recentTastingsTitle' | translate }}</h2>
 
           <!-- Filtro de búsqueda y ordenamiento -->
           <div class="search-filter">
@@ -96,11 +92,10 @@
               <input
                 type="text"
                 class="search-input"
-                placeholder="Buscar por nombre o marca..."
+                [placeholder]="'searchPlaceholder' | translate"
                 [value]="searchQuery()"
                 (input)="onSearchChange($event)"
                 (keyup)="onSearchChange($event)"
-                i18n-placeholder="@@searchPlaceholder"
               />
               @if (searchQuery()) {
               <button
@@ -138,7 +133,7 @@
                 class="sort-btn"
                 [class.active]="sortOrder() === 'best'"
                 (click)="sortByBest()"
-                title="Mejor rankeados primero"
+                [title]="'sortBestTooltip' | translate"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <polygon
@@ -148,14 +143,14 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <span>Mejores</span>
+                <span>{{ 'sortBestButton' | translate }}</span>
               </button>
 
               <button
                 class="sort-btn"
                 [class.active]="sortOrder() === 'worst'"
                 (click)="sortByWorst()"
-                title="Peor rankeados primero"
+                [title]="'sortWorstTooltip' | translate"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path
@@ -171,7 +166,7 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <span>Peores</span>
+                <span>{{ 'sortWorstButton' | translate }}</span>
               </button>
 
               <button
@@ -189,7 +184,7 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <span>Recientes</span>
+                <span>{{ 'sortRecentButton' | translate }}</span>
               </button>
             </div>
           </div>
@@ -198,13 +193,13 @@
         @if (isLoading()) {
         <div class="loading-state">
           <div class="spinner"></div>
-          <p i18n="@@loadingMessage">Cargando tus catas...</p>
+          <p>{{ 'loadingMessage' | translate }}</p>
         </div>
         } @else if (errorMessage()) {
         <div class="error-state">
           <p>{{ errorMessage() }}</p>
           <button class="retry-btn" (click)="loadDashboardData()">
-            <ng-container i18n="@@retryButton">Reintentar</ng-container>
+            {{ 'retryButton' | translate }}
           </button>
         </div>
         } @else if (filteredTastings().length > 0) {
@@ -227,10 +222,10 @@
             <line x1="11" y1="8" x2="11" y2="14" stroke-width="2" stroke-linecap="round" />
             <circle cx="11" cy="17" r="0.5" fill="currentColor" stroke="none" />
           </svg>
-          <h3 i18n="@@noResultsTitle">No se encontraron resultados</h3>
-          <p i18n="@@noResultsMessage">No hay catas que coincidan con "{{ searchQuery() }}"</p>
+          <h3>{{ 'noResultsTitle' | translate }}</h3>
+          <p>{{ 'noResultsMessage' | translate }}</p>
           <button class="cta-button secondary" (click)="clearSearch()">
-            <ng-container i18n="@@clearSearchButton">Limpiar Búsqueda</ng-container>
+            {{ 'clearSearchButton' | translate }}
           </button>
           } @else {
           <!-- Estado cuando no hay resultados de búsqueda pero sí hay catas -->
@@ -240,10 +235,10 @@
             <line x1="11" y1="8" x2="11" y2="14" stroke-width="2" stroke-linecap="round" />
             <circle cx="11" cy="17" r="0.5" fill="currentColor" stroke="none" />
           </svg>
-          <h3 i18n="@@noResultsTitle">No se encontraron resultados</h3>
-          <p i18n="@@noResultsMessage">Intenta con otro término de búsqueda</p>
+          <h3>{{ 'noResultsTitle' | translate }}</h3>
+          <p>{{ 'noResultsMessage' | translate }}</p>
           <button class="cta-button secondary" (click)="clearSearch()">
-            <ng-container i18n="@@clearSearchButton">Limpiar Búsqueda</ng-container>
+            {{ 'clearSearchButton' | translate }}
           </button>
           }
         </div>

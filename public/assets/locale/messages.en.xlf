@@ -2,444 +2,485 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="es" target-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <!-- Landing Page -->
       <trans-unit id="appName" datatype="html">
         <source>Coffee Journal</source>
         <target>Coffee Journal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="loginButton" datatype="html">
         <source>Iniciar Sesión</source>
         <target>Login</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="heroTitle" datatype="html">
         <source>Tu Bitácora Personal de </source>
         <target>Your Personal </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="heroTitleHighlight" datatype="html">
         <source>Cata de Café</source>
         <target>Coffee Tasting Journal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">36,38</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="heroDescription" datatype="html">
-        <source>Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación.</source>
+        <source> Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación. </source>
         <target>Record, evaluate, and discover the unique flavors of each cup. Keep detailed track of your coffee experiences and refine your palate with every tasting.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">39,43</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="startTastingButton" datatype="html">
         <source>Comenzar a Catar</source>
         <target>Start Tasting</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">52,55</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureRecordTitle" datatype="html">
         <source>Registra Cada Taza</source>
         <target>Record Every Cup</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">68,69</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureRecordDescription" datatype="html">
         <source>Documenta origen, método de preparación, notas de sabor y más</source>
         <target>Document origin, brewing method, flavor notes, and more</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">69,72</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureRateTitle" datatype="html">
         <source>Evalúa y Califica</source>
         <target>Evaluate and Rate</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureRateDescription" datatype="html">
         <source>Sistema de puntuación para aroma, cuerpo, acidez y sabor</source>
         <target>Scoring system for aroma, body, acidity, and flavor</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">84,87</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureHistoryTitle" datatype="html">
         <source>Historial Completo</source>
         <target>Complete History</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureHistoryDescription" datatype="html">
         <source>Accede a todas tus catas anteriores y descubre patrones</source>
         <target>Access all your previous tastings and discover patterns</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">99,102</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureDiscoverTitle" datatype="html">
         <source>Descubre Favoritos</source>
         <target>Discover Favorites</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">113,114</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="featureDiscoverDescription" datatype="html">
         <source>Identifica tus cafés preferidos y explora nuevos perfiles</source>
         <target>Identify your favorite coffees and explore new profiles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
+          <context context-type="linenumber">114,117</context>
+        </context-group>
       </trans-unit>
-
-      <!-- Dashboard -->
       <trans-unit id="logoutButton" datatype="html">
         <source>Cerrar Sesión</source>
         <target>Logout</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">45,54</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="welcomeMessage" datatype="html">
         <source>¡Bienvenido de nuevo, </source>
         <target>Welcome back, </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="dashboardSubtitle" datatype="html">
         <source>Aquí está el resumen de tu viaje cafetero</source>
         <target>Here's a summary of your coffee journey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">71,73</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="newTastingButton" datatype="html">
         <source>Nueva Cata</source>
         <target>New Tasting</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="loadingMessage" datatype="html">
         <source>Cargando tus datos...</source>
         <target>Loading your data...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="totalTastingsLabel" datatype="html">
-        <source>Experiencias de Cata Registradas</source>
-        <target>Registered Tasting Experiences</target>
+        <source>Catas Totales</source>
+        <target>Total Tastings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="topOriginsLabel" datatype="html">
+        <source>Top Orígenes</source>
+        <target>Top Origins</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noDataMessage" datatype="html">
+        <source>Sin datos</source>
+        <target>No data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="favoriteBrewMethodLabel" datatype="html">
+        <source>Método Favorito</source>
+        <target>Favorite Method</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendLabel" datatype="html">
+        <source>Tendencia</source>
+        <target>Trend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/stats-grid/stats-grid.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownOrigin" datatype="html">
+        <source>Origen Desconocido</source>
+        <target>Unknown Origin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownRoast" datatype="html">
+        <source>Tueste Desconocido</source>
+        <target>Unknown Roast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unknownMethod" datatype="html">
+        <source>Método Desconocido</source>
+        <target>Unknown Method</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insufficientDataMessage" datatype="html">
+        <source>Datos insuficientes para calcular tendencia</source>
+        <target>Insufficient data to calculate trend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="exploreMoreMessage" datatype="html">
+        <source>Explora más cafés para descubrir tus preferencias</source>
+        <target>Explore more coffees to discover your preferences</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendBodyAndAcidity" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}} y acidez {{acidity}}</source>
+        <target>You prefer coffees with {{body}} body and {{acidity}} acidity</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendBody" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}}</source>
+        <target>You prefer coffees with {{body}} body</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tastingTrendAcidity" datatype="html">
+        <source>Prefieres cafés con acidez {{acidity}}</source>
+        <target>You prefer coffees with {{acidity}} acidity</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteCoffee" datatype="html">
+        <source>Tu café favorito hasta ahora es {{coffeeName}}, {{origin}} con {{score}} de calificación.</source>
+        <target>Your favorite coffee so far is {{coffeeName}}, {{origin}} with a {{score}} rating.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteMethod" datatype="html">
+        <source>El método {{method}} es el que más te gusta con {{count}} catas.</source>
+        <target>The {{method}} method is your favorite with {{count}} tastings.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightPreferenceBodyAndAcidity" datatype="html">
+        <source>Prefieres cafés con cuerpo {{body}} y acidez {{acidity}}.</source>
+        <target>You prefer coffees with {{body}} body and {{acidity}} acidity.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightAverageScore" datatype="html">
+        <source>Tu calificación promedio es {{score}} de 10. ¡Sigue explorando nuevos cafés!</source>
+        <target>Your average rating is {{score}} out of 10. Keep exploring new coffees!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="insightFavoriteOrigin" datatype="html">
+        <source>Has catado {{count}} cafés de {{origin}}. ¡Es tu origen favorito!</source>
+        <target>You've tasted {{count}} coffees from {{origin}}. It's your favorite origin!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/dashboard/statistics.service.ts</context>
+          <context context-type="linenumber">226</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="averageRatingLabel" datatype="html">
         <source>Calificación Promedio</source>
         <target>Average Rating</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="favoriteOriginLabel" datatype="html">
         <source>Origen Favorito</source>
         <target>Favorite Origin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="recentTastingsTitle" datatype="html">
-        <source>Mis Catas de Café</source>
-        <target>My Coffee Tastings</target>
+        <source>Catas Recientes</source>
+        <target>Recent Tastings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emptyStateTitle" datatype="html">
+        <source>¡Comienza tu Viaje Cafetero!</source>
+        <target>Start Your Coffee Journey!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emptyStateDescription" datatype="html">
+        <source>Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que pruebes. Documenta el origen, método de preparación, notas de sabor y califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.</source>
+        <target>Coffee Journal is your perfect companion to record and evaluate every cup of coffee you try. Document the origin, brewing method, flavor notes, and rate each experience to refine your palate and discover your favorite coffees.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="searchPlaceholder" datatype="html">
+        <source>Buscar por nombre o marca...</source>
+        <target>Search by name or brand...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noResultsTitle" datatype="html">
+        <source>No se encontraron resultados</source>
+        <target>No results found</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">230</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noResultsMessage" datatype="html">
+        <source>No hay catas que coincidan con "{{ searchQuery() }}"</source>
+        <target>No tastings match "{{ searchQuery() }}"</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">231</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="clearSearchButton" datatype="html">
+        <source>Limpiar Búsqueda</source>
+        <target>Clear Search</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">233</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="retryButton" datatype="html">
+        <source>Reintentar</source>
+        <target>Retry</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortBestButton" datatype="html">
+        <source>Mejores</source>
+        <target>Best</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortWorstButton" datatype="html">
+        <source>Peores</source>
+        <target>Worst</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortRecentButton" datatype="html">
+        <source>Recientes</source>
+        <target>Recent</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortBestTooltip" datatype="html">
+        <source>Mejor rankeados primero</source>
+        <target>Best rated first</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortWorstTooltip" datatype="html">
+        <source>Peor rankeados primero</source>
+        <target>Worst rated first</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="viewAllButton" datatype="html">
         <source>Ver Todas</source>
         <target>View All</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">160</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="aromaLabel" datatype="html">
         <source>Aroma</source>
         <target>Aroma</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">229</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="bodyLabel" datatype="html">
         <source>Cuerpo</source>
         <target>Body</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="acidityLabel" datatype="html">
         <source>Acidez</source>
         <target>Acidity</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">243</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="flavorLabel" datatype="html">
         <source>Sabor</source>
         <target>Flavor</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">249</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="noTastingsTitle" datatype="html">
-        <source>¡Comienza tu Viaje Cafetero!</source>
-        <target>Start Your Coffee Journey!</target>
+        <source>No hay catas registradas</source>
+        <target>No tastings recorded</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">271</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="noTastingsMessage" datatype="html">
-        <source>Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que pruebes. Documenta el origen, método de preparación, notas de sabor y califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.</source>
-        <target>Coffee Journal is your perfect companion to record and evaluate every cup of coffee you try. Document origin, brewing method, flavor notes, and rate each experience to perfect your palate and discover your favorite coffees.</target>
+        <source>Comienza tu viaje cafetero registrando tu primera cata</source>
+        <target>Start your coffee journey by recording your first tasting</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="startFirstTasting" datatype="html">
-        <source>Crear Cata de Café</source>
-        <target>Create Coffee Tasting</target>
-      </trans-unit>
-
-      <!-- Stats Grid -->
-      <trans-unit id="topOriginsLabel" datatype="html">
-        <source>Orígenes Más Degustados</source>
-        <target>Most Tasted Origins</target>
-      </trans-unit>
-      <trans-unit id="favoriteMethodLabel" datatype="html">
-        <source>Método de Preparación Favorito</source>
-        <target>Favorite Brewing Method</target>
-      </trans-unit>
-      <trans-unit id="trendLabel" datatype="html">
-        <source>Tu Patrón de Degustación</source>
-        <target>Your Tasting Pattern</target>
-      </trans-unit>
-      <trans-unit id="noDataMessage" datatype="html">
-        <source>Registra más catas para ver estadísticas</source>
-        <target>Record more tastings to see statistics</target>
-      </trans-unit>
-      <trans-unit id="analyzingPreferences" datatype="html">
-        <source>Analizando tus preferencias...</source>
-        <target>Analyzing your preferences...</target>
-      </trans-unit>
-      <trans-unit id="continueRecording" datatype="html">
-        <source>Continúa registrando catas para descubrir tu patrón</source>
-        <target>Continue recording tastings to discover your pattern</target>
-      </trans-unit>
-
-      <!-- Auth Page -->
-      <trans-unit id="backButton" datatype="html">
-        <source>Volver</source>
-        <target>Back</target>
-      </trans-unit>
-      <trans-unit id="loginTitle" datatype="html">
-        <source>De vuelta entre aromas y notas de café.</source>
-        <target>Back among coffee aromas and notes.</target>
-      </trans-unit>
-      <trans-unit id="signupTitle" datatype="html">
-        <source>Comienza tu viaje entre aromas de café.</source>
-        <target>Start your journey among coffee aromas.</target>
-      </trans-unit>
-      <trans-unit id="loginSubtitle" datatype="html">
-        <source>Inicia sesión y continúa tu viaje cafetero.</source>
-        <target>Sign in and continue your coffee journey.</target>
-      </trans-unit>
-      <trans-unit id="signupSubtitle" datatype="html">
-        <source>Cada cata es un nuevo capítulo en tu bitácora</source>
-        <target>Every tasting is a new chapter in your journal</target>
-      </trans-unit>
-      <trans-unit id="usernameLabel" datatype="html">
-        <source>¿Cómo te gustaría que te llamemos?</source>
-        <target>What would you like us to call you?</target>
-      </trans-unit>
-      <trans-unit id="usernamePlaceholder" datatype="html">
-        <source>Escribe tu nombre o un alias</source>
-        <target>Write your name or an alias</target>
-      </trans-unit>
-      <trans-unit id="emailLabel" datatype="html">
-        <source>Correo</source>
-        <target>Email</target>
-      </trans-unit>
-      <trans-unit id="emailPlaceholder" datatype="html">
-        <source>Ingresa tu email</source>
-        <target>Enter your email</target>
-      </trans-unit>
-      <trans-unit id="passwordLabel" datatype="html">
-        <source>Contraseña</source>
-        <target>Password</target>
-      </trans-unit>
-      <trans-unit id="passwordPlaceholder" datatype="html">
-        <source>Ingresa tu contraseña</source>
-        <target>Enter your password</target>
-      </trans-unit>
-      <trans-unit id="confirmPasswordLabel" datatype="html">
-        <source>Confirma tu contraseña</source>
-        <target>Confirm your password</target>
-      </trans-unit>
-      <trans-unit id="confirmPasswordPlaceholder" datatype="html">
-        <source>Confirma tu contraseña</source>
-        <target>Confirm your password</target>
-      </trans-unit>
-      <trans-unit id="signInButton" datatype="html">
-        <source>Iniciar Sesión</source>
-        <target>Sign In</target>
-      </trans-unit>
-      <trans-unit id="signUpButton" datatype="html">
-        <source>Registrarse</source>
-        <target>Sign Up</target>
-      </trans-unit>
-      <trans-unit id="magicLinkButton" datatype="html">
-        <source>Iniciar sesión con enlace por correo</source>
-        <target>Sign in with email link</target>
-      </trans-unit>
-      <trans-unit id="noAccountText" datatype="html">
-        <source>¿No tienes cuenta?</source>
-        <target>Don't have an account?</target>
-      </trans-unit>
-      <trans-unit id="hasAccountText" datatype="html">
-        <source>¿Ya tienes cuenta?</source>
-        <target>Already have an account?</target>
-      </trans-unit>
-
-      <!-- Coffee Identity Slide -->
-      <trans-unit id="coffeeIdentityTitle" datatype="html">
-        <source>🧭 Identidad del Café</source>
-        <target>🧭 Coffee Identity</target>
-      </trans-unit>
-      <trans-unit id="coffeeIdentitySubtitle" datatype="html">
-        <source>Registra los datos que definen el origen y la personalidad de tu café.</source>
-        <target>Record the data that defines the origin and personality of your coffee.</target>
-      </trans-unit>
-      <trans-unit id="brandLabel" datatype="html">
-        <source>Marca</source>
-        <target>Brand</target>
-      </trans-unit>
-      <trans-unit id="brandPlaceholder" datatype="html">
-        <source>Ej: Lavazza, Coffeebean...</source>
-        <target>E.g: Lavazza, Coffeebean...</target>
-      </trans-unit>
-      <trans-unit id="brandError" datatype="html">
-        <source>La marca es requerida</source>
-        <target>Brand is required</target>
-      </trans-unit>
-      <trans-unit id="coffeeNameLabel" datatype="html">
-        <source>Nombre del café</source>
-        <target>Coffee name</target>
-      </trans-unit>
-      <trans-unit id="coffeeNamePlaceholder" datatype="html">
-        <source>Ej: Espresso Intenso</source>
-        <target>E.g: Intense Espresso</target>
-      </trans-unit>
-      <trans-unit id="coffeeNameError" datatype="html">
-        <source>El nombre del café es requerido</source>
-        <target>Coffee name is required</target>
-      </trans-unit>
-      <trans-unit id="beanTypeLabel" datatype="html">
-        <source>Tipo de grano</source>
-        <target>Bean type</target>
-      </trans-unit>
-      <trans-unit id="beanTypeError" datatype="html">
-        <source>Debes seleccionar un tipo de grano</source>
-        <target>You must select a bean type</target>
-      </trans-unit>
-      <trans-unit id="originLabel" datatype="html">
-        <source>Origen</source>
-        <target>Origin</target>
-      </trans-unit>
-      <trans-unit id="originPlaceholder" datatype="html">
-        <source>Ej: Colombia, Brasil...</source>
-        <target>E.g: Colombia, Brazil...</target>
-      </trans-unit>
-      <trans-unit id="originError" datatype="html">
-        <source>El origen es requerido</source>
-        <target>Origin is required</target>
-      </trans-unit>
-
-      <!-- Coffee Roast Slide -->
-      <trans-unit id="roastTitle" datatype="html">
-        <source>🌰 Tueste y Preparación</source>
-        <target>🌰 Roast and Preparation</target>
-      </trans-unit>
-      <trans-unit id="roastSubtitle" datatype="html">
-        <source>Las bases de la extracción perfecta.</source>
-        <target>The foundations of perfect extraction.</target>
-      </trans-unit>
-      <trans-unit id="roastLevelLabel" datatype="html">
-        <source>Nivel de Tueste</source>
-        <target>Roast Level</target>
-      </trans-unit>
-      <trans-unit id="roastLevelError" datatype="html">
-        <source>Debes seleccionar un nivel de tueste</source>
-        <target>You must select a roast level</target>
-      </trans-unit>
-      <trans-unit id="brewMethodLabel" datatype="html">
-        <source>Método de preparación</source>
-        <target>Brewing method</target>
-      </trans-unit>
-      <trans-unit id="brewMethodError" datatype="html">
-        <source>Debes seleccionar un método de preparación</source>
-        <target>You must select a brewing method</target>
-      </trans-unit>
-
-      <!-- Coffee Sensory Slide -->
-      <trans-unit id="sensoryTitle" datatype="html">
-        <source>🌸 Primera Impresión</source>
-        <target>🌸 First Impression</target>
-      </trans-unit>
-      <trans-unit id="sensorySubtitle" datatype="html">
-        <source>Lo que despierta tus sentidos al primer sorbo.</source>
-        <target>What awakens your senses with the first sip.</target>
-      </trans-unit>
-      <trans-unit id="aromaDescription" datatype="html">
-        <source>Describe el aroma del café</source>
-        <target>Describe the coffee's aroma</target>
-      </trans-unit>
-      <trans-unit id="aromaPlaceholder" datatype="html">
-        <source>Ej: Floral, frutal, chocolate, nueces, caramelo...</source>
-        <target>E.g: Floral, fruity, chocolate, nuts, caramel...</target>
-      </trans-unit>
-      <trans-unit id="aromaError" datatype="html">
-        <source>El aroma es requerido</source>
-        <target>Aroma is required</target>
-      </trans-unit>
-      <trans-unit id="flavorDescription" datatype="html">
-        <source>Describe el sabor del café</source>
-        <target>Describe the coffee's flavor</target>
-      </trans-unit>
-      <trans-unit id="flavorPlaceholder" datatype="html">
-        <source>Ej: Cítrico, dulce, amargo, especiado, afrutado...</source>
-        <target>E.g: Citrus, sweet, bitter, spicy, fruity...</target>
-      </trans-unit>
-      <trans-unit id="flavorError" datatype="html">
-        <source>El sabor es requerido</source>
-        <target>Flavor is required</target>
-      </trans-unit>
-      <trans-unit id="bodyDescription" datatype="html">
-        <source>Sensación de peso o textura del café en la boca</source>
-        <target>Weight or texture sensation of coffee in the mouth</target>
-      </trans-unit>
-
-      <!-- Coffee Flavor Slide -->
-      <trans-unit id="flavorExperienceTitle" datatype="html">
-        <source>🌙 Experiencia en boca</source>
-        <target>🌙 Mouth Experience</target>
-      </trans-unit>
-      <trans-unit id="flavorExperienceSubtitle" datatype="html">
-        <source>Analiza la persistencia que deja el café.</source>
-        <target>Analyze the persistence that the coffee leaves.</target>
-      </trans-unit>
-      <trans-unit id="acidityDescription" datatype="html">
-        <source>Sensación de peso o textura del café en la boca</source>
-        <target>Weight or texture sensation of coffee in the mouth</target>
-      </trans-unit>
-      <trans-unit id="acidityError" datatype="html">
-        <source>Debes seleccionar el nivel de acidez</source>
-        <target>You must select the acidity level</target>
-      </trans-unit>
-      <trans-unit id="aftertasteLabel" datatype="html">
-        <source>Retrogusto</source>
-        <target>Aftertaste</target>
-      </trans-unit>
-      <trans-unit id="aftertasteDescription" datatype="html">
-        <source>Sensación y sabor que quedan después de tragar</source>
-        <target>Sensation and flavor that remain after swallowing</target>
-      </trans-unit>
-      <trans-unit id="aftertasteError" datatype="html">
-        <source>Debes seleccionar el nivel de retrogusto</source>
-        <target>You must select the aftertaste level</target>
-      </trans-unit>
-      <trans-unit id="aftertasteDescPlaceholder" datatype="html">
-        <source>Ej: Persistente con final dulce</source>
-        <target>E.g: Persistent with sweet finish</target>
-      </trans-unit>
-
-      <!-- Coffee Score Slide -->
-      <trans-unit id="scoreTitle" datatype="html">
-        <source>⭐ Evaluación General</source>
-        <target>⭐ General Evaluation</target>
-      </trans-unit>
-      <trans-unit id="scoreSubtitle" datatype="html">
-        <source>Tu sensación global después de probarlo: ¿qué te transmitió este café?</source>
-        <target>Your overall feeling after trying it: what did this coffee convey to you?</target>
-      </trans-unit>
-      <trans-unit id="generalImpressionLabel" datatype="html">
-        <source>Impresión General</source>
-        <target>General Impression</target>
-      </trans-unit>
-      <trans-unit id="generalImpressionDescription" datatype="html">
-        <source>Tu opinión general sobre este café</source>
-        <target>Your general opinion about this coffee</target>
-      </trans-unit>
-      <trans-unit id="scoreLabel" datatype="html">
-        <source>Puntuación</source>
-        <target>Score</target>
-      </trans-unit>
-      <trans-unit id="scoreError" datatype="html">
-        <source>Debes asignar una puntuación al café</source>
-        <target>You must assign a score to the coffee</target>
-      </trans-unit>
-
-      <!-- Slides Page -->
-      <trans-unit id="savingTasting" datatype="html">
-        <source>Guardando tu cata...</source>
-        <target>Saving your tasting...</target>
-      </trans-unit>
-      <trans-unit id="stepLabel" datatype="html">
-        <source>Paso</source>
-        <target>Step</target>
-      </trans-unit>
-      <trans-unit id="incompleteStep" datatype="html">
-        <source>Este paso tiene campos incompletos</source>
-        <target>This step has incomplete fields</target>
-      </trans-unit>
-
-      <!-- Language Selector -->
-      <trans-unit id="switchToSpanish" datatype="html">
-        <source>Cambiar a español</source>
-        <target>Switch to Spanish</target>
-      </trans-unit>
-      <trans-unit id="switchToEnglish" datatype="html">
-        <source>Cambiar a inglés</source>
-        <target>Switch to English</target>
-      </trans-unit>
-
-      <!-- Confirmation Dialog -->
-      <trans-unit id="cancelButton" datatype="html">
-        <source>Cancelar</source>
-        <target>Cancel</target>
-      </trans-unit>
-      <trans-unit id="confirmButton" datatype="html">
-        <source>Confirmar</source>
-        <target>Confirm</target>
+        <source>Registrar Primera Cata</source>
+        <target>Record First Tasting</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
+          <context context-type="linenumber">274</context>
+        </context-group>
       </trans-unit>
 
       <!-- Coffee Identity Slide -->
@@ -460,8 +501,8 @@
         <target>E.g: Starbucks, Juan Valdez, Illy...</target>
       </trans-unit>
       <trans-unit id="brandError" datatype="html">
-        <source>La marca es requerida</source>
-        <target>Brand is required</target>
+        <source>La marca es requerida y no debe exceder 50 caracteres</source>
+        <target>Brand is required and must not exceed 50 characters</target>
       </trans-unit>
       <trans-unit id="coffeeNameLabel" datatype="html">
         <source>Nombre del Café</source>
@@ -472,8 +513,8 @@
         <target>E.g: Colombia Supremo, Ethiopian Yirgacheffe...</target>
       </trans-unit>
       <trans-unit id="coffeeNameError" datatype="html">
-        <source>El nombre del café es requerido</source>
-        <target>Coffee name is required</target>
+        <source>El nombre del café es requerido y no debe exceder 50 caracteres</source>
+        <target>Coffee name is required and must not exceed 50 characters</target>
       </trans-unit>
       <trans-unit id="beanTypeLabel" datatype="html">
         <source>Tipo de Grano</source>
@@ -492,8 +533,8 @@
         <target>E.g: Colombia, Ethiopia, Brazil...</target>
       </trans-unit>
       <trans-unit id="originError" datatype="html">
-        <source>El origen es requerido</source>
-        <target>Origin is required</target>
+        <source>El origen es requerido y no debe exceder 50 caracteres</source>
+        <target>Origin is required and must not exceed 50 characters</target>
       </trans-unit>
 
       <!-- Coffee Roast Slide -->
@@ -540,8 +581,8 @@
         <target>E.g: Floral, fruity, chocolate, nuts, caramel...</target>
       </trans-unit>
       <trans-unit id="aromaError" datatype="html">
-        <source>Describe el aroma del café</source>
-        <target>Describe the coffee's aroma</target>
+        <source>La descripción del aroma es requerida y no debe exceder 200 caracteres</source>
+        <target>Aroma description is required and must not exceed 200 characters</target>
       </trans-unit>
       <trans-unit id="flavorDescription" datatype="html">
         <source>¿Qué sabores identificas?</source>
@@ -552,8 +593,8 @@
         <target>E.g: Citrus, chocolate, nuts, spices...</target>
       </trans-unit>
       <trans-unit id="flavorError" datatype="html">
-        <source>Describe el sabor del café</source>
-        <target>Describe the coffee's flavor</target>
+        <source>La descripción del sabor es requerida y no debe exceder 200 caracteres</source>
+        <target>Flavor description is required and must not exceed 200 characters</target>
       </trans-unit>
       <trans-unit id="bodyDescription" datatype="html">
         <source>¿Cómo se siente en la boca?</source>
@@ -597,6 +638,10 @@
         <source>Describe cómo evoluciona el sabor...</source>
         <target>Describe how the flavor evolves...</target>
       </trans-unit>
+      <trans-unit id="aftertasteDescError" datatype="html">
+        <source>La descripción del retrogusto no debe exceder 200 caracteres</source>
+        <target>Aftertaste description must not exceed 200 characters</target>
+      </trans-unit>
 
       <!-- Coffee Score Slide -->
       <trans-unit id="scoreTitle" datatype="html">
@@ -614,6 +659,10 @@
       <trans-unit id="generalImpressionDescription" datatype="html">
         <source>Describe tu experiencia general con este café</source>
         <target>Describe your overall experience with this coffee</target>
+      </trans-unit>
+      <trans-unit id="opinionError" datatype="html">
+        <source>La opinión no debe exceder 500 caracteres</source>
+        <target>Opinion must not exceed 500 characters</target>
       </trans-unit>
       <trans-unit id="scoreLabel" datatype="html">
         <source>Puntuación</source>

@@ -19,6 +19,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "locale/**/*",
+                "input": "src",
+                "output": "assets"
               }
             ],
             "styles": ["src/styles.css"],
