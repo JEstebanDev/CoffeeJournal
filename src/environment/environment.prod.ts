@@ -1,5 +1,7 @@
+declare const process: any;
+
 export const environment = {
   production: true,
-  supabaseUrl: 'YOUR_SUPABASE_URL',
-  supabaseKey: 'YOUR_SUPABASE_KEY',
+  supabaseUrl: process.env['NG_APP_SUPABASE_URL'] || '',
+  supabaseKey: process.env['NG_APP_SUPABASE_KEY'] || '',
 };
