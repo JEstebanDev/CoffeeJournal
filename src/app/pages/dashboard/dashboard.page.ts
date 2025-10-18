@@ -38,52 +38,78 @@ export class DashboardPage implements OnInit {
 
   // Signal to track if a child route is active
   isChildRouteActive = signal<boolean>(false);
-  
+
   // Popup state
   showPopup = false;
   selectedTasting: CoffeeTasting | null = null;
 
   // Expose dashboard state signals for template access
-  get totalTastings() { return this.dashboardState.totalTastings; }
-  get averageRating() { return this.dashboardState.averageRating; }
-  get favoriteOrigin() { return this.dashboardState.favoriteOrigin; }
-  get recentTastings() { return this.dashboardState.recentTastings; }
-  get allTastings() { return this.dashboardState.allTastings; }
-  get mappedTastings() { return this.dashboardState.mappedTastings; }
-  get isLoading() { return this.dashboardState.isLoading; }
-  get errorMessage() { return this.dashboardState.errorMessage; }
-  get topOrigins() { return this.dashboardState.topOrigins; }
-  get favoriteBrewMethod() { return this.dashboardState.favoriteBrewMethod; }
-  get tastingTrend() { return this.dashboardState.tastingTrend; }
-  get insights() { return this.dashboardState.insights; }
-  get userName() { return this.dashboardState.userName; }
-  get filteredTastings() { return this.dashboardState.filteredTastings; }
-  get averageRatingRounded() { return this.dashboardState.averageRatingRounded; }
-  get searchQuery() { return this.dashboardState.getFilterService().searchQuery; }
-  get sortOrder() { return this.dashboardState.getFilterService().sortOrder; }
+  get totalTastings() {
+    return this.dashboardState.totalTastings;
+  }
+  get averageRating() {
+    return this.dashboardState.averageRating;
+  }
+  get favoriteOrigin() {
+    return this.dashboardState.favoriteOrigin;
+  }
+  get recentTastings() {
+    return this.dashboardState.recentTastings;
+  }
+  get allTastings() {
+    return this.dashboardState.allTastings;
+  }
+  get mappedTastings() {
+    return this.dashboardState.mappedTastings;
+  }
+  get isLoading() {
+    return this.dashboardState.isLoading;
+  }
+  get errorMessage() {
+    return this.dashboardState.errorMessage;
+  }
+  get topOrigins() {
+    return this.dashboardState.topOrigins;
+  }
+  get favoriteBrewMethod() {
+    return this.dashboardState.favoriteBrewMethod;
+  }
+  get tastingTrend() {
+    return this.dashboardState.tastingTrend;
+  }
+  get insights() {
+    return this.dashboardState.insights;
+  }
+  get userName() {
+    return this.dashboardState.userName;
+  }
+  get filteredTastings() {
+    return this.dashboardState.filteredTastings;
+  }
+  get averageRatingRounded() {
+    return this.dashboardState.averageRatingRounded;
+  }
+  get searchQuery() {
+    return this.dashboardState.getFilterService().searchQuery;
+  }
+  get sortOrder() {
+    return this.dashboardState.getFilterService().sortOrder;
+  }
 
   constructor() {
     // Subscribe to router events to detect child route activation
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      // Check if current URL is exactly '/dashboard' or has child routes
-      const url = this.router.url;
-      this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
-      
-      // If we're navigating back to the main dashboard from a child route, reload data
-      if (url === '/dashboard' && this.dashboardState.getDataLoadAttempted()) {
-        // Check if we're coming from a coffee-related route (likely from saving a tasting)
-        const previousUrl = event.urlAfterRedirects || event.url;
-        const isFromCoffeeRoute = previousUrl.includes('/coffee/') || previousUrl.includes('/slides');
-        
-        if (isFromCoffeeRoute) {
-          console.log('🔄 Regresando al dashboard desde formulario de cata, recargando datos...');
-        } else {
-          console.log('🔄 Regresando al dashboard, recargando datos...');
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        // Check if current URL is exactly '/dashboard' or has child routes
+        const url = this.router.url;
+        this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));
+
+        // If we're navigating back to the main dashboard from a child route, reload data
+        if (url === '/dashboard' && this.dashboardState.getDataLoadAttempted()) {
+          this.reloadDashboardData();
         }
-        
-        this.reloadDashboardData();
-      }
-    });
+      });
 
     // Reactive effect to respond to authentication state changes.
     // This will react when loginService.currentUser() or internal auth signals change.
@@ -94,7 +120,6 @@ export class DashboardPage implements OnInit {
 
       // Also ensure login service has finished initial loading before reacting
       const loading = this.loginService.isLoading ? this.loginService.isLoading() : false;
-
 
       if (loading) {
         // still initializing auth, don't act yet
@@ -143,13 +168,9 @@ export class DashboardPage implements OnInit {
       return;
     }
 
-    console.log('📊 Cargando datos del dashboard...');
-
     // Obtener las catas del usuario desde la base de datos
     this.coffeeService.getCoffeeTastingsByUser(userId).subscribe({
       next: (tastings) => {
-        console.log(`✅ Datos cargados: ${tastings.length} catas encontradas`);
-        
         // Mapear las catas a CardTastingInfo
         const mappedTastings = tastings.map((tasting) =>
           this.coffeeCardInfoService.mapCoffeeTastingToCardInfo(tasting)
@@ -186,13 +207,10 @@ export class DashboardPage implements OnInit {
       return;
     }
 
-    console.log('🔄 Recargando datos del dashboard...');
-
     // Obtener las catas del usuario desde la base de datos
     this.coffeeService.getCoffeeTastingsByUser(userId).subscribe({
       next: (tastings) => {
-        console.log(`✅ Datos recargados: ${tastings.length} catas encontradas`);
-        
+   
         // Mapear las catas a CardTastingInfo
         const mappedTastings = tastings.map((tasting) =>
           this.coffeeCardInfoService.mapCoffeeTastingToCardInfo(tasting)
@@ -221,7 +239,9 @@ export class DashboardPage implements OnInit {
 
   onViewTasting(tastingId: string) {
     // Find the tasting data
-    const tasting = this.dashboardState.getRawTastings().find((t: CoffeeTasting) => t.id === tastingId);
+    const tasting = this.dashboardState
+      .getRawTastings()
+      .find((t: CoffeeTasting) => t.id === tastingId);
     if (tasting) {
       this.selectedTasting = tasting;
       this.showPopup = true;
@@ -234,7 +254,6 @@ export class DashboardPage implements OnInit {
     this.showPopup = false;
     this.selectedTasting = null;
   }
-
 
   onSearchChange(event: Event) {
     const input = event.target as HTMLInputElement;

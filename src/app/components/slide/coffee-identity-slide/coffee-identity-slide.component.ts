@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
 import { CountriesService, Country } from '../../../services/countries';
 import { TranslatePipe } from '../../../services/language/translate.pipe';
-import US from 'country-flag-icons/react/3x2/US';
 
 export interface CoffeeIdentity {
   brand: string;
