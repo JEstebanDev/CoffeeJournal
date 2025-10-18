@@ -1,63 +1,65 @@
 <div class="sensory-slide">
   <app-slider-title
-    title="🌸 Primera Impresión"
-    subtitle="Lo que despierta tus sentidos al primer sorbo."
+    [title]="'sensoryTitle' | translate"
+    [subtitle]="'sensorySubtitle' | translate"
   ></app-slider-title>
 
   <!-- Aroma Section -->
   <div class="section-header">
     <div class="section-header" [class.invalid]="shouldShowAromaError()">
-      <span class="section-title">Aroma</span>
-      <span class="section-description">Describe el aroma del café</span>
+      <span class="section-title">{{ 'aromaLabel' | translate }}</span>
+      <span class="section-description">{{ 'aromaDescription' | translate }}</span>
     </div>
 
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
         [class.textarea-invalid]="shouldShowAromaError()"
-        placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
+        [placeholder]="'aromaPlaceholder' | translate"
         [value]="sensoryData().aroma"
         (input)="onAromaChange($any($event.target).value)"
         (blur)="aromaTouched.set(true)"
         rows="2"
+        maxlength="200"
       ></textarea>
       @if (shouldShowAromaError()) {
-        <span class="validation-message">El aroma es requerido</span>
+        <span class="validation-message">{{ 'aromaError' | translate }}</span>
       }
     </div>
 
     <div class="section-header" [class.invalid]="shouldShowFlavorError()">
-      <span class="section-title">Sabor</span>
-      <span class="section-description">Describe el sabor del café</span>
+      <span class="section-title">{{ 'flavorLabel' | translate }}</span>
+      <span class="section-description">{{ 'flavorDescription' | translate }}</span>
     </div>
 
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
         [class.textarea-invalid]="shouldShowFlavorError()"
-        placeholder="Ej: Cítrico, dulce, amargo, especiado, afrutado..."
+        [placeholder]="'flavorPlaceholder' | translate"
         [value]="sensoryData().flavor"
         (input)="onFlavorChange($any($event.target).value)"
         (blur)="flavorTouched.set(true)"
         rows="2"
+        maxlength="200"
       ></textarea>
       @if (shouldShowFlavorError()) {
-        <span class="validation-message">El sabor es requerido</span>
+        <span class="validation-message">{{ 'flavorError' | translate }}</span>
       }
     </div>
   </div>
 
   <!-- Body Section -->
   <div class="section-header" [class.invalid]="shouldShowBodyError()">
-    <span class="section-title">Cuerpo</span>
-    <span class="section-description">Sensación de peso o textura del café en la boca</span>
+    <span class="section-title">{{ 'bodyLabel' | translate }}</span>
+    <span class="section-description">{{ 'bodyDescription' | translate }}</span>
   </div>
   <div class="slider-container body-slider-container" [class.container-invalid]="shouldShowBodyError()">
     <!-- Slider Labels -->
     <div class="slider-labels">
       @for (level of bodyLevels(); track level.value) {
       <span class="slider-label-text" [class.active]="sensoryData().body === level.value">
-        {{ level.label }}
+        {{ level.label | translate }}
       </span>
       }
     </div>
@@ -77,7 +79,7 @@
     <!-- Visual Indicator -->
     <div class="slider-indicator" [style.background-color]="getCurrentBodyColor()">
       <span class="slider-emoji">{{ getCurrentBodyIcon() }}</span>
-      <span class="slider-text">{{ getCurrentDescription() }}</span>
+      <span class="slider-text">{{ getCurrentDescription() | translate }}</span>
     </div>
   </div>
   @if (shouldShowBodyError()) {

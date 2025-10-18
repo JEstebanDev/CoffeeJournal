@@ -2,6 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 import { InfoLevel } from '../../../services/forms';
 
 export interface CoffeeSensory {
@@ -13,7 +14,7 @@ export interface CoffeeSensory {
 @Component({
   selector: 'app-coffee-sensory-slide',
   standalone: true,
-  imports: [CommonModule, FormsModule, SliderTitleComponent],
+  imports: [CommonModule, FormsModule, SliderTitleComponent, TranslatePipe],
   templateUrl: './coffee-sensory-slide.component.html',
   styleUrls: ['./coffee-sensory-slide.component.css'],
 })
@@ -69,12 +70,16 @@ export class CoffeeSensorySlideComponent {
 
   onAromaChange(value: string) {
     this.aromaTouched.set(true);
-    this.sensoryChange.emit({ aroma: value });
+    // Limitar la longitud a 200 caracteres
+    const limitedValue = value.length > 200 ? value.substring(0, 200) : value;
+    this.sensoryChange.emit({ aroma: limitedValue });
   }
 
   onFlavorChange(value: string) {
     this.flavorTouched.set(true);
-    this.sensoryChange.emit({ flavor: value });
+    // Limitar la longitud a 200 caracteres
+    const limitedValue = value.length > 200 ? value.substring(0, 200) : value;
+    this.sensoryChange.emit({ flavor: limitedValue });
   }
 
   // Validation methods
@@ -83,11 +88,13 @@ export class CoffeeSensorySlideComponent {
   }
 
   isAromaValid(): boolean {
-    return !!this.sensoryData().aroma && this.sensoryData().aroma.trim().length > 0;
+    const aroma = this.sensoryData().aroma;
+    return !!aroma && aroma.trim().length > 0 && aroma.length <= 200;
   }
 
   isFlavorValid(): boolean {
-    return !!this.sensoryData().flavor && this.sensoryData().flavor.trim().length > 0;
+    const flavor = this.sensoryData().flavor;
+    return !!flavor && flavor.trim().length > 0 && flavor.length <= 200;
   }
 
   // Show error methods

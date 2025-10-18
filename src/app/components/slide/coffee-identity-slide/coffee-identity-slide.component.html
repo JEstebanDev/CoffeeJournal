@@ -1,7 +1,7 @@
 <div class="slide-inner">
   <app-slider-title
-    title="🧭 Identidad del Café"
-    subtitle="Registra los datos que definen el origen y la personalidad de tu café."
+    [title]="'coffeeIdentityTitle' | translate"
+    [subtitle]="'coffeeIdentitySubtitle' | translate"
   ></app-slider-title>
 
   <form class="form-content">
@@ -11,19 +11,20 @@
       [class.invalid]="shouldShowBrandError()"
       style="animation-delay: 0s"
     >
-      <label for="brand">Marca</label>
+      <label for="brand">{{ 'brandLabel' | translate }}</label>
       <input
         type="text"
         id="brand"
         [value]="coffeeData().brand"
         (input)="updateField('brand', $any($event.target).value)"
         (blur)="brandTouched.set(true)"
-        placeholder="Ej: Lavazza, Coffeebean..."
-        aria-label="Marca del café"
+        [placeholder]="'brandPlaceholder' | translate"
+        [attr.aria-label]="'coffeeBrandAriaLabel' | translate"
         [class.input-invalid]="shouldShowBrandError()"
+        maxlength="50"
       />
       @if (shouldShowBrandError()) {
-      <span class="validation-message">La marca es requerida</span>
+      <span class="validation-message">{{ 'brandError' | translate }}</span>
       }
     </div>
 
@@ -33,19 +34,20 @@
       [class.invalid]="shouldShowCoffeeNameError()"
       style="animation-delay: 0.1s"
     >
-      <label for="coffeeName">Nombre del café</label>
+      <label for="coffeeName">{{ 'coffeeNameLabel' | translate }}</label>
       <input
         type="text"
         id="coffeeName"
         [value]="coffeeData().coffeeName"
         (input)="updateField('coffeeName', $any($event.target).value)"
         (blur)="coffeeNameTouched.set(true)"
-        placeholder="Ej: Espresso Intenso"
-        aria-label="Nombre del café"
+        [placeholder]="'coffeeNamePlaceholder' | translate"
+        [attr.aria-label]="'coffeeNameAriaLabel' | translate"
         [class.input-invalid]="shouldShowCoffeeNameError()"
+        maxlength="50"
       />
       @if (shouldShowCoffeeNameError()) {
-      <span class="validation-message">El nombre del café es requerido</span>
+      <span class="validation-message">{{ 'coffeeNameError' | translate }}</span>
       }
     </div>
 
@@ -55,7 +57,7 @@
       [class.invalid]="shouldShowBeanTypeError()"
       style="animation-delay: 0.2s"
     >
-      <label>Tipo de grano</label>
+      <label>{{ 'beanTypeLabel' | translate }}</label>
       <div class="chips-container" [class.chips-invalid]="shouldShowBeanTypeError()">
         @for (type of beanTypes(); track type) {
         <button
@@ -63,15 +65,15 @@
           class="chip"
           [class.chip-selected]="coffeeData().beanType === type"
           (click)="updateField('beanType', type)"
-          [attr.aria-label]="'Seleccionar ' + type"
+          [attr.aria-label]="'Seleccionar ' + (type | translate)"
           [attr.aria-pressed]="coffeeData().beanType === type"
         >
-          {{ type }}
+          {{ type | translate }}
         </button>
         }
       </div>
       @if (shouldShowBeanTypeError()) {
-      <span class="validation-message">Debes seleccionar un tipo de grano</span>
+      <span class="validation-message">{{ 'beanTypeError' | translate }}</span>
       }
     </div>
 
@@ -81,7 +83,7 @@
       [class.invalid]="shouldShowOriginError()"
       style="animation-delay: 0.3s"
     >
-      <label for="origin">Origen</label>
+      <label for="origin">{{ 'originLabel' | translate }}</label>
       <div
         class="origin-input-wrapper"
         [class.flag-visible]="countryCode"
@@ -96,14 +98,15 @@
           [value]="coffeeData().origin"
           (input)="onOriginInput($any($event.target).value)"
           (blur)="originTouched.set(true)"
-          placeholder="Ej: Colombia, Brasil..."
-          aria-label="Origen del café"
+          [placeholder]="'originPlaceholder' | translate"
+          [attr.aria-label]="'coffeeOriginAriaLabel' | translate"
           [class.flag-detected]="showFlagAnimation"
           [class.input-invalid]="shouldShowOriginError()"
+          maxlength="50"
         />
       </div>
       @if (shouldShowOriginError()) {
-      <span class="validation-message">El origen es requerido</span>
+      <span class="validation-message">{{ 'originError' | translate }}</span>
       }
     </div>
   </form>

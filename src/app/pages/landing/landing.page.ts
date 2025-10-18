@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Login } from '../../services/auth';
 import { FutterComponent } from '../../components/molecule/futter/futter.component';
+import { TranslatePipe } from '../../services/language/translate.pipe';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule, FutterComponent],
+  imports: [CommonModule, FutterComponent, TranslatePipe],
   templateUrl: './landing.page.html',
   styleUrl: './landing.page.css',
 })

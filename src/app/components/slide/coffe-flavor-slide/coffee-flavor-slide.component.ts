@@ -2,12 +2,13 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 import { CoffeeFlavor, InfoLevel } from '../../../services/forms';
 
 @Component({
   selector: 'app-coffee-flavor-slide',
   standalone: true,
-  imports: [CommonModule, FormsModule, SliderTitleComponent],
+  imports: [CommonModule, FormsModule, SliderTitleComponent, TranslatePipe],
   templateUrl: './coffee-flavor-slide.component.html',
   styleUrls: ['./coffee-flavor-slide.component.css'],
 })
@@ -98,7 +99,9 @@ export class CoffeeFlavorSlideComponent {
   }
 
   onAfterTasteDescChange(value: string) {
-    this.flavorChange.emit({ aftertasteDescription: value });
+    // Limitar la longitud a 200 caracteres
+    const limitedValue = value.length > 200 ? value.substring(0, 200) : value;
+    this.flavorChange.emit({ aftertasteDescription: limitedValue });
   }
 
   // Validation methods

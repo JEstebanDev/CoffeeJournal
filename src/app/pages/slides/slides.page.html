@@ -10,7 +10,7 @@
   @if (isSubmitting()) {
   <div class="loading-overlay">
     <div class="loading-spinner"></div>
-    <p>Guardando tu cata...</p>
+    <p>{{ 'savingTasting' | translate }}</p>
   </div>
   }
 
@@ -111,10 +111,10 @@
         [class.completed]="isSlideCompleted(slide.id)"
         [class.invalid]="!isSlideCompleted(slide.id) && slide.id < currentSlide()"
         [attr.aria-selected]="currentSlide() === slide.id"
-        [attr.aria-label]="'Paso ' + (slide.id + 1) + ': ' + slide.title"
+        [attr.aria-label]="('stepLabel' | translate) + ' ' + (slide.id + 1) + ': ' + slide.title"
         [attr.title]="
           !isSlideCompleted(slide.id) && slide.id < currentSlide()
-            ? 'Este paso tiene campos incompletos'
+            ? ('incompleteStep' | translate)
             : slide.title
         "
         (click)="goToSlide(slide.id)"

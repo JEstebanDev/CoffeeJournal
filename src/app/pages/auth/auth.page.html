@@ -15,7 +15,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      Volver
+      {{ 'backButton' | translate }}
     </button>
 
     <!-- Logo -->
@@ -35,18 +35,10 @@
 
     <!-- Title -->
     <h2 class="auth-title">
-      {{
-        isLogin()
-          ? 'De vuelta entre aromas y notas de café.'
-          : 'Comienza tu viaje entre aromas de café.'
-      }}
+      {{ isLogin() ? ('loginTitle' | translate) : ('signupTitle' | translate) }}
     </h2>
     <p class="auth-subtitle">
-      {{
-        isLogin()
-          ? 'Inicia sesión y continúa tu viaje cafetero.'
-          : 'Cada cata es un nuevo capítulo en tu bitácora'
-      }}
+      {{ isLogin() ? ('loginSubtitle' | translate) : ('signupSubtitle' | translate) }}
     </p>
 
     <!-- Error/Success Messages -->
@@ -83,51 +75,51 @@
     <form (ngSubmit)="onSubmit()" class="auth-form">
       @if (!isLogin()) {
       <div class="form-group">
-        <label for="username">¿Cómo te gustaría que te llamemos?</label>
+        <label for="username">{{ 'usernameLabel' | translate }}</label>
         <input
           type="text"
           id="username"
           [(ngModel)]="username"
           name="username"
-          placeholder="Escribe tu nombre o un alias"
+          [placeholder]="'usernamePlaceholder' | translate"
           required
         />
       </div>
       }
 
       <div class="form-group">
-        <label for="email">Correo</label>
+        <label for="email">{{ 'emailLabel' | translate }}</label>
         <input
           type="email"
           id="email"
           [(ngModel)]="email"
           name="email"
-          placeholder="Ingresa tu email"
+          [placeholder]="'emailPlaceholder' | translate"
           required
         />
       </div>
 
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="password">{{ 'passwordLabel' | translate }}</label>
         <input
           type="password"
           id="password"
           [(ngModel)]="password"
           name="password"
-          placeholder="Ingresa tu contraseña"
+          [placeholder]="'passwordPlaceholder' | translate"
           required
         />
       </div>
 
       @if (!isLogin()) {
       <div class="form-group">
-        <label for="confirmPassword">Confirma tu contraseña</label>
+        <label for="confirmPassword">{{ 'confirmPasswordLabel' | translate }}</label>
         <input
           type="password"
           id="confirmPassword"
           [(ngModel)]="confirmPassword"
           name="confirmPassword"
-          placeholder="Confirma tu contraseña"
+          [placeholder]="'confirmPasswordPlaceholder' | translate"
           required
         />
       </div>
@@ -137,7 +129,7 @@
         @if (isLoading()) {
         <span class="spinner"></span>
         } @else {
-        {{ isLogin() ? 'Sign In' : 'Sign Up' }}
+        {{ isLogin() ? ('signInButton' | translate) : ('signUpButton' | translate) }}
         }
       </button>
       <!-- Magic Link -->
@@ -162,7 +154,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Iniciar sesión con enlace por correo
+        {{ 'magicLinkButton' | translate }}
       </button>
       }
     </form>
@@ -170,9 +162,9 @@
     <!-- Toggle Mode -->
     <div class="toggle-mode">
       <p>
-        {{ isLogin() ? "Don't have an account?" : 'Already have an account?' }}
+        {{ isLogin() ? ('noAccountText' | translate) : ('hasAccountText' | translate) }}
         <button type="button" class="link-button" (click)="toggleMode()">
-          {{ isLogin() ? 'Sign Up' : 'Sign In' }}
+          {{ isLogin() ? ('signUpButton' | translate) : ('signInButton' | translate) }}
         </button>
       </p>
     </div>

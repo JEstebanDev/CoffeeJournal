@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
 import { CountriesService, Country } from '../../../services/countries';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 import US from 'country-flag-icons/react/3x2/US';
 
 export interface CoffeeIdentity {
@@ -15,7 +16,7 @@ export interface CoffeeIdentity {
 @Component({
   selector: 'app-coffee-identity-slide',
   standalone: true,
-  imports: [CommonModule, FormsModule, SliderTitleComponent],
+  imports: [CommonModule, FormsModule, SliderTitleComponent, TranslatePipe],
   templateUrl: './coffee-identity-slide.component.html',
   styleUrls: ['./coffee-identity-slide.component.css'],
 })
@@ -46,7 +47,14 @@ export class CoffeeIdentitySlideComponent {
   updateField(field: keyof CoffeeIdentity, value: string) {
     // Mark field as touched
     this.markFieldAsTouched(field);
-    this.dataChange.emit({ [field]: value });
+    
+    // Limitar la longitud según el campo
+    let limitedValue = value;
+    if (field === 'brand' || field === 'coffeeName' || field === 'origin') {
+      limitedValue = value.length > 50 ? value.substring(0, 50) : value;
+    }
+    
+    this.dataChange.emit({ [field]: limitedValue });
   }
 
   markFieldAsTouched(field: keyof CoffeeIdentity) {
@@ -68,11 +76,13 @@ export class CoffeeIdentitySlideComponent {
 
   // Validation methods
   isBrandValid(): boolean {
-    return !!this.coffeeData().brand && this.coffeeData().brand.trim().length > 0;
+    const brand = this.coffeeData().brand;
+    return !!brand && brand.trim().length > 0 && brand.length <= 50;
   }
 
   isCoffeeNameValid(): boolean {
-    return !!this.coffeeData().coffeeName && this.coffeeData().coffeeName.trim().length > 0;
+    const coffeeName = this.coffeeData().coffeeName;
+    return !!coffeeName && coffeeName.trim().length > 0 && coffeeName.length <= 50;
   }
 
   isBeanTypeValid(): boolean {
@@ -80,7 +90,8 @@ export class CoffeeIdentitySlideComponent {
   }
 
   isOriginValid(): boolean {
-    return !!this.coffeeData().origin && this.coffeeData().origin.trim().length > 0;
+    const origin = this.coffeeData().origin;
+    return !!origin && origin.trim().length > 0 && origin.length <= 50;
   }
 
   // Show error methods
@@ -109,8 +120,11 @@ export class CoffeeIdentitySlideComponent {
   onOriginInput(value: string) {
     this.originTouched.set(true);
     
+    // Limitar la longitud a 50 caracteres
+    const limitedValue = value.length > 50 ? value.substring(0, 50) : value;
+    
     // Usar el servicio para buscar el país
-    const matchedCountry = this.countriesService.findCountryByName(value);
+    const matchedCountry = this.countriesService.findCountryByName(limitedValue);
 
     if (matchedCountry) {
       // Si encuentra un país, agregar la bandera al inicio (usamos nameEs como display por defecto)
@@ -127,7 +141,7 @@ export class CoffeeIdentitySlideComponent {
       this.countryCode = matchedCountry.flag;
     } else {
       // Si no encuentra un país, solo actualizar el valor tal cual
-      this.dataChange.emit({ origin: value });
+      this.dataChange.emit({ origin: limitedValue });
     }
   }
 

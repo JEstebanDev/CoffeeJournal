@@ -13,13 +13,11 @@
       @if (!isLoading() && totalTastings() !== 0) {
       <section class="welcome-section">
         <h1 class="welcome-title">
-          <ng-container i18n="@@welcomeMessage">¡Bienvenido de nuevo, </ng-container>
+          {{ 'welcomeMessage' | translate }}
           <span class="highlight">{{ userName() }}</span
           >!
         </h1>
-        <p class="welcome-subtitle" i18n="@@dashboardSubtitle">
-          Aquí está el resumen de tu viaje cafetero
-        </p>
+        <p class="welcome-subtitle">{{ 'dashboardSubtitle' | translate }}</p>
 
         <button class="new-tasting-btn" (click)="onNewTasting()">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -30,7 +28,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <ng-container i18n="@@newTastingButton">Nueva Cata</ng-container>
+          {{ 'newTastingButton' | translate }}
         </button>
       </section>
       }
@@ -39,7 +37,7 @@
       @if (isLoading()) {
       <div class="loading-container">
         <div class="spinner"></div>
-        <p i18n="@@loadingMessage">Cargando tus datos...</p>
+        <p>{{ 'loadingMessage' | translate }}</p>
       </div>
       }
 
@@ -109,8 +107,8 @@
                 class="clear-search-btn"
                 (click)="clearSearch()"
                 type="button"
-                title="Limpiar búsqueda"
-                aria-label="Limpiar búsqueda"
+                [title]="'clearSearchAriaLabel' | translate"
+                [attr.aria-label]="'clearSearchAriaLabel' | translate"
                 id="clear-search-button"
               >
                 <svg
@@ -180,7 +178,7 @@
                 class="sort-btn"
                 [class.active]="sortOrder() === 'recent'"
                 (click)="sortByRecent()"
-                title="Más recientes primero"
+                [title]="'sortByRecentAriaLabel' | translate"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <circle cx="12" cy="12" r="10" stroke-width="2" />

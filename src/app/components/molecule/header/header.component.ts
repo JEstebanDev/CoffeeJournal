@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { Login } from '../../../services/auth';
 import { TastingStateService } from '../../../services/forms';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ConfirmationDialogComponent],
+  imports: [CommonModule, ConfirmationDialogComponent, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
@@ -23,7 +24,7 @@ export class HeaderComponent {
   // Confirmation dialog signals
   showConfirmationDialog = signal<boolean>(false);
   confirmationTitle = signal<string>('¿Eliminar cata en progreso?');
-  confirmationMessage = signal<string>('Tienes una cata en progreso. ¿Qué quieres hacer?');
+  confirmationMessage = signal<string>('tastingInProgressMessage');
   confirmationDetails = signal<string | null>(null);
 
   // Computed signals for user data

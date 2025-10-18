@@ -17,7 +17,7 @@
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ totalTastings }}</h3>
-      <p class="stat-label" i18n="@@totalTastingsLabel">Experiencias de Cata Registradas</p>
+      <p class="stat-label">{{ 'totalTastingsLabel' | translate }}</p>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
       </svg>
     </div>
     <div class="stat-content">
-      <p class="stat-label" i18n="@@topOriginsLabel">Orígenes Más Degustados</p>
+      <p class="stat-label">{{ 'topOriginsLabel' | translate }}</p>
       <div class="origins-list">
         @for (origin of topOrigins; track origin.name; let i = $index) {
         <div class="origin-item">
@@ -45,7 +45,7 @@
           <span class="origin-count">({{ origin.count }})</span>
         </div>
         } @if (topOrigins.length === 0) {
-        <span class="no-data">Registra más catas para ver estadísticas</span>
+        <span class="no-data">{{ 'noDataMessage' | translate }}</span>
         }
       </div>
     </div>
@@ -76,7 +76,7 @@
     </div>
     <div class="stat-content">
       <h3 class="stat-value">{{ favoriteBrewMethod || 'N/A' }}</h3>
-      <p class="stat-label" i18n="@@favoriteMethodLabel">Método de Preparación Favorito</p>
+      <p class="stat-label">{{ 'favoriteMethodLabel' | translate }}</p>
     </div>
   </div>
 
@@ -94,14 +94,14 @@
         </svg>
       </div>
       <div class="pattern-text">
-        <h4 class="pattern-title" i18n="@@trendLabel">Tu Patrón de Degustación</h4>
+        <h4 class="pattern-title">{{ 'trendLabel' | translate }}</h4>
         @if (insights.length > 0) {
         <p class="pattern-message">
-          {{ insights[currentInsightIndex]?.message || 'Analizando tus preferencias...' }}
+          {{ insights[currentInsightIndex]?.message || ('analyzingPreferences' | translate) }}
         </p>
         } @else {
         <p class="pattern-message">
-          {{ tastingTrend || 'Continúa registrando catas para descubrir tu patrón' }}
+          {{ tastingTrend || ('continueRecording' | translate) }}
         </p>
         }
       </div>

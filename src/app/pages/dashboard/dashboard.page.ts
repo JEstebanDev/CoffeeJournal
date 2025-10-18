@@ -10,6 +10,7 @@ import { TastingCardComponent } from '../../components/molecule/tasting-card/tas
 import { CardTastingInfo } from '../../services/forms';
 import { CoffeeCardInfoService } from '../../services/coffee';
 import { DashboardStateService } from '../../services/dashboard';
+import { TranslatePipe } from '../../services/language/translate.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,7 @@ import { DashboardStateService } from '../../services/dashboard';
     HeaderComponent,
     StatsGridComponent,
     TastingCardComponent,
+    TranslatePipe,
   ],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',

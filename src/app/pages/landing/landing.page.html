@@ -13,7 +13,7 @@
   <header class="header">
     <div class="logo">
       <img src="assets/logo.png" alt="Coffee Journal Logo" class="logo-image" />
-      <span class="logo-text" i18n="@@appName">Coffee Journal</span>
+      <span class="logo-text">{{ 'appName' | translate }}</span>
     </div>
     <div class="header-actions">
       <button class="login-btn" (click)="onLogin()">
@@ -25,7 +25,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        <ng-container i18n="@@loginButton">Iniciar Sesión</ng-container>
+        {{ 'loginButton' | translate }}
       </button>
     </div>
   </header>
@@ -36,13 +36,9 @@
     <main class="hero">
       <div class="hero-content">
         <h1 class="hero-title">
-          <ng-container i18n="@@heroTitle">Tu Bitácora Personal de </ng-container>
-          <span class="highlight" i18n="@@heroTitleHighlight">Cata de Café</span>
+          {{ 'heroTitle' | translate }}<span class="highlight">{{ 'heroTitleHighlight' | translate }}</span>
         </h1>
-        <p class="hero-description" i18n="@@heroDescription">
-          Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento
-          detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación.
-        </p>
+        <p class="hero-description">{{ 'heroDescription' | translate }}</p>
 
         <button class="cta-button" (click)="onStartTasting()">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -53,7 +49,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <ng-container i18n="@@startTastingButton">Comenzar a Catar</ng-container>
+          {{ 'startTastingButton' | translate }}
         </button>
 
         <!-- Features Grid -->
@@ -69,10 +65,8 @@
                 />
               </svg>
             </div>
-            <h3 i18n="@@featureRecordTitle">Registra Cada Taza</h3>
-            <p i18n="@@featureRecordDescription">
-              Documenta origen, método de preparación, notas de sabor y más
-            </p>
+            <h3>{{ 'featureRecordTitle' | translate }}</h3>
+            <p>{{ 'featureRecordDescription' | translate }}</p>
           </div>
 
           <div class="feature-card">
@@ -86,10 +80,8 @@
                 />
               </svg>
             </div>
-            <h3 i18n="@@featureRateTitle">Evalúa y Califica</h3>
-            <p i18n="@@featureRateDescription">
-              Sistema de puntuación para aroma, cuerpo, acidez y sabor
-            </p>
+            <h3>{{ 'featureRateTitle' | translate }}</h3>
+            <p>{{ 'featureRateDescription' | translate }}</p>
           </div>
 
           <div class="feature-card">
@@ -103,10 +95,8 @@
                 />
               </svg>
             </div>
-            <h3 i18n="@@featureHistoryTitle">Historial Completo</h3>
-            <p i18n="@@featureHistoryDescription">
-              Accede a todas tus catas anteriores y descubre patrones
-            </p>
+            <h3>{{ 'featureHistoryTitle' | translate }}</h3>
+            <p>{{ 'featureHistoryDescription' | translate }}</p>
           </div>
 
           <div class="feature-card">
@@ -120,10 +110,8 @@
                 />
               </svg>
             </div>
-            <h3 i18n="@@featureDiscoverTitle">Descubre Favoritos</h3>
-            <p i18n="@@featureDiscoverDescription">
-              Identifica tus cafés preferidos y explora nuevos perfiles
-            </p>
+            <h3>{{ 'featureDiscoverTitle' | translate }}</h3>
+            <p>{{ 'featureDiscoverDescription' | translate }}</p>
           </div>
         </div>
       </div>

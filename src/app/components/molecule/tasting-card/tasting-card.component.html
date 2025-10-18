@@ -88,10 +88,10 @@
       <div class="metric-item body-metric">
         <div class="metric-icon">{{ tasting.body.icon }}</div>
         <div class="metric-content">
-          <span class="metric-label">Cuerpo</span>
+          <span class="metric-label">{{ 'bodyLabel' | translate }}</span>
           <span class="metric-value">
-            {{ tasting.body.label }}:
-            <span class="metric-description">{{ tasting.body.description }}</span>
+            {{ tasting.body.label | translate }}:
+            <span class="metric-description">{{ tasting.body.description | translate }}</span>
           </span>
         </div>
       </div>
@@ -99,10 +99,10 @@
       <div class="metric-item acidity-metric">
         <div class="metric-icon">{{ tasting.acidity.icon }}</div>
         <div class="metric-content">
-          <span class="metric-label">Acidez</span>
+          <span class="metric-label">{{ 'acidityLabel' | translate }}</span>
           <span class="metric-value">
-            {{ tasting.acidity.label }}:
-            <span class="metric-description">{{ tasting.acidity.description }}</span>
+            {{ tasting.acidity.label | translate }}:
+            <span class="metric-description">{{ tasting.acidity.description | translate }}</span>
           </span>
         </div>
       </div>
@@ -110,10 +110,10 @@
       <div class="metric-item aftertaste-metric">
         <div class="metric-icon">{{ tasting.aftertaste.icon }}</div>
         <div class="metric-content">
-          <span class="metric-label">Retrogusto</span>
+          <span class="metric-label">{{ 'aftertasteLabel' | translate }}</span>
           <span class="metric-value">
-            {{ tasting.aftertaste.label }}:
-            <span class="metric-description">{{ tasting.aftertaste.description }}</span>
+            {{ tasting.aftertaste.label | translate }}:
+            <span class="metric-description">{{ tasting.aftertaste.description | translate }}</span>
           </span>
         </div>
       </div>

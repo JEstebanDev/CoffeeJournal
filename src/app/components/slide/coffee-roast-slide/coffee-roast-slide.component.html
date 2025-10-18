@@ -1,20 +1,20 @@
 <div class="slide-inner">
   <app-slider-title
-    title="🌰 Tueste y Preparación"
-    subtitle="Las bases de la extracción perfecta."
+    [title]="'roastTitle' | translate"
+    [subtitle]="'roastSubtitle' | translate"
   ></app-slider-title>
 
   <form class="form-content">
     <!-- Nivel de Tueste -->
     <div class="form-field fade-in" [class.invalid]="shouldShowRoastLevelError()" style="animation-delay: 0.1s">
-      <label>Nivel de Tueste</label>
+      <label>{{ 'roastLevelLabel' | translate }}</label>
 
       <div class="roast-slider-container" [class.container-invalid]="shouldShowRoastLevelError()">
         <!-- Slider Labels -->
         <div class="roast-labels">
           @for (level of roastLevels(); track level.value) {
           <span class="roast-label-text" [class.active]="coffeeData().roastLevel === level.value">
-            {{ level.label }}
+            {{ level.label | translate }}
           </span>
           }
         </div>
@@ -37,14 +37,14 @@
         </div>
       </div>
       @if (shouldShowRoastLevelError()) {
-        <span class="validation-message">Debes seleccionar un nivel de tueste</span>
+        <span class="validation-message">{{ 'roastLevelError' | translate }}</span>
       }
     </div>
 
     <!-- Método de Preparación -->
     <div class="form-field fade-in" [class.invalid]="shouldShowBrewMethodError()" style="animation-delay: 0.2s">
-      <label>Método de preparación</label>
-      <div class="brew-methods" [class.brew-methods-invalid]="shouldShowBrewMethodError()" role="group" aria-label="Métodos de preparación">
+      <label>{{ 'brewMethodLabel' | translate }}</label>
+      <div class="brew-methods" [class.brew-methods-invalid]="shouldShowBrewMethodError()" role="group" [attr.aria-label]="'brewMethodsAriaLabel' | translate">
         @for (method of brewMethodsOptions(); track method.name) {
         <button
           type="button"
@@ -54,12 +54,12 @@
           (click)="selectBrewMethod(method.name)"
         >
           <img [src]="method.image" [alt]="method.name" class="brew-icon" />
-          <span>{{ method.name }}</span>
+          <span>{{ method.name | translate }}</span>
         </button>
         }
       </div>
       @if (shouldShowBrewMethodError()) {
-        <span class="validation-message">Debes seleccionar un método de preparación</span>
+        <span class="validation-message">{{ 'brewMethodError' | translate }}</span>
       }
     </div>
   </form>

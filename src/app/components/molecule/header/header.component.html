@@ -2,7 +2,7 @@
   <div class="header-content">
     <div class="logo" (click)="navigateToDashboard()">
       <img src="assets/logo.png" alt="Coffee Journal Logo" class="logo-image" />
-      <span class="logo-text" i18n="@@appName">Coffee Journal</span>
+      <span class="logo-text">{{ 'appName' | translate }}</span>
     </div>
 
     <div class="header-actions">
@@ -40,7 +40,7 @@
           class="logout-btn"
           (click)="onLogout()"
           i18n-title="@@logoutButton"
-          title="Cerrar Sesión"
+          [title]="'logoutAriaLabel' | translate"
         >
           <svg class="logout-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path
@@ -50,7 +50,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <span class="logout-button-text" i18n="@@logoutButton">Cerrar Sesión</span>
+          <span class="logout-button-text">{{ 'logoutButton' | translate }}</span>
         </button>
       </div>
     </div>

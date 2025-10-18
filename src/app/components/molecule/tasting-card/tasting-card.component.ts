@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardTastingInfo } from '../../../services/forms';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 
 @Component({
   selector: 'app-tasting-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './tasting-card.component.html',
   styleUrl: './tasting-card.component.css',
 })

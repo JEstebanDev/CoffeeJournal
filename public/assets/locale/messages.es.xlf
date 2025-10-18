@@ -2,253 +2,444 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="es" target-language="es" datatype="plaintext" original="ng2.template">
     <body>
+      <!-- Landing Page -->
       <trans-unit id="appName" datatype="html">
         <source>Coffee Journal</source>
         <target>Coffee Journal</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">16,18</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="loginButton" datatype="html">
         <source>Iniciar Sesión</source>
         <target>Iniciar Sesión</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">27,28</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="heroTitle" datatype="html">
         <source>Tu Bitácora Personal de </source>
         <target>Tu Bitácora Personal de </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">35,36</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="heroTitleHighlight" datatype="html">
         <source>Cata de Café</source>
         <target>Cata de Café</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">36,38</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="heroDescription" datatype="html">
-        <source> Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación. </source>
+        <source>Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación.</source>
         <target>Registra, evalúa y descubre los sabores únicos de cada taza. Lleva un seguimiento detallado de tus experiencias cafeteras y perfecciona tu paladar con cada degustación.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">39,43</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="startTastingButton" datatype="html">
         <source>Comenzar a Catar</source>
         <target>Comenzar a Catar</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">52,55</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureRecordTitle" datatype="html">
         <source>Registra Cada Taza</source>
         <target>Registra Cada Taza</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">68,69</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureRecordDescription" datatype="html">
         <source>Documenta origen, método de preparación, notas de sabor y más</source>
         <target>Documenta origen, método de preparación, notas de sabor y más</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">69,72</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureRateTitle" datatype="html">
         <source>Evalúa y Califica</source>
         <target>Evalúa y Califica</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">83,84</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureRateDescription" datatype="html">
         <source>Sistema de puntuación para aroma, cuerpo, acidez y sabor</source>
         <target>Sistema de puntuación para aroma, cuerpo, acidez y sabor</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">84,87</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureHistoryTitle" datatype="html">
         <source>Historial Completo</source>
         <target>Historial Completo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">98,99</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureHistoryDescription" datatype="html">
         <source>Accede a todas tus catas anteriores y descubre patrones</source>
         <target>Accede a todas tus catas anteriores y descubre patrones</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">99,102</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureDiscoverTitle" datatype="html">
         <source>Descubre Favoritos</source>
         <target>Descubre Favoritos</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">113,114</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="featureDiscoverDescription" datatype="html">
         <source>Identifica tus cafés preferidos y explora nuevos perfiles</source>
         <target>Identifica tus cafés preferidos y explora nuevos perfiles</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/landing/landing.page.html</context>
-          <context context-type="linenumber">114,117</context>
-        </context-group>
       </trans-unit>
+
+      <!-- Dashboard -->
       <trans-unit id="logoutButton" datatype="html">
         <source>Cerrar Sesión</source>
         <target>Cerrar Sesión</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">45,54</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="welcomeMessage" datatype="html">
         <source>¡Bienvenido de nuevo, </source>
         <target>¡Bienvenido de nuevo, </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="dashboardSubtitle" datatype="html">
         <source>Aquí está el resumen de tu viaje cafetero</source>
         <target>Aquí está el resumen de tu viaje cafetero</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">71,73</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="newTastingButton" datatype="html">
         <source>Nueva Cata</source>
         <target>Nueva Cata</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="loadingMessage" datatype="html">
         <source>Cargando tus datos...</source>
         <target>Cargando tus datos...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="totalTastingsLabel" datatype="html">
-        <source>Catas Totales</source>
-        <target>Catas Totales</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">111</context>
-        </context-group>
+        <source>Experiencias de Cata Registradas</source>
+        <target>Experiencias de Cata Registradas</target>
       </trans-unit>
       <trans-unit id="averageRatingLabel" datatype="html">
         <source>Calificación Promedio</source>
         <target>Calificación Promedio</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">130</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="favoriteOriginLabel" datatype="html">
         <source>Origen Favorito</source>
         <target>Origen Favorito</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">148</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="recentTastingsTitle" datatype="html">
-        <source>Catas Recientes</source>
-        <target>Catas Recientes</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">158</context>
-        </context-group>
+        <source>Mis Catas de Café</source>
+        <target>Mis Catas de Café</target>
       </trans-unit>
       <trans-unit id="viewAllButton" datatype="html">
         <source>Ver Todas</source>
         <target>Ver Todas</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">160</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="aromaLabel" datatype="html">
         <source>Aroma</source>
         <target>Aroma</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">229</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="bodyLabel" datatype="html">
         <source>Cuerpo</source>
         <target>Cuerpo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">237</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="acidityLabel" datatype="html">
         <source>Acidez</source>
         <target>Acidez</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">243</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="flavorLabel" datatype="html">
         <source>Sabor</source>
         <target>Sabor</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">249</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="noTastingsTitle" datatype="html">
-        <source>No hay catas registradas</source>
-        <target>No hay catas registradas</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">271</context>
-        </context-group>
+        <source>¡Comienza tu Viaje Cafetero!</source>
+        <target>¡Comienza tu Viaje Cafetero!</target>
       </trans-unit>
       <trans-unit id="noTastingsMessage" datatype="html">
-        <source>Comienza tu viaje cafetero registrando tu primera cata</source>
-        <target>Comienza tu viaje cafetero registrando tu primera cata</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">272</context>
-        </context-group>
+        <source>Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que pruebes. Documenta el origen, método de preparación, notas de sabor y califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.</source>
+        <target>Coffee Journal es tu compañero perfecto para registrar y evaluar cada taza de café que pruebes. Documenta el origen, método de preparación, notas de sabor y califica cada experiencia para perfeccionar tu paladar y descubrir tus cafés favoritos.</target>
       </trans-unit>
       <trans-unit id="startFirstTasting" datatype="html">
-        <source>Registrar Primera Cata</source>
-        <target>Registrar Primera Cata</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/dashboard/dashboard.page.html</context>
-          <context context-type="linenumber">274</context>
-        </context-group>
+        <source>Crear Cata de Café</source>
+        <target>Crear Cata de Café</target>
+      </trans-unit>
+
+      <!-- Stats Grid -->
+      <trans-unit id="topOriginsLabel" datatype="html">
+        <source>Orígenes Más Degustados</source>
+        <target>Orígenes Más Degustados</target>
+      </trans-unit>
+      <trans-unit id="favoriteMethodLabel" datatype="html">
+        <source>Método de Preparación Favorito</source>
+        <target>Método de Preparación Favorito</target>
+      </trans-unit>
+      <trans-unit id="trendLabel" datatype="html">
+        <source>Tu Patrón de Degustación</source>
+        <target>Tu Patrón de Degustación</target>
+      </trans-unit>
+      <trans-unit id="noDataMessage" datatype="html">
+        <source>Registra más catas para ver estadísticas</source>
+        <target>Registra más catas para ver estadísticas</target>
+      </trans-unit>
+      <trans-unit id="analyzingPreferences" datatype="html">
+        <source>Analizando tus preferencias...</source>
+        <target>Analizando tus preferencias...</target>
+      </trans-unit>
+      <trans-unit id="continueRecording" datatype="html">
+        <source>Continúa registrando catas para descubrir tu patrón</source>
+        <target>Continúa registrando catas para descubrir tu patrón</target>
+      </trans-unit>
+
+      <!-- Auth Page -->
+      <trans-unit id="backButton" datatype="html">
+        <source>Volver</source>
+        <target>Volver</target>
+      </trans-unit>
+      <trans-unit id="loginTitle" datatype="html">
+        <source>De vuelta entre aromas y notas de café.</source>
+        <target>De vuelta entre aromas y notas de café.</target>
+      </trans-unit>
+      <trans-unit id="signupTitle" datatype="html">
+        <source>Comienza tu viaje entre aromas de café.</source>
+        <target>Comienza tu viaje entre aromas de café.</target>
+      </trans-unit>
+      <trans-unit id="loginSubtitle" datatype="html">
+        <source>Inicia sesión y continúa tu viaje cafetero.</source>
+        <target>Inicia sesión y continúa tu viaje cafetero.</target>
+      </trans-unit>
+      <trans-unit id="signupSubtitle" datatype="html">
+        <source>Cada cata es un nuevo capítulo en tu bitácora</source>
+        <target>Cada cata es un nuevo capítulo en tu bitácora</target>
+      </trans-unit>
+      <trans-unit id="usernameLabel" datatype="html">
+        <source>¿Cómo te gustaría que te llamemos?</source>
+        <target>¿Cómo te gustaría que te llamemos?</target>
+      </trans-unit>
+      <trans-unit id="usernamePlaceholder" datatype="html">
+        <source>Escribe tu nombre o un alias</source>
+        <target>Escribe tu nombre o un alias</target>
+      </trans-unit>
+      <trans-unit id="emailLabel" datatype="html">
+        <source>Correo</source>
+        <target>Correo</target>
+      </trans-unit>
+      <trans-unit id="emailPlaceholder" datatype="html">
+        <source>Ingresa tu email</source>
+        <target>Ingresa tu email</target>
+      </trans-unit>
+      <trans-unit id="passwordLabel" datatype="html">
+        <source>Contraseña</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="passwordPlaceholder" datatype="html">
+        <source>Ingresa tu contraseña</source>
+        <target>Ingresa tu contraseña</target>
+      </trans-unit>
+      <trans-unit id="confirmPasswordLabel" datatype="html">
+        <source>Confirma tu contraseña</source>
+        <target>Confirma tu contraseña</target>
+      </trans-unit>
+      <trans-unit id="confirmPasswordPlaceholder" datatype="html">
+        <source>Confirma tu contraseña</source>
+        <target>Confirma tu contraseña</target>
+      </trans-unit>
+      <trans-unit id="signInButton" datatype="html">
+        <source>Iniciar Sesión</source>
+        <target>Iniciar Sesión</target>
+      </trans-unit>
+      <trans-unit id="signUpButton" datatype="html">
+        <source>Registrarse</source>
+        <target>Registrarse</target>
+      </trans-unit>
+      <trans-unit id="magicLinkButton" datatype="html">
+        <source>Iniciar sesión con enlace por correo</source>
+        <target>Iniciar sesión con enlace por correo</target>
+      </trans-unit>
+      <trans-unit id="noAccountText" datatype="html">
+        <source>¿No tienes cuenta?</source>
+        <target>¿No tienes cuenta?</target>
+      </trans-unit>
+      <trans-unit id="hasAccountText" datatype="html">
+        <source>¿Ya tienes cuenta?</source>
+        <target>¿Ya tienes cuenta?</target>
+      </trans-unit>
+
+      <!-- Coffee Identity Slide -->
+      <trans-unit id="coffeeIdentityTitle" datatype="html">
+        <source>🧭 Identidad del Café</source>
+        <target>🧭 Identidad del Café</target>
+      </trans-unit>
+      <trans-unit id="coffeeIdentitySubtitle" datatype="html">
+        <source>Registra los datos que definen el origen y la personalidad de tu café.</source>
+        <target>Registra los datos que definen el origen y la personalidad de tu café.</target>
+      </trans-unit>
+      <trans-unit id="brandLabel" datatype="html">
+        <source>Marca</source>
+        <target>Marca</target>
+      </trans-unit>
+      <trans-unit id="brandPlaceholder" datatype="html">
+        <source>Ej: Lavazza, Coffeebean...</source>
+        <target>Ej: Lavazza, Coffeebean...</target>
+      </trans-unit>
+      <trans-unit id="brandError" datatype="html">
+        <source>La marca es requerida</source>
+        <target>La marca es requerida</target>
+      </trans-unit>
+      <trans-unit id="coffeeNameLabel" datatype="html">
+        <source>Nombre del café</source>
+        <target>Nombre del café</target>
+      </trans-unit>
+      <trans-unit id="coffeeNamePlaceholder" datatype="html">
+        <source>Ej: Espresso Intenso</source>
+        <target>Ej: Espresso Intenso</target>
+      </trans-unit>
+      <trans-unit id="coffeeNameError" datatype="html">
+        <source>El nombre del café es requerido</source>
+        <target>El nombre del café es requerido</target>
+      </trans-unit>
+      <trans-unit id="beanTypeLabel" datatype="html">
+        <source>Tipo de grano</source>
+        <target>Tipo de grano</target>
+      </trans-unit>
+      <trans-unit id="beanTypeError" datatype="html">
+        <source>Debes seleccionar un tipo de grano</source>
+        <target>Debes seleccionar un tipo de grano</target>
+      </trans-unit>
+      <trans-unit id="originLabel" datatype="html">
+        <source>Origen</source>
+        <target>Origen</target>
+      </trans-unit>
+      <trans-unit id="originPlaceholder" datatype="html">
+        <source>Ej: Colombia, Brasil...</source>
+        <target>Ej: Colombia, Brasil...</target>
+      </trans-unit>
+      <trans-unit id="originError" datatype="html">
+        <source>El origen es requerido</source>
+        <target>El origen es requerido</target>
+      </trans-unit>
+
+      <!-- Coffee Roast Slide -->
+      <trans-unit id="roastTitle" datatype="html">
+        <source>🌰 Tueste y Preparación</source>
+        <target>🌰 Tueste y Preparación</target>
+      </trans-unit>
+      <trans-unit id="roastSubtitle" datatype="html">
+        <source>Las bases de la extracción perfecta.</source>
+        <target>Las bases de la extracción perfecta.</target>
+      </trans-unit>
+      <trans-unit id="roastLevelLabel" datatype="html">
+        <source>Nivel de Tueste</source>
+        <target>Nivel de Tueste</target>
+      </trans-unit>
+      <trans-unit id="roastLevelError" datatype="html">
+        <source>Debes seleccionar un nivel de tueste</source>
+        <target>Debes seleccionar un nivel de tueste</target>
+      </trans-unit>
+      <trans-unit id="brewMethodLabel" datatype="html">
+        <source>Método de preparación</source>
+        <target>Método de preparación</target>
+      </trans-unit>
+      <trans-unit id="brewMethodError" datatype="html">
+        <source>Debes seleccionar un método de preparación</source>
+        <target>Debes seleccionar un método de preparación</target>
+      </trans-unit>
+
+      <!-- Coffee Sensory Slide -->
+      <trans-unit id="sensoryTitle" datatype="html">
+        <source>🌸 Primera Impresión</source>
+        <target>🌸 Primera Impresión</target>
+      </trans-unit>
+      <trans-unit id="sensorySubtitle" datatype="html">
+        <source>Lo que despierta tus sentidos al primer sorbo.</source>
+        <target>Lo que despierta tus sentidos al primer sorbo.</target>
+      </trans-unit>
+      <trans-unit id="aromaDescription" datatype="html">
+        <source>Describe el aroma del café</source>
+        <target>Describe el aroma del café</target>
+      </trans-unit>
+      <trans-unit id="aromaPlaceholder" datatype="html">
+        <source>Ej: Floral, frutal, chocolate, nueces, caramelo...</source>
+        <target>Ej: Floral, frutal, chocolate, nueces, caramelo...</target>
+      </trans-unit>
+      <trans-unit id="aromaError" datatype="html">
+        <source>El aroma es requerido</source>
+        <target>El aroma es requerido</target>
+      </trans-unit>
+      <trans-unit id="flavorDescription" datatype="html">
+        <source>Describe el sabor del café</source>
+        <target>Describe el sabor del café</target>
+      </trans-unit>
+      <trans-unit id="flavorPlaceholder" datatype="html">
+        <source>Ej: Cítrico, dulce, amargo, especiado, afrutado...</source>
+        <target>Ej: Cítrico, dulce, amargo, especiado, afrutado...</target>
+      </trans-unit>
+      <trans-unit id="flavorError" datatype="html">
+        <source>El sabor es requerido</source>
+        <target>El sabor es requerido</target>
+      </trans-unit>
+      <trans-unit id="bodyDescription" datatype="html">
+        <source>Sensación de peso o textura del café en la boca</source>
+        <target>Sensación de peso o textura del café en la boca</target>
+      </trans-unit>
+
+      <!-- Coffee Flavor Slide -->
+      <trans-unit id="flavorExperienceTitle" datatype="html">
+        <source>🌙 Experiencia en boca</source>
+        <target>🌙 Experiencia en boca</target>
+      </trans-unit>
+      <trans-unit id="flavorExperienceSubtitle" datatype="html">
+        <source>Analiza la persistencia que deja el café.</source>
+        <target>Analiza la persistencia que deja el café.</target>
+      </trans-unit>
+      <trans-unit id="acidityDescription" datatype="html">
+        <source>Sensación de peso o textura del café en la boca</source>
+        <target>Sensación de peso o textura del café en la boca</target>
+      </trans-unit>
+      <trans-unit id="acidityError" datatype="html">
+        <source>Debes seleccionar el nivel de acidez</source>
+        <target>Debes seleccionar el nivel de acidez</target>
+      </trans-unit>
+      <trans-unit id="aftertasteLabel" datatype="html">
+        <source>Retrogusto</source>
+        <target>Retrogusto</target>
+      </trans-unit>
+      <trans-unit id="aftertasteDescription" datatype="html">
+        <source>Sensación y sabor que quedan después de tragar</source>
+        <target>Sensación y sabor que quedan después de tragar</target>
+      </trans-unit>
+      <trans-unit id="aftertasteError" datatype="html">
+        <source>Debes seleccionar el nivel de retrogusto</source>
+        <target>Debes seleccionar el nivel de retrogusto</target>
+      </trans-unit>
+      <trans-unit id="aftertasteDescPlaceholder" datatype="html">
+        <source>Ej: Persistente con final dulce</source>
+        <target>Ej: Persistente con final dulce</target>
+      </trans-unit>
+
+      <!-- Coffee Score Slide -->
+      <trans-unit id="scoreTitle" datatype="html">
+        <source>⭐ Evaluación General</source>
+        <target>⭐ Evaluación General</target>
+      </trans-unit>
+      <trans-unit id="scoreSubtitle" datatype="html">
+        <source>Tu sensación global después de probarlo: ¿qué te transmitió este café?</source>
+        <target>Tu sensación global después de probarlo: ¿qué te transmitió este café?</target>
+      </trans-unit>
+      <trans-unit id="generalImpressionLabel" datatype="html">
+        <source>Impresión General</source>
+        <target>Impresión General</target>
+      </trans-unit>
+      <trans-unit id="generalImpressionDescription" datatype="html">
+        <source>Tu opinión general sobre este café</source>
+        <target>Tu opinión general sobre este café</target>
+      </trans-unit>
+      <trans-unit id="scoreLabel" datatype="html">
+        <source>Puntuación</source>
+        <target>Puntuación</target>
+      </trans-unit>
+      <trans-unit id="scoreError" datatype="html">
+        <source>Debes asignar una puntuación al café</source>
+        <target>Debes asignar una puntuación al café</target>
+      </trans-unit>
+
+      <!-- Slides Page -->
+      <trans-unit id="savingTasting" datatype="html">
+        <source>Guardando tu cata...</source>
+        <target>Guardando tu cata...</target>
+      </trans-unit>
+      <trans-unit id="stepLabel" datatype="html">
+        <source>Paso</source>
+        <target>Paso</target>
+      </trans-unit>
+      <trans-unit id="incompleteStep" datatype="html">
+        <source>Este paso tiene campos incompletos</source>
+        <target>Este paso tiene campos incompletos</target>
+      </trans-unit>
+
+      <!-- Language Selector -->
+      <trans-unit id="switchToSpanish" datatype="html">
+        <source>Cambiar a español</source>
+        <target>Cambiar a español</target>
+      </trans-unit>
+      <trans-unit id="switchToEnglish" datatype="html">
+        <source>Cambiar a inglés</source>
+        <target>Cambiar a inglés</target>
+      </trans-unit>
+
+      <!-- Confirmation Dialog -->
+      <trans-unit id="cancelButton" datatype="html">
+        <source>Cancelar</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="confirmButton" datatype="html">
+        <source>Confirmar</source>
+        <target>Confirmar</target>
       </trans-unit>
 
       <!-- Coffee Identity Slide -->
@@ -269,8 +460,8 @@
         <target>Ej: Starbucks, Juan Valdez, Illy...</target>
       </trans-unit>
       <trans-unit id="brandError" datatype="html">
-        <source>La marca es requerida y no debe exceder 50 caracteres</source>
-        <target>La marca es requerida y no debe exceder 50 caracteres</target>
+        <source>La marca es requerida</source>
+        <target>La marca es requerida</target>
       </trans-unit>
       <trans-unit id="coffeeNameLabel" datatype="html">
         <source>Nombre del Café</source>
@@ -281,8 +472,8 @@
         <target>Ej: Colombia Supremo, Ethiopian Yirgacheffe...</target>
       </trans-unit>
       <trans-unit id="coffeeNameError" datatype="html">
-        <source>El nombre del café es requerido y no debe exceder 50 caracteres</source>
-        <target>El nombre del café es requerido y no debe exceder 50 caracteres</target>
+        <source>El nombre del café es requerido</source>
+        <target>El nombre del café es requerido</target>
       </trans-unit>
       <trans-unit id="beanTypeLabel" datatype="html">
         <source>Tipo de Grano</source>
@@ -301,8 +492,8 @@
         <target>Ej: Colombia, Etiopía, Brasil...</target>
       </trans-unit>
       <trans-unit id="originError" datatype="html">
-        <source>El origen es requerido y no debe exceder 50 caracteres</source>
-        <target>El origen es requerido y no debe exceder 50 caracteres</target>
+        <source>El origen es requerido</source>
+        <target>El origen es requerido</target>
       </trans-unit>
 
       <!-- Coffee Roast Slide -->
@@ -349,8 +540,8 @@
         <target>Ej: Floral, frutal, chocolate, nueces, caramelo...</target>
       </trans-unit>
       <trans-unit id="aromaError" datatype="html">
-        <source>La descripción del aroma es requerida y no debe exceder 200 caracteres</source>
-        <target>La descripción del aroma es requerida y no debe exceder 200 caracteres</target>
+        <source>Describe el aroma del café</source>
+        <target>Describe el aroma del café</target>
       </trans-unit>
       <trans-unit id="flavorDescription" datatype="html">
         <source>¿Qué sabores identificas?</source>
@@ -361,8 +552,8 @@
         <target>Ej: Cítrico, chocolate, frutos secos, especias...</target>
       </trans-unit>
       <trans-unit id="flavorError" datatype="html">
-        <source>La descripción del sabor es requerida y no debe exceder 200 caracteres</source>
-        <target>La descripción del sabor es requerida y no debe exceder 200 caracteres</target>
+        <source>Describe el sabor del café</source>
+        <target>Describe el sabor del café</target>
       </trans-unit>
       <trans-unit id="bodyDescription" datatype="html">
         <source>¿Cómo se siente en la boca?</source>
@@ -406,10 +597,6 @@
         <source>Describe cómo evoluciona el sabor...</source>
         <target>Describe cómo evoluciona el sabor...</target>
       </trans-unit>
-      <trans-unit id="aftertasteDescError" datatype="html">
-        <source>La descripción del retrogusto no debe exceder 200 caracteres</source>
-        <target>La descripción del retrogusto no debe exceder 200 caracteres</target>
-      </trans-unit>
 
       <!-- Coffee Score Slide -->
       <trans-unit id="scoreTitle" datatype="html">
@@ -427,10 +614,6 @@
       <trans-unit id="generalImpressionDescription" datatype="html">
         <source>Describe tu experiencia general con este café</source>
         <target>Describe tu experiencia general con este café</target>
-      </trans-unit>
-      <trans-unit id="opinionError" datatype="html">
-        <source>La opinión no debe exceder 500 caracteres</source>
-        <target>La opinión no debe exceder 500 caracteres</target>
       </trans-unit>
       <trans-unit id="scoreLabel" datatype="html">
         <source>Puntuación</source>

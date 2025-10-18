@@ -105,7 +105,7 @@ export class StatisticsService {
    */
   private calculateTastingTrend(tastings: CoffeeTasting[]): string {
     if (tastings.length < 3) {
-      return 'Aún no hay suficientes datos para determinar tu tendencia';
+      return 'insufficientDataMessage';
     }
 
     // Analizar características más comunes
@@ -133,7 +133,7 @@ export class StatisticsService {
       return `Prefieres cafés con acidez ${mostCommonAcidity.toLowerCase()}`;
     }
 
-    return 'Explora más cafés para descubrir tu perfil de preferencias';
+    return 'exploreMoreMessage';
   }
 
   /**

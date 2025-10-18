@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CountriesService } from '../../../services/countries';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 
 export interface TopOrigin {
   name: string;
@@ -15,7 +16,7 @@ export interface Insight {
 @Component({
   selector: 'app-stats-grid',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './stats-grid.component.html',
   styleUrl: './stats-grid.component.css',
 })

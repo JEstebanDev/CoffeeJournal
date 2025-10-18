@@ -17,19 +17,19 @@ export class SlideNavigationService {
 
   // Slides configuration
   readonly slides: Slide[] = [
-    { id: 0, title: 'Identidad del Café' },
-    { id: 1, title: 'Tueste y Preparación' },
-    { id: 2, title: 'Notas Sensoriales' },
-    { id: 3, title: 'Sabor' },
-    { id: 4, title: 'Calificación' },
+    { id: 0, title: 'slideIdentityTitle' },
+    { id: 1, title: 'slideRoastTitle' },
+    { id: 2, title: 'slideSensoryTitle' },
+    { id: 3, title: 'slideFlavorTitle' },
+    { id: 4, title: 'slideScoreTitle' },
   ];
 
   readonly slideNames = [
-    'Identidad del Café',
-    'Tueste y Preparación',
-    'Notas Sensoriales',
-    'Sabor',
-    'Calificación',
+    'slideIdentityTitle',
+    'slideRoastTitle',
+    'slideSensoryTitle',
+    'slideFlavorTitle',
+    'slideScoreTitle',
   ];
 
   // Computed signal to check if we're on the last slide
@@ -58,7 +58,7 @@ export class SlideNavigationService {
       return { success: true };
     }
 
-    return { success: false, error: 'Ya estás en la última diapositiva' };
+    return { success: false, error: 'lastSlideError' };
   }
 
   /**
@@ -95,7 +95,7 @@ export class SlideNavigationService {
    * Get validation error message for a specific slide
    */
   getValidationErrorMessage(slideId: number): string {
-    return `⚠️ Por favor completa todos los campos requeridos en: ${this.slideNames[slideId]}`;
+    return `validationErrorMessage ${this.slideNames[slideId]}`;
   }
 
   /**

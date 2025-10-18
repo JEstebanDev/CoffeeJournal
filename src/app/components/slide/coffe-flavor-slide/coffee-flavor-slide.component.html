@@ -1,20 +1,20 @@
 <div class="sensory-slide">
   <app-slider-title
-    title="🌙 Experiencia en boca"
-    subtitle="Analiza la persistencia que deja el café."
+    [title]="'flavorExperienceTitle' | translate"
+    [subtitle]="'flavorExperienceSubtitle' | translate"
   ></app-slider-title>
   <!-- Acidity Section -->
   <div class="sensory-section">
     <div class="section-header" [class.invalid]="shouldShowAcidityError()">
-      <span class="section-title">Acidez</span>
-      <span class="section-description">Sensación de peso o textura del café en la boca</span>
+      <span class="section-title">{{ 'acidityLabel' | translate }}</span>
+      <span class="section-description">{{ 'acidityDescription' | translate }}</span>
     </div>
     <div class="slider-container" [class.container-invalid]="shouldShowAcidityError()">
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of acidityLevels(); track level.value) {
         <span class="slider-label-text" [class.active]="flavorData().acidity === level.value">
-          {{ level.label }}
+          {{ level.label | translate }}
         </span>
         }
       </div>
@@ -34,26 +34,26 @@
       <!-- Visual Indicator -->
       <div class="slider-indicator" [style.background-color]="getCurrentAcidityColor()">
         <span class="slider-emoji">{{ getCurrentAcidityIcon() }}</span>
-        <span class="slider-text">{{ getCurrentAcidityDescription() }}</span>
+        <span class="slider-text">{{ getCurrentAcidityDescription() | translate }}</span>
       </div>
     </div>
     @if (shouldShowAcidityError()) {
-    <span class="validation-message">Debes seleccionar el nivel de acidez</span>
+    <span class="validation-message">{{ 'acidityError' | translate }}</span>
     }
   </div>
 
   <!-- Aftertaste Section -->
   <div class="sensory-section">
     <div class="section-header" [class.invalid]="shouldShowAftertasteError()">
-      <span class="section-title">Retrogusto</span>
-      <span class="section-description">Sensación y sabor que quedan después de tragar</span>
+      <span class="section-title">{{ 'aftertasteLabel' | translate }}</span>
+      <span class="section-description">{{ 'aftertasteDescription' | translate }}</span>
     </div>
     <div class="slider-container" [class.container-invalid]="shouldShowAftertasteError()">
       <!-- Slider Labels -->
       <div class="slider-labels">
         @for (level of afterTasteLevels(); track level.value) {
         <span class="slider-label-text" [class.active]="flavorData().aftertaste === level.value">
-          {{ level.label }}
+          {{ level.label | translate }}
         </span>
         }
       </div>
@@ -73,26 +73,27 @@
       <!-- Visual Indicator -->
       <div class="slider-indicator" [style.background-color]="getCurrentAftertasteColor()">
         <span class="slider-emoji">{{ getCurrentAftertasteIcon() }}</span>
-        <span class="slider-text">{{ getCurrentAftertasteDescription() }}</span>
+        <span class="slider-text">{{ getCurrentAftertasteDescription() | translate }}</span>
       </div>
     </div>
     @if (shouldShowAftertasteError()) {
-    <span class="validation-message">Debes seleccionar el nivel de retrogusto</span>
+    <span class="validation-message">{{ 'aftertasteError' | translate }}</span>
     }
   </div>
   <div class="sensory-section">
     <div class="section-header">
-      <span class="section-title">Retrogusto</span>
-      <span class="section-description">Describe el retrogusto</span>
+      <span class="section-title">{{ 'aftertasteLabel' | translate }}</span>
+      <span class="section-description">{{ 'aftertasteDescription' | translate }}</span>
     </div>
 
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
-        placeholder="Ej: Persistente con final dulce"
+        [placeholder]="'aftertasteDescPlaceholder' | translate"
         [value]="flavorData().aftertasteDescription"
         (input)="onAfterTasteDescChange($any($event.target).value)"
         rows="2"
+        maxlength="200"
       ></textarea>
     </div>
   </div>

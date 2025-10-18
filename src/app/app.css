@@ -3,3 +3,24 @@
   width: 100%;
   min-height: 100vh;
 }
+
+/* Language Selector Container */
+.language-selector-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.language-selector-container app-language-selector {
+  pointer-events: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .language-selector-container {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}

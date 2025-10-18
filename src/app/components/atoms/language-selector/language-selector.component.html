@@ -1,0 +1,46 @@
+<div class="language-selector">
+  <!-- Selector simple con botones -->
+  <div class="language-buttons">
+    <button 
+      class="language-btn"
+      [class.active]="isSpanish()"
+      (click)="changeLanguage('es')"
+      [attr.aria-label]="'switchToSpanish' | translate"
+      [title]="'spanishLanguage' | translate">
+      <span class="flag">🇪🇸</span>
+      <span class="language-name">ES</span>
+    </button>
+    
+    <button 
+      class="language-btn"
+      [class.active]="isEnglish()"
+      (click)="changeLanguage('en')"
+      [attr.aria-label]="'switchToEnglish' | translate"
+      title="English">
+      <span class="flag">🇺🇸</span>
+      <span class="language-name">EN</span>
+    </button>
+  </div>
+
+  <!-- Selector alternativo con dropdown (comentado por ahora) -->
+  <!--
+  <div class="language-dropdown">
+    <button class="dropdown-trigger" (click)="toggleDropdown()">
+      <span class="flag">{{ getLanguageFlag(currentLanguage()) }}</span>
+      <span class="language-name">{{ getLanguageName(currentLanguage()) }}</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    
+    <div class="dropdown-menu" [class.open]="isDropdownOpen()">
+      <button 
+        *ngFor="let lang of supportedLanguages()"
+        class="dropdown-item"
+        [class.active]="currentLanguage() === lang.code"
+        (click)="changeLanguage(lang.code)">
+        <span class="flag">{{ getLanguageFlag(lang.code) }}</span>
+        <span class="language-name">{{ lang.nativeName }}</span>
+      </button>
+    </div>
+  </div>
+  -->
+</div>

@@ -1,28 +1,29 @@
 <div class="sensory-slide">
   <app-slider-title
-    title="⭐ Evaluación General"
-    subtitle="Tu sensación global después de probarlo: ¿qué te transmitió este café?"
+    [title]="'scoreTitle' | translate"
+    [subtitle]="'scoreSubtitle' | translate"
   ></app-slider-title>
 
   <!-- Aroma Section -->
   <div class="section-header">
     <div class="section-header">
-      <span class="section-title">Impresión General</span>
-      <span class="section-description">Tu opinión general sobre este café</span>
+      <span class="section-title">{{ 'generalImpressionLabel' | translate }}</span>
+      <span class="section-description">{{ 'generalImpressionDescription' | translate }}</span>
     </div>
 
     <div class="text-input-container">
       <textarea
         class="sensory-textarea"
-        placeholder="Ej: Floral, frutal, chocolate, nueces, caramelo..."
+        [placeholder]="'aromaPlaceholder' | translate"
         [value]="scoreData().opinion"
         (input)="onOpinionChange($any($event.target).value)"
         rows="2"
+        maxlength="500"
       ></textarea>
     </div>
 
     <div class="section-header" [class.invalid]="shouldShowScoreError()">
-      <span class="section-title">Puntuación</span>
+      <span class="section-title">{{ 'scoreLabel' | translate }}</span>
     </div>
 
     <div class="score-input" [class.score-invalid]="shouldShowScoreError()">
@@ -31,20 +32,23 @@
         id="score"
         min="0"
         max="10"
+        step="1"
         [value]="scoreData().score"
-        (input)="onScoreChange(+$any($event.target).value)"
+        (input)="onScoreInput($event)"
         (blur)="scoreTouched.set(true)"
+        (keydown)="onScoreKeydown($event)"
+        (paste)="onScorePaste($event)"
       />
       <span class="score-display">{{ scoreData().score }} / 10</span>
     </div>
     @if (shouldShowScoreError()) {
-    <span class="validation-message">Debes asignar una puntuación al café</span>
+    <span class="validation-message">{{ 'scoreError' | translate }}</span>
     }
   </div>
 
   <section class="form-section">
     <div class="section-header">
-      <span class="section-title">Imagen del Café</span>
+      <span class="section-title">{{ 'coffeeImageTitle' | translate }}</span>
     </div>
 
     <div class="image-upload">
@@ -52,8 +56,8 @@
       <label for="imageInput" class="upload-label">
         <div class="upload-placeholder">
           <span class="upload-icon">📷</span>
-          <p>Haz clic para subir una imagen</p>
-          <p class="upload-hint">JPG, PNG o WEBP (máx. 5MB)</p>
+          <p>{{ 'uploadImageText' | translate }}</p>
+          <p class="upload-hint">{{ 'uploadImageHint' | translate }}</p>
         </div>
         <input
           type="file"
@@ -66,7 +70,7 @@
       } @else {
       <div class="image-preview">
         <img [src]="selectedImage()" alt="Preview" />
-        <button type="button" class="remove-image" (click)="removeImage()">✕ Eliminar</button>
+        <button type="button" class="remove-image" (click)="removeImage()">{{ 'removeImageButton' | translate }}</button>
       </div>
       }
     </div>
@@ -74,6 +78,6 @@
 
   <!-- Save Button -->
   <div class="save-button-container">
-    <button type="button" class="save-button" (click)="onSaveForm()">💾 Guardar Cata</button>
+    <button type="button" class="save-button" (click)="onSaveForm()">{{ 'saveTastingButton' | translate }}</button>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { TranslatePipe } from '../../../services/language/translate.pipe';
 import { RoastLevel } from '../../../services/forms';
 
 export interface CoffeeRoast {
@@ -17,7 +18,7 @@ export interface BrewMethod {
 @Component({
   selector: 'app-coffee-roast-slide',
   standalone: true,
-  imports: [CommonModule, FormsModule, SliderTitleComponent],
+  imports: [CommonModule, FormsModule, SliderTitleComponent, TranslatePipe],
   templateUrl: './coffee-roast-slide.component.html',
   styleUrls: ['./coffee-roast-slide.component.css'],
 })

@@ -2,6 +2,7 @@ import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '../../services/language/translate.pipe';
 import {
   CoffeeIdentitySlideComponent,
   CoffeeRoastSlideComponent,
@@ -44,6 +45,7 @@ import { CoffeeSensory } from '../../components/slide/coffee-sensory-slide/coffe
     CoffeeSensorySlideComponent,
     CoffeeFlavorSlideComponent,
     CoffeeScoreSlideComponent,
+    TranslatePipe,
   ],
   templateUrl: './slides.page.html',
   styleUrl: './slides.page.css',
@@ -208,7 +210,7 @@ export class SlidesPage implements OnInit {
     if (this.loginService.isAuthenticated()) {
       return '¡Cata guardada! Redirigiendo al Dashboard...';
     } else {
-      return 'Datos guardados. Redirigiendo al inicio de sesión...';
+      return 'dataSavedMessage';
     }
   }
 
@@ -368,7 +370,7 @@ export class SlidesPage implements OnInit {
       // Verify user is still authenticated
       if (!this.loginService.isAuthenticated()) {
         console.error('❌ Usuario no autenticado al intentar guardar');
-        this.errorMessage.set('Sesión expirada. Por favor inicia sesión nuevamente.');
+        this.errorMessage.set('sessionExpiredError');
         this.isSubmitting.set(false);
         return;
       }
