@@ -34,7 +34,7 @@ Para que la aplicación funcione correctamente en producción, necesitas configu
 2. **Configura el build:**
    - Build command: `npm run build`
    - Publish directory: `dist/CoffeeJournal/browser`
-   - Node version: `18`
+   - Node version: `20`
 
 3. **Configura las variables de entorno** (como se describe arriba)
 
@@ -61,4 +61,4 @@ Si tienes problemas:
 1. **Verifica las variables de entorno** en el dashboard de Netlify
 2. **Revisa los logs de build** en la sección "Deploys"
 3. **Asegúrate de que el directorio de publish** sea `dist/CoffeeJournal/browser`
-4. **Verifica que Node.js versión 18** esté configurada
+4. **Verifica que Node.js versión 20** esté configurada
