@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CountriesService } from '../../../services/countries';
 
 export interface TopOrigin {
   name: string;
@@ -21,7 +22,6 @@ export interface Insight {
 export class StatsGridComponent implements OnInit, OnDestroy {
   @Input() totalTastings: number = 0;
   @Input() topOrigins: TopOrigin[] = [];
-  @Input() favoriteRoast: string = '';
   @Input() favoriteBrewMethod: string = '';
   @Input() tastingTrend: string = '';
   @Input() insights: Insight[] = [];
@@ -29,39 +29,10 @@ export class StatsGridComponent implements OnInit, OnDestroy {
   currentInsightIndex = 0;
   private intervalId: any;
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  // Mapeo de países a códigos de bandera
-  countryFlags: Record<string, string> = {
-    'Colombia': 'co',
-    'Brasil': 'br', 
-    'Etiopía': 'et',
-    'Guatemala': 'gt',
-    'Costa Rica': 'cr',
-    'Honduras': 'hn',
-    'Perú': 'pe',
-    'México': 'mx',
-    'Nicaragua': 'ni',
-    'Jamaica': 'jm',
-    'Hawaii': 'us',
-    'Indonesia': 'id',
-    'Vietnam': 'vn',
-    'India': 'in',
-    'Kenia': 'ke',
-    'Tanzania': 'tz',
-    'Uganda': 'ug',
-    'Rwanda': 'rw',
-    'Burundi': 'bi',
-    'Yemen': 'ye',
-    'República Dominicana': 'do',
-    'Puerto Rico': 'pr',
-    'Ecuador': 'ec',
-    'Bolivia': 'bo',
-    'Venezuela': 've',
-    'Panamá': 'pa',
-    'El Salvador': 'sv',
-    'Cuba': 'cu'
-  };
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private countriesService: CountriesService
+  ) {}
 
   // Mapeo de métodos de preparación a imágenes
   brewMethodImages: Record<string, string> = {
@@ -75,7 +46,7 @@ export class StatsGridComponent implements OnInit, OnDestroy {
   };
 
   getCountryFlag(country: string): string {
-    return this.countryFlags[country] || 'xx'; // 'xx' es un código genérico para países no encontrados
+    return this.countriesService.getCountryFlag(country);
   }
 
   getBrewMethodImage(method: string): string {
@@ -98,6 +69,14 @@ export class StatsGridComponent implements OnInit, OnDestroy {
     this.intervalId = setInterval(() => {
       this.currentInsightIndex = (this.currentInsightIndex + 1) % this.insights.length;
       this.cdr.detectChanges();
-    }, 4000); // Cambiar cada 4 segundos
+    }, 5000); // Cambiar cada 5 segundos
+  }
+
+  // Método para navegar al siguiente insight manualmente
+  nextInsight() {
+    if (this.insights.length > 0) {
+      this.currentInsightIndex = (this.currentInsightIndex + 1) % this.insights.length;
+      this.cdr.detectChanges();
+    }
   }
 }

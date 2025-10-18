@@ -1,0 +1,31 @@
+@if (isVisible()) {
+<div class="dialog-overlay" (click)="onCancel()">
+  <div class="dialog-container" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <h3 class="dialog-title">{{ title() }}</h3>
+      <button class="close-button" (click)="onCancel()" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="dialog-content">
+      <p class="dialog-message">{{ message() }}</p>
+      @if (details()) {
+      <p class="dialog-details">{{ details() }}</p>
+      }
+    </div>
+
+    <div class="dialog-actions">
+      <button class="btn btn-secondary" (click)="onCancel()" type="button">
+        {{ cancelText() }}
+      </button>
+      <button class="btn btn-primary" (click)="onConfirm()" type="button">
+        {{ confirmText() }}
+      </button>
+    </div>
+  </div>
+</div>
+}

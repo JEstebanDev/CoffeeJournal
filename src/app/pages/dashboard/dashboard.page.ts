@@ -44,7 +44,6 @@ export class DashboardPage implements OnInit {
   get isLoading() { return this.dashboardState.isLoading; }
   get errorMessage() { return this.dashboardState.errorMessage; }
   get topOrigins() { return this.dashboardState.topOrigins; }
-  get favoriteRoast() { return this.dashboardState.favoriteRoast; }
   get favoriteBrewMethod() { return this.dashboardState.favoriteBrewMethod; }
   get tastingTrend() { return this.dashboardState.tastingTrend; }
   get insights() { return this.dashboardState.insights; }

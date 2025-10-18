@@ -2,18 +2,14 @@ import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SliderTitleComponent } from '../../atoms/slider/slider-title/slider-title.component';
+import { CountriesService, Country } from '../../../services/countries';
 import US from 'country-flag-icons/react/3x2/US';
+
 export interface CoffeeIdentity {
   brand: string;
   coffeeName: string;
   beanType: string;
   origin: string;
-}
-
-export interface Country {
-  flag: string;
-  nameEs: string;
-  nameEn: string;
 }
 
 @Component({
@@ -37,58 +33,12 @@ export class CoffeeIdentitySlideComponent {
   beanTypeTouched = signal(false);
   originTouched = signal(false);
 
-  // Lista de países productores de café
-  countries: Country[] = [
-    { flag: 'br', nameEs: 'Brasil', nameEn: 'Brazil' },
-    { flag: 'co', nameEs: 'Colombia', nameEn: 'Colombia' },
-    { flag: 'hn', nameEs: 'Honduras', nameEn: 'Honduras' },
-    { flag: 'pe', nameEs: 'Perú', nameEn: 'Peru' },
-    { flag: 'mx', nameEs: 'México', nameEn: 'Mexico' },
-    { flag: 'gt', nameEs: 'Guatemala', nameEn: 'Guatemala' },
-    { flag: 'ni', nameEs: 'Nicaragua', nameEn: 'Nicaragua' },
-    { flag: 'sv', nameEs: 'El Salvador', nameEn: 'El Salvador' },
-    { flag: 'cr', nameEs: 'Costa Rica', nameEn: 'Costa Rica' },
-    { flag: 'pa', nameEs: 'Panamá', nameEn: 'Panama' },
-    { flag: 'do', nameEs: 'República Dominicana', nameEn: 'Dominican Republic' },
-    { flag: 'jm', nameEs: 'Jamaica', nameEn: 'Jamaica' },
-    { flag: 've', nameEs: 'Venezuela', nameEn: 'Venezuela' },
-    { flag: 'ec', nameEs: 'Ecuador', nameEn: 'Ecuador' },
-    { flag: 'bo', nameEs: 'Bolivia', nameEn: 'Bolivia' },
-    { flag: 'cu', nameEs: 'Cuba', nameEn: 'Cuba' },
-    { flag: 'pr', nameEs: 'Puerto Rico', nameEn: 'Puerto Rico' },
+  // Lista de países obtenida del servicio
+  countries: Country[] = [];
 
-    // África
-    { flag: 'et', nameEs: 'Etiopía', nameEn: 'Ethiopia' },
-    { flag: 'ug', nameEs: 'Uganda', nameEn: 'Uganda' },
-    { flag: 'ci', nameEs: 'Costa de Marfil', nameEn: 'Ivory Coast' },
-    { flag: 'ke', nameEs: 'Kenia', nameEn: 'Kenya' },
-    { flag: 'tz', nameEs: 'Tanzania', nameEn: 'Tanzania' },
-    { flag: 'rw', nameEs: 'Ruanda', nameEn: 'Rwanda' },
-    { flag: 'bi', nameEs: 'Burundi', nameEn: 'Burundi' },
-    { flag: 'cm', nameEs: 'Camerún', nameEn: 'Cameroon' },
-    {
-      flag: 'cd',
-      nameEs: 'República Democrática del Congo',
-      nameEn: 'Democratic Republic of the Congo',
-    },
-    { flag: 'mg', nameEs: 'Madagascar', nameEn: 'Madagascar' },
-
-    // Asia
-    { flag: 'vn', nameEs: 'Vietnam', nameEn: 'Vietnam' },
-    { flag: 'id', nameEs: 'Indonesia', nameEn: 'Indonesia' },
-    { flag: 'in', nameEs: 'India', nameEn: 'India' },
-    { flag: 'la', nameEs: 'Laos', nameEn: 'Laos' },
-    { flag: 'th', nameEs: 'Tailandia', nameEn: 'Thailand' },
-    { flag: 'ph', nameEs: 'Filipinas', nameEn: 'Philippines' },
-    { flag: 'cn', nameEs: 'China', nameEn: 'China' },
-    { flag: 'mm', nameEs: 'Myanmar', nameEn: 'Myanmar' },
-    { flag: 'tl', nameEs: 'Timor Oriental', nameEn: 'East Timor' },
-    { flag: 'ye', nameEs: 'Yemen', nameEn: 'Yemen' },
-
-    // Oceanía
-    { flag: 'pg', nameEs: 'Papúa Nueva Guinea', nameEn: 'Papua New Guinea' },
-    { flag: 'sb', nameEs: 'Islas Salomón', nameEn: 'Solomon Islands' },
-  ];
+  constructor(private countriesService: CountriesService) {
+    this.countries = this.countriesService.getCountries();
+  }
 
   // Whether to show the flag "pop" animation in the template.
   showFlagAnimation = false;
@@ -158,14 +108,9 @@ export class CoffeeIdentitySlideComponent {
    */
   onOriginInput(value: string) {
     this.originTouched.set(true);
-    // Buscar si el texto contiene un país conocido (coincidencia exacta tras trim)
-    const lowerValue = (value || '').toLowerCase().trim();
-
-    const matchedCountry = this.countries.find((country) => {
-      const lowerNameEs = country.nameEs.toLowerCase();
-      const lowerNameEn = country.nameEn.toLowerCase();
-      return lowerValue === lowerNameEs || lowerValue === lowerNameEn;
-    });
+    
+    // Usar el servicio para buscar el país
+    const matchedCountry = this.countriesService.findCountryByName(value);
 
     if (matchedCountry) {
       // Si encuentra un país, agregar la bandera al inicio (usamos nameEs como display por defecto)

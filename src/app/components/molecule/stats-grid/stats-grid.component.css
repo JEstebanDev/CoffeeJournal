@@ -71,21 +71,23 @@
 }
 
 .stat-value {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 800;
   color: var(--text);
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.02em;
 }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  line-height: 1.3;
 }
 
 /* Top Origins Specific Styles */
@@ -100,24 +102,28 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
 }
 
 .origin-rank {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--accent);
   min-width: 20px;
+  font-size: 0.9rem;
 }
 
 .origin-name {
   font-weight: 600;
   color: var(--text);
   flex: 1;
+  font-size: 0.9rem;
 }
 
 .origin-count {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .no-data {
@@ -126,36 +132,129 @@
   font-size: 0.9rem;
 }
 
-/* Trend Card Specific Styles */
-.trend-text {
-  font-size: 0.95rem;
-  color: var(--text);
-  font-weight: 500;
-  line-height: 1.5;
-  margin: 0.5rem 0 0 0;
-}
-
-/* Insights Rotator */
-.insights-rotator {
+/* Banner de Patrón de Degustación */
+.tasting-pattern-banner {
+  grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+  background: linear-gradient(135deg, var(--card) 0%, var(--bg-soft) 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 8px 32px rgba(195, 142, 90, 0.15);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
   position: relative;
-  height: 3rem; /* Altura fija para evitar saltos */
   overflow: hidden;
 }
 
-.insight-item {
+.tasting-pattern-banner::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease-in-out;
-  margin: 0.5rem 0 0 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--link));
+  border-radius: 16px 16px 0 0;
 }
 
-.insight-item.active {
-  opacity: 1;
-  transform: translateY(0);
+.tasting-pattern-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(195, 142, 90, 0.2);
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.pattern-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--link-hover) 0%, var(--link) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.pattern-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.pattern-text {
+  flex: 1;
+  min-width: 0; /* Permite que el texto se trunque si es necesario */
+}
+
+.pattern-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.25rem 0;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.pattern-message {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+/* Controles del Banner */
+.pattern-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.control-btn {
+  padding: 0.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(195, 142, 90, 0.3);
+}
+
+.control-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.control-btn svg {
+  width: 50px;
+  height: 50px;
+  stroke-width: 6;
+  transform: scale(1.2);
 }
 
 /* Country Flags */
@@ -187,7 +286,12 @@
   }
 
   .stat-value {
-    font-size: 1.75rem;
+    font-size: 1.9rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.8px;
   }
 
   .stat-icon {
@@ -198,5 +302,55 @@
   .stat-icon svg {
     width: 20px;
     height: 20px;
+  }
+
+  /* Banner responsive */
+  .tasting-pattern-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem 3rem 1rem 1.25rem;
+    position: relative;
+  }
+
+  .banner-content {
+    gap: 0.75rem;
+  }
+
+  .pattern-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pattern-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pattern-title {
+    font-size: 1rem;
+  }
+
+  .pattern-message {
+    font-size: 0.9rem;
+  }
+
+  .pattern-controls {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    justify-content: flex-end;
+  }
+
+  .control-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .control-btn svg {
+    width: 40px;
+    height: 40px;
+    stroke-width: 5;
+    transform: scale(1.1);
   }
 }

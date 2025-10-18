@@ -28,7 +28,6 @@ export class DashboardStateService {
 
   // Statistics signals
   topOrigins = signal<{ name: string; count: number }[]>([]);
-  favoriteRoast = signal<string>('');
   favoriteBrewMethod = signal<string>('');
   tastingTrend = signal<string>('');
   insights = signal<{ message: string; icon: string }[]>([]);
@@ -78,7 +77,6 @@ export class DashboardStateService {
     this.averageRating.set(stats.averageRating);
     this.favoriteOrigin.set(stats.favoriteOrigin);
     this.topOrigins.set(stats.topOrigins);
-    this.favoriteRoast.set(stats.favoriteRoast);
     this.favoriteBrewMethod.set(stats.favoriteBrewMethod);
     this.tastingTrend.set(stats.tastingTrend);
     this.insights.set(stats.insights);
@@ -118,7 +116,6 @@ export class DashboardStateService {
     this.averageRating.set(0);
     this.favoriteOrigin.set('N/A');
     this.topOrigins.set([]);
-    this.favoriteRoast.set('');
     this.favoriteBrewMethod.set('');
     this.tastingTrend.set('');
     this.insights.set([]);

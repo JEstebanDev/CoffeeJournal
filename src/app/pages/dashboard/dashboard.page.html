@@ -73,14 +73,13 @@
 
       <!-- Stats Grid - Only show when there are tastings -->
       @if (!isLoading() && totalTastings() > 0) {
-    <app-stats-grid
-      [totalTastings]="totalTastings()"
-      [topOrigins]="topOrigins()"
-      [favoriteRoast]="favoriteRoast()"
-      [favoriteBrewMethod]="favoriteBrewMethod()"
-      [tastingTrend]="tastingTrend()"
-      [insights]="insights()"
-    ></app-stats-grid>
+      <app-stats-grid
+        [totalTastings]="totalTastings()"
+        [topOrigins]="topOrigins()"
+        [favoriteBrewMethod]="favoriteBrewMethod()"
+        [tastingTrend]="tastingTrend()"
+        [insights]="insights()"
+      ></app-stats-grid>
       }
 
       <!-- Recent Tastings - Only show when there are tastings -->
@@ -102,54 +101,95 @@
                 placeholder="Buscar por nombre o marca..."
                 [value]="searchQuery()"
                 (input)="onSearchChange($event)"
+                (keyup)="onSearchChange($event)"
                 i18n-placeholder="@@searchPlaceholder"
               />
               @if (searchQuery()) {
-              <button class="clear-search-btn" (click)="clearSearch()" type="button" title="Limpiar búsqueda">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
-                  <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+              <button
+                class="clear-search-btn"
+                (click)="clearSearch()"
+                type="button"
+                title="Limpiar búsqueda"
+                aria-label="Limpiar búsqueda"
+                id="clear-search-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path
+                    d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  ></path>
+                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                  <line x1="14" y1="11" x2="14" y2="17"></line>
                 </svg>
               </button>
               }
             </div>
-            
+
             <!-- Botones de ordenamiento -->
             <div class="sort-buttons">
-              <button 
-                class="sort-btn" 
+              <button
+                class="sort-btn"
                 [class.active]="sortOrder() === 'best'"
-                (click)="sortByBest()" 
+                (click)="sortByBest()"
                 title="Mejor rankeados primero"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <span>Mejores</span>
               </button>
-              
-              <button 
-                class="sort-btn" 
+
+              <button
+                class="sort-btn"
                 [class.active]="sortOrder() === 'worst'"
-                (click)="sortByWorst()" 
+                (click)="sortByWorst()"
                 title="Peor rankeados primero"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M12 5v14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path
+                    d="M12 5v14"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M19 12l-7 7-7-7"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <span>Peores</span>
               </button>
-              
-              <button 
-                class="sort-btn" 
+
+              <button
+                class="sort-btn"
                 [class.active]="sortOrder() === 'recent'"
-                (click)="sortByRecent()" 
+                (click)="sortByRecent()"
                 title="Más recientes primero"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                  <polyline points="12 6 12 12 16 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="10" stroke-width="2" />
+                  <polyline
+                    points="12 6 12 12 16 14"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <span>Recientes</span>
               </button>
