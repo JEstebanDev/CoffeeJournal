@@ -16,7 +16,7 @@ export interface DashboardStatistics {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatisticsService {
   private translationService = inject(TranslationService);
@@ -27,18 +27,26 @@ export class StatisticsService {
     // Forzar la reactividad al idioma actual
     const currentLanguage = this.languageService.language();
     const result = this.translationService.translate(key, params);
-    
+
     // Si la traducción no se encuentra, usar un fallback
     if (result === key) {
-      console.warn(`[StatisticsService] Translation not found for key: "${key}" in language: ${currentLanguage}`);
+      console.warn(
+        `[StatisticsService] Translation not found for key: "${key}" in language: ${currentLanguage}`
+      );
       // Fallbacks básicos
       const fallbacks: { [key: string]: string } = {
-        'noDataMessage': currentLanguage === 'es' ? 'Sin datos' : 'No data',
-        'unknownOrigin': currentLanguage === 'es' ? 'Origen desconocido' : 'Unknown Origin',
-        'unknownRoast': currentLanguage === 'es' ? 'Tueste desconocido' : 'Unknown Roast',
-        'unknownMethod': currentLanguage === 'es' ? 'Método desconocido' : 'Unknown Method',
-        'insufficientDataMessage': currentLanguage === 'es' ? 'Datos insuficientes para calcular tendencia' : 'Insufficient data to calculate trend',
-        'exploreMoreMessage': currentLanguage === 'es' ? 'Explora más cafés para descubrir tus preferencias' : 'Explore more coffees to discover your preferences'
+        noDataMessage: currentLanguage === 'es' ? 'Sin datos' : 'No data',
+        unknownOrigin: currentLanguage === 'es' ? 'Origen desconocido' : 'Unknown Origin',
+        unknownRoast: currentLanguage === 'es' ? 'Tueste desconocido' : 'Unknown Roast',
+        unknownMethod: currentLanguage === 'es' ? 'Método desconocido' : 'Unknown Method',
+        insufficientDataMessage:
+          currentLanguage === 'es'
+            ? 'Datos insuficientes para calcular tendencia'
+            : 'Insufficient data to calculate trend',
+        exploreMoreMessage:
+          currentLanguage === 'es'
+            ? 'Explora más cafés para descubrir tus preferencias'
+            : 'Explore more coffees to discover your preferences',
       };
       return fallbacks[key] || key;
     }
@@ -63,7 +71,7 @@ export class StatisticsService {
         favoriteRoast: '',
         favoriteBrewMethod: '',
         tastingTrend: '',
-        insights: []
+        insights: [],
       };
     }
 
@@ -95,7 +103,10 @@ export class StatisticsService {
     const favoriteRoastKey = Object.entries(roastCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
 
     // Traducir nivel de tueste
-    const favoriteRoast = this.getTranslation(`roastLevel${favoriteRoastKey.charAt(0).toUpperCase() + favoriteRoastKey.slice(1)}`) || favoriteRoastKey;
+    const favoriteRoast =
+      this.getTranslation(
+        `roastLevel${favoriteRoastKey.charAt(0).toUpperCase() + favoriteRoastKey.slice(1)}`
+      ) || favoriteRoastKey;
 
     // Método de preparación favorito
     const brewMethodCount = tastings.reduce((acc, tasting) => {
@@ -122,7 +133,7 @@ export class StatisticsService {
       favoriteRoast,
       favoriteBrewMethod,
       tastingTrend,
-      insights
+      insights,
     };
   }
 
@@ -156,21 +167,21 @@ export class StatisticsService {
       const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
       return this.getTranslation('tastingTrendBodyAndAcidity', {
         body: bodyTranslated.toLowerCase(),
-        acidity: acidityTranslated.toLowerCase()
+        acidity: acidityTranslated.toLowerCase(),
       });
     } else if (mostCommonBody) {
       const bodyTranslated = this.getTranslation(mostCommonBody) || mostCommonBody;
       return this.getTranslation('tastingTrendBody', {
-        body: bodyTranslated.toLowerCase()
+        body: bodyTranslated.toLowerCase(),
       });
     } else if (mostCommonAcidity) {
       const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
       return this.getTranslation('tastingTrendAcidity', {
-        acidity: acidityTranslated.toLowerCase()
+        acidity: acidityTranslated.toLowerCase(),
       });
     }
 
-      return this.getTranslation('exploreMoreMessage');
+    return this.getTranslation('exploreMoreMessage');
   }
 
   /**
@@ -188,7 +199,7 @@ export class StatisticsService {
         message: this.getTranslation('insightFavoriteCoffee', {
           coffeeName: topRatedTasting.coffee_name,
           origin: topRatedTasting.origin,
-          score: topRatedTasting.score
+          score: topRatedTasting.score,
         }),
         icon: 'star',
       });
@@ -207,7 +218,7 @@ export class StatisticsService {
       insights.push({
         message: this.getTranslation('insightFavoriteMethod', {
           method: methodTranslated,
-          count: favoriteMethod[1]
+          count: favoriteMethod[1],
         }),
         icon: 'coffee',
       });
@@ -223,12 +234,13 @@ export class StatisticsService {
     const mostCommonBody = Object.entries(bodyCount).sort((a, b) => b[1] - a[1])[0]?.[0];
     const mostCommonAcidity = Object.entries(acidityCount).sort((a, b) => b[1] - a[1])[0]?.[0];
     if (mostCommonBody && mostCommonAcidity) {
-      const bodyTranslated = this.getTranslation(mostCommonBody) || mostCommonBody;
-      const acidityTranslated = this.getTranslation(mostCommonAcidity) || mostCommonAcidity;
+      const bodyTranslated = this.getTranslation(mostCommonBody.split(' - ')[0]) || mostCommonBody;
+      const acidityTranslated =
+        this.getTranslation(mostCommonAcidity.split(' - ')[0]) || mostCommonAcidity;
       insights.push({
         message: this.getTranslation('insightPreferenceBodyAndAcidity', {
           body: bodyTranslated.toLowerCase(),
-          acidity: acidityTranslated.toLowerCase()
+          acidity: acidityTranslated.toLowerCase(),
         }),
         icon: 'heart',
       });
@@ -237,9 +249,9 @@ export class StatisticsService {
     // Insight 4: Promedio de calificación
     const avgScore = tastings.reduce((sum, t) => sum + t.score, 0) / tastings.length;
     insights.push({
-        message: this.getTranslation('insightAverageScore', {
-          score: avgScore.toFixed(1)
-        }),
+      message: this.getTranslation('insightAverageScore', {
+        score: avgScore.toFixed(1),
+      }),
       icon: 'trend-up',
     });
 
@@ -253,7 +265,7 @@ export class StatisticsService {
       insights.push({
         message: this.getTranslation('insightFavoriteOrigin', {
           count: topOrigin[1],
-          origin: topOrigin[0]
+          origin: topOrigin[0],
         }),
         icon: 'lightbulb',
       });
