@@ -11,6 +11,8 @@ import { CardTastingInfo } from '../../services/forms';
 import { CoffeeCardInfoService } from '../../services/coffee';
 import { DashboardStateService } from '../../services/dashboard';
 import { TranslatePipe } from '../../services/language/translate.pipe';
+import { TastingDetailPopupComponent } from '../../components/molecule/tasting-detail-popup/tasting-detail-popup.component';
+import { CoffeeTasting } from '../../services/coffee';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,7 @@ import { TranslatePipe } from '../../services/language/translate.pipe';
     HeaderComponent,
     StatsGridComponent,
     TastingCardComponent,
+    TastingDetailPopupComponent,
     TranslatePipe,
   ],
   templateUrl: './dashboard.page.html',
@@ -35,6 +38,10 @@ export class DashboardPage implements OnInit {
 
   // Signal to track if a child route is active
   isChildRouteActive = signal<boolean>(false);
+  
+  // Popup state
+  showPopup = false;
+  selectedTasting: CoffeeTasting | null = null;
 
   // Expose dashboard state signals for template access
   get totalTastings() { return this.dashboardState.totalTastings; }
@@ -213,7 +220,19 @@ export class DashboardPage implements OnInit {
   }
 
   onViewTasting(tastingId: string) {
-    this.router.navigate(['/coffee', tastingId]);
+    // Find the tasting data
+    const tasting = this.dashboardState.getRawTastings().find((t: CoffeeTasting) => t.id === tastingId);
+    if (tasting) {
+      this.selectedTasting = tasting;
+      this.showPopup = true;
+    } else {
+      console.error('Tasting not found:', tastingId);
+    }
+  }
+
+  onClosePopup() {
+    this.showPopup = false;
+    this.selectedTasting = null;
   }
 
 

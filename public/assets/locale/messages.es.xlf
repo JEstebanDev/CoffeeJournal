@@ -994,6 +994,102 @@
         <source>💾 Guardar Cata</source>
         <target>💾 Guardar Cata</target>
       </trans-unit>
+      <trans-unit id="basicInfo" datatype="html">
+        <source>Información Básica</source>
+        <target>Información Básica</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="origin" datatype="html">
+        <source>Origen</source>
+        <target>Origen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="roastLevel" datatype="html">
+        <source>Nivel de Tueste</source>
+        <target>Nivel de Tueste</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="brewMethod" datatype="html">
+        <source>Método de Preparación</source>
+        <target>Método de Preparación</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="beanType" datatype="html">
+        <source>Tipo de Grano</source>
+        <target>Tipo de Grano</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sensoryNotes" datatype="html">
+        <source>Notas Sensoriales</source>
+        <target>Notas Sensoriales</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aroma" datatype="html">
+        <source>Aroma</source>
+        <target>Aroma</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="flavor" datatype="html">
+        <source>Sabor</source>
+        <target>Sabor</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="body" datatype="html">
+        <source>Cuerpo</source>
+        <target>Cuerpo</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="acidity" datatype="html">
+        <source>Acidez</source>
+        <target>Acidez</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aftertaste" datatype="html">
+        <source>Retrogusto</source>
+        <target>Retrogusto</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="impression" datatype="html">
+        <source>Impresión General</source>
+        <target>Impresión General</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/tasting-detail-popup/tasting-detail-popup.component.html</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

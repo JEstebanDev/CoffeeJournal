@@ -138,4 +138,11 @@ export class DashboardStateService {
   forceDataReload(): void {
     this.dataLoadAttempted.set(false);
   }
+
+  /**
+   * Gets the raw tastings data
+   */
+  getRawTastings(): CoffeeTasting[] {
+    return this.allTastings();
+  }
 }

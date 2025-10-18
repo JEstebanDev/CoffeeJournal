@@ -1,0 +1,233 @@
+<div class="popup-backdrop" (click)="onBackdropClick($event)">
+  <div class="popup-container">
+    <!-- Close Button -->
+    <button class="close-button" (click)="onClose()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round" />
+        <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="header-content">
+        <div class="coffee-title">
+          <h1 class="coffee-name">{{ mappedTasting?.coffeeName || tasting.coffee_name }}</h1>
+          <div class="coffee-origin">
+            <svg class="origin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="10" r="3" stroke-width="2" />
+            </svg>
+            <span class="origin-text">{{ mappedTasting?.origin || tasting.origin }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="popup-content">
+      <!-- Main Layout: Info Left, Image Right -->
+      <div class="main-layout">
+        <!-- Left Side: Basic Information -->
+        <div class="info-section">
+          <h3 class="section-title">{{ 'basicInfo' | translate }}</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">
+                <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {{ 'roastLevel' | translate }}
+              </div>
+              <div class="info-value">{{ getRoastLevel() | translate }}</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">
+                <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {{ 'brewMethod' | translate }}
+              </div>
+              <div class="info-value">{{ getBrewMethod() | translate }}</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">
+                <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="3" stroke-width="2" />
+                  <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                {{ 'beanType' | translate }}
+              </div>
+              <div class="info-value">{{ getBeanType() | translate }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="image-section">
+          <div class="image-container">
+            @if (tasting.image) {
+              <img [src]="tasting.image" [alt]="tasting.coffee_name" class="coffee-image" />
+            } @else {
+              <div class="image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <line x1="6" y1="1" x2="6" y2="4" stroke-width="2" stroke-linecap="round" />
+                  <line x1="10" y1="1" x2="10" y2="4" stroke-width="2" stroke-linecap="round" />
+                  <line x1="14" y1="1" x2="14" y2="4" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            }
+            <!-- Score Badge -->
+            <div class="image-score" [style.color]="getScoreColor(tasting.score)">
+              <div class="score-number">{{ tasting.score }}</div>
+              <div class="score-max">/10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sensory Notes -->
+      <div class="info-section">
+        <h3 class="section-title">{{ 'sensoryNotes' | translate }}</h3>
+        <div class="sensory-content">
+          <!-- Aroma -->
+          <div class="sensory-field">
+            <div class="sensory-header">
+              <svg class="sensory-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M9 12l2 2 4-4"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+              </svg>
+              <h4 class="sensory-title">{{ 'aroma' | translate }}</h4>
+            </div>
+            <div class="sensory-text">{{ mappedTasting?.aroma || tasting.aroma }}</div>
+          </div>
+
+          <!-- Flavor -->
+          <div class="sensory-field">
+            <div class="sensory-header">
+              <svg class="sensory-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <h4 class="sensory-title">{{ 'flavor' | translate }}</h4>
+            </div>
+            <div class="sensory-text">{{ mappedTasting?.flavor || tasting.flavor }}</div>
+          </div>
+
+          <!-- Body and Acidity -->
+          <div class="sensory-row">
+            <div class="sensory-field compact">
+              <div class="sensory-header">
+                <svg class="sensory-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M3 3h18v18H3zM9 9h6v6H9z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h4 class="sensory-title">{{ 'body' | translate }}</h4>
+              </div>
+              <div class="sensory-value">
+                <div class="level-label">{{ getBodyLabel() | translate }}</div>
+                <div class="level-description">{{ getBodyDescription() | translate }}</div>
+              </div>
+            </div>
+
+            <div class="sensory-field compact">
+              <div class="sensory-header">
+                <svg class="sensory-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <h4 class="sensory-title">{{ 'acidity' | translate }}</h4>
+              </div>
+              <div class="sensory-value">
+                <div class="level-label">{{ getAcidityLabel() | translate }}</div>
+                <div class="level-description">{{ getAcidityDescription() | translate }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aftertaste -->
+          <div class="sensory-field">
+            <div class="sensory-header">
+              <svg class="sensory-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <h4 class="sensory-title">{{ 'aftertaste' | translate }}</h4>
+            </div>
+            <div class="sensory-text">
+              <div class="aftertaste-level">
+                <div class="level-label">{{ getAftertasteLabel() | translate }}</div>
+                <div class="level-description">{{ getAftertasteDescriptionKey() | translate }}</div>
+              </div>
+              @if (getAftertasteDescription()) {
+              <div class="aftertaste-user-description">{{ getAftertasteDescription() }}</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impression -->
+      @if (tasting.impression) {
+      <div class="info-section">
+        <h3 class="section-title">{{ 'impression' | translate }}</h3>
+        <div class="impression-content">
+          <svg class="impression-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p>{{ mappedTasting?.impression || tasting.impression }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
