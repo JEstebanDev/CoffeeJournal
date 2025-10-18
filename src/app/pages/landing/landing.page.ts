@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Login } from '../../services/auth';
 import { FutterComponent } from '../../components/molecule/futter/futter.component';
 import { TranslatePipe } from '../../services/language/translate.pipe';
+import { SEOService } from '../../services/seo';
 
 @Component({
   selector: 'app-landing-page',
@@ -15,11 +16,15 @@ import { TranslatePipe } from '../../services/language/translate.pipe';
 export class LandingPage implements OnInit {
   private router = inject(Router);
   private loginService = inject(Login);
+  private seoService = inject(SEOService);
 
   // Signal to show loading state during authentication
   isAuthenticating = signal(false);
 
   async ngOnInit() {
+    // Configurar SEO para la página de landing
+    this.seoService.setHomePageSEO();
+
     // Check if there's a hash in the URL (magic link or OAuth callback)
     const hash = window.location.hash;
 

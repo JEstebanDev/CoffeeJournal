@@ -2,19 +2,29 @@
 
 ## Configuración de Variables de Entorno
 
-Para que la aplicación funcione correctamente en producción, necesitas configurar las siguientes variables de entorno en Netlify:
+Para mantener la seguridad, las credenciales de Supabase se configuran como variables de entorno.
 
 ### Variables Requeridas
 
 1. **NG_APP_SUPABASE_URL**
    - Valor: Tu URL de Supabase
-   - Ejemplo: `https://hhihxgepnxcidzxedbdr.supabase.co`
+   - Ejemplo: `https://tu-proyecto.supabase.co`
 
 2. **NG_APP_SUPABASE_KEY**
    - Valor: Tu clave anónima de Supabase
    - Ejemplo: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 
-### Cómo Configurar las Variables en Netlify
+### Para Desarrollo Local
+
+1. **Crea un archivo `.env`** en la raíz del proyecto:
+```bash
+NG_APP_SUPABASE_URL=https://tu-proyecto.supabase.co
+NG_APP_SUPABASE_KEY=tu-clave-anonima-aqui
+```
+
+2. **El archivo `.env` ya está en `.gitignore`** para mantener las credenciales seguras
+
+### Para Producción (Netlify)
 
 1. **Accede a tu dashboard de Netlify**
 2. **Selecciona tu sitio**

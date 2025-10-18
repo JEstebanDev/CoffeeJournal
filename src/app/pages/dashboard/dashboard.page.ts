@@ -13,6 +13,7 @@ import { DashboardStateService } from '../../services/dashboard';
 import { TranslatePipe } from '../../services/language/translate.pipe';
 import { TastingDetailPopupComponent } from '../../components/molecule/tasting-detail-popup/tasting-detail-popup.component';
 import { CoffeeTasting } from '../../services/coffee';
+import { SEOService } from '../../services/seo';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardPage implements OnInit {
   private loginService = inject(Login);
   private coffeeCardInfoService = inject(CoffeeCardInfoService);
   private dashboardState = inject(DashboardStateService);
+  private seoService = inject(SEOService);
 
   // Signal to track if a child route is active
   isChildRouteActive = signal<boolean>(false);
@@ -147,6 +149,9 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
+    // Configurar SEO para la página de dashboard
+    this.seoService.setDashboardSEO();
+
     // Check initial route state
     const url = this.router.url;
     this.isChildRouteActive.set(url !== '/dashboard' && url.startsWith('/dashboard/'));

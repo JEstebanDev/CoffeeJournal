@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '../../services/auth';
 import { TranslatePipe } from '../../services/language/translate.pipe';
+import { SEOService } from '../../services/seo';
 
 @Component({
   selector: 'app-auth',
@@ -15,12 +16,18 @@ import { TranslatePipe } from '../../services/language/translate.pipe';
 export class AuthPage {
   private loginService = inject(Login);
   private router = inject(Router);
+  private seoService = inject(SEOService);
 
   // UI state
   isLogin = signal(true);
   isLoading = signal(false);
   errorMessage = signal('');
   successMessage = signal('');
+
+  constructor() {
+    // Configurar SEO para la página de auth
+    this.seoService.setAuthSEO();
+  }
 
   // Form data
   email = signal('');

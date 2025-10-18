@@ -2,14 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>CoffeeJournal</title>
+    <title>CoffeeJournal - Tu Diario de Café Personal</title>
     <base href="/" />
+    
+    <!-- Meta tags básicos -->
+    <meta name="description" content="Registra, evalúa y descubre tus cafés favoritos. Una aplicación completa para amantes del café que quieren llevar un registro detallado de sus experiencias." />
+    <meta name="keywords" content="café, coffee, diario, journal, tasting, cata, evaluación, notas, registro, barista" />
+    <meta name="author" content="CoffeeJournal" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="CoffeeJournal - Tu Diario de Café Personal" />
+    <meta property="og:description" content="Registra, evalúa y descubre tus cafés favoritos. Una aplicación completa para amantes del café." />
+    <meta property="og:image" content="/assets/logo.png" />
+    <meta property="og:url" content="https://coffeejournal.netlify.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CoffeeJournal" />
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CoffeeJournal - Tu Diario de Café Personal" />
+    <meta name="twitter:description" content="Registra, evalúa y descubre tus cafés favoritos. Una aplicación completa para amantes del café." />
+    <meta name="twitter:image" content="/assets/logo.png" />
+    
+    <!-- Favicon y estilos -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CoffeeJournal",
+      "description": "Aplicación para registrar y evaluar experiencias de café",
+      "url": "https://coffeejournal.netlify.app",
+      "applicationCategory": "Food & Drink",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
   </head>
   <body>
     <app-root></app-root>

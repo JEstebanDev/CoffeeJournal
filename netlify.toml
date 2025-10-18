@@ -2,8 +2,8 @@
   # Directorio donde se construye la aplicación
   base = "."
   
-  # Comando para construir la aplicación
-  command = "npm run build"
+  # Comando para construir la aplicación e inyectar variables de entorno
+  command = "node set-env.js && npm run build"
   
   # Directorio de salida donde Netlify encontrará los archivos para servir
   publish = "dist/CoffeeJournal/browser"

@@ -13,6 +13,7 @@ import {
 
 // Services
 import { CoffeeService } from '../../services/coffee';
+import { SEOService } from '../../services/seo';
 import { Login } from '../../services/auth';
 import {
   PendingTastingService,
@@ -57,6 +58,7 @@ export class SlidesPage implements OnInit {
   private router = inject(Router);
   private pendingTastingService = inject(PendingTastingService);
   private tastingStateService = inject(TastingStateService);
+  private seoService = inject(SEOService);
 
   // Public services (used in template)
   formService = inject(CoffeeTastingFormService);
@@ -128,6 +130,9 @@ export class SlidesPage implements OnInit {
   }
 
   async ngOnInit() {
+    // Configurar SEO para la página de slides
+    this.seoService.setSlidesSEO();
+
     // Check if there's saved form data from before login
     const pendingData = await this.pendingTastingService.getPendingTasting();
 

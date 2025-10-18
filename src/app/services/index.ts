@@ -12,3 +12,6 @@ export * from './dashboard';
 
 // Form services
 export * from './forms';
+
+// SEO services
+export * from './seo';

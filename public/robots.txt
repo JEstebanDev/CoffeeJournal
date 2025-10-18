@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://coffeejournal.netlify.app/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all other content
+Allow: /dashboard
+Allow: /slides
+Allow: /auth
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

@@ -2,9 +2,10 @@
   "name": "coffee-journal",
   "version": "0.0.0",
   "scripts": {
+    "prebuild": "node set-env.js",
     "ng": "ng",
     "start": "npm run sync-translations && ng serve",
-    "build": "npm run sync-translations && ng build",
+    "build": "npm run sync-translations && ng build --configuration production",
     "watch": "npm run sync-translations && ng build --watch --configuration development",
     "test": "ng test",
     "sync-translations": "node scripts/sync-translations.js"
@@ -29,6 +30,7 @@
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "@nguniversal/express-engine": "^16.2.0",
     "@supabase/supabase-js": "^2.75.0",
     "flag-icons": "^7.5.0",
     "rxjs": "~7.8.0",
