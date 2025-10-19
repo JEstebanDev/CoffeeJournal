@@ -269,7 +269,7 @@
   font-style: italic;
   flex: 1 1 auto; /* permite que el <p> tome el ancho restante */
   display: -webkit-box; /* required for line-clamp */
-  -webkit-line-clamp: 3; /* número de líneas visibles */
+  line-clamp: 3; /* número de líneas visibles */
   -webkit-box-orient: vertical; /* required for line-clamp */
   overflow: hidden; /* oculta lo que excede */
   text-overflow: ellipsis; /* muestra ... cuando recorta */
@@ -318,6 +318,6 @@
     padding-bottom: 0.5rem;
   }
   .tasting-impression p {
-    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 }
