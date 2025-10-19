@@ -31,15 +31,12 @@ export class TranslationService {
     
     try {
       const currentLanguage = this.languageService.language();
-      console.log(`Loading translations for language: ${currentLanguage}`);
       const translations = await this.fetchTranslations(currentLanguage);
-      console.log(`Loaded ${Object.keys(translations).length} translations:`, Object.keys(translations));
       this.translations.set(translations);
     } catch (error) {
       console.error('Error cargando traducciones:', error);
       // Fallback a traducciones básicas
       const fallbackTranslations = this.getFallbackTranslations();
-      console.log(`Using fallback translations: ${Object.keys(fallbackTranslations).length} keys`);
       this.translations.set(fallbackTranslations);
     } finally {
       this.isLoading.set(false);
@@ -84,7 +81,6 @@ export class TranslationService {
       }
       
       const transUnits = xmlDoc.querySelectorAll('trans-unit');
-      console.log(`Found ${transUnits.length} translation units`);
       
       transUnits.forEach((unit) => {
         const id = unit.getAttribute('id');
@@ -96,8 +92,6 @@ export class TranslationService {
           console.warn(`Translation unit ${id} has no target element`);
         }
       });
-      
-      console.log(`Parsed ${Object.keys(translations).length} translations`);
     } catch (error) {
       console.error('Error parseando archivo XLF:', error);
     }
