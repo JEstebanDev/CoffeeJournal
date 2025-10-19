@@ -5,7 +5,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-soft) 50%, #2a1710 100%);
   padding: 2rem;
   box-sizing: border-box;
   overflow: hidden;

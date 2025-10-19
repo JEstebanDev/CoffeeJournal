@@ -23,7 +23,7 @@ export class HeaderComponent {
 
   // Confirmation dialog signals
   showConfirmationDialog = signal<boolean>(false);
-  confirmationTitle = signal<string>('¿Eliminar cata en progreso?');
+  confirmationTitle = signal<string>('deleteTastingTitle');
   confirmationMessage = signal<string>('tastingInProgressMessage');
   confirmationDetails = signal<string | null>(null);
 

@@ -31,12 +31,16 @@ export class TranslationService {
     
     try {
       const currentLanguage = this.languageService.language();
+      console.log(`Loading translations for language: ${currentLanguage}`);
       const translations = await this.fetchTranslations(currentLanguage);
+      console.log(`Loaded ${Object.keys(translations).length} translations:`, Object.keys(translations));
       this.translations.set(translations);
     } catch (error) {
       console.error('Error cargando traducciones:', error);
       // Fallback a traducciones básicas
-      this.translations.set(this.getFallbackTranslations());
+      const fallbackTranslations = this.getFallbackTranslations();
+      console.log(`Using fallback translations: ${Object.keys(fallbackTranslations).length} keys`);
+      this.translations.set(fallbackTranslations);
     } finally {
       this.isLoading.set(false);
     }
@@ -72,7 +76,15 @@ export class TranslationService {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
       
+      // Verificar si hay errores de parsing
+      const parserError = xmlDoc.querySelector('parsererror');
+      if (parserError) {
+        console.error('XML parsing error:', parserError.textContent);
+        return translations;
+      }
+      
       const transUnits = xmlDoc.querySelectorAll('trans-unit');
+      console.log(`Found ${transUnits.length} translation units`);
       
       transUnits.forEach((unit) => {
         const id = unit.getAttribute('id');
@@ -80,8 +92,12 @@ export class TranslationService {
         
         if (id && targetElement) {
           translations[id] = targetElement.textContent || '';
+        } else if (id) {
+          console.warn(`Translation unit ${id} has no target element`);
         }
       });
+      
+      console.log(`Parsed ${Object.keys(translations).length} translations`);
     } catch (error) {
       console.error('Error parseando archivo XLF:', error);
     }
@@ -234,12 +250,35 @@ export class TranslationService {
          aftertasteLevelMediumDescription: 'Good finish, no bitterness',
          aftertasteLevelLongDescription: 'Remains pleasant',
          aftertasteLevelComplexDescription: 'Evolves over time',
-         // Score Slide
-         coffeeImageTitle: 'Coffee Image',
-         uploadImageText: 'Click to upload an image',
-         uploadImageHint: 'JPG, PNG or WEBP (max. 5MB)',
-         removeImageButton: '✕ Remove',
-         saveTastingButton: '💾 Save Tasting',
+        // Score Slide
+        coffeeImageTitle: 'Coffee Image',
+        uploadImageText: 'Click to upload an image',
+        uploadImageHint: 'JPG, PNG or WEBP (max. 5MB)',
+        removeImageButton: '✕ Remove',
+        saveTastingButton: '💾 Save Tasting',
+        // Auth Page
+        backButton: 'Back',
+        loginTitle: 'Sign In',
+        signupTitle: 'Sign Up',
+        loginSubtitle: 'Access your coffee journal',
+        signupSubtitle: 'Start your coffee journey',
+        usernameLabel: 'Username',
+        usernamePlaceholder: 'Enter your username',
+        emailLabel: 'Email',
+        emailPlaceholder: 'your@email.com',
+        passwordLabel: 'Password',
+        passwordPlaceholder: 'Minimum 6 characters',
+        confirmPasswordLabel: 'Confirm Password',
+        confirmPasswordPlaceholder: 'Repeat your password',
+        signInButton: 'Sign In',
+        signUpButton: 'Sign Up',
+        magicLinkButton: 'Send Magic Link',
+        noAccountText: "Don't have an account?",
+        hasAccountText: 'Already have an account?',
+        // Confirmation Dialog
+        cancelButton: 'Cancel',
+        confirmButton: 'Confirm',
+        deleteTastingTitle: 'Delete tasting in progress?',
       };
     } else {
       return {
@@ -380,12 +419,35 @@ export class TranslationService {
          aftertasteLevelMediumDescription: 'Buen final, sin amargor',
          aftertasteLevelLongDescription: 'Permanece agradable',
          aftertasteLevelComplexDescription: 'Evoluciona con el tiempo',
-         // Score Slide
-         coffeeImageTitle: 'Imagen del Café',
-         uploadImageText: 'Haz clic para subir una imagen',
-         uploadImageHint: 'JPG, PNG o WEBP (máx. 5MB)',
-         removeImageButton: '✕ Eliminar',
-         saveTastingButton: '💾 Guardar Cata',
+        // Score Slide
+        coffeeImageTitle: 'Imagen del Café',
+        uploadImageText: 'Haz clic para subir una imagen',
+        uploadImageHint: 'JPG, PNG o WEBP (máx. 5MB)',
+        removeImageButton: '✕ Eliminar',
+        saveTastingButton: '💾 Guardar Cata',
+        // Auth Page
+        backButton: 'Volver',
+        loginTitle: 'Iniciar Sesión',
+        signupTitle: 'Crear Cuenta',
+        loginSubtitle: 'Accede a tu bitácora cafetera',
+        signupSubtitle: 'Comienza tu viaje cafetero',
+        usernameLabel: 'Nombre de Usuario',
+        usernamePlaceholder: 'Ingresa tu nombre de usuario',
+        emailLabel: 'Correo Electrónico',
+        emailPlaceholder: 'tu@email.com',
+        passwordLabel: 'Contraseña',
+        passwordPlaceholder: 'Mínimo 6 caracteres',
+        confirmPasswordLabel: 'Confirmar Contraseña',
+        confirmPasswordPlaceholder: 'Repite tu contraseña',
+        signInButton: 'Iniciar Sesión',
+        signUpButton: 'Crear Cuenta',
+        magicLinkButton: 'Enviar Enlace Mágico',
+        noAccountText: '¿No tienes cuenta?',
+        hasAccountText: '¿Ya tienes cuenta?',
+        // Confirmation Dialog
+        cancelButton: 'Cancelar',
+        confirmButton: 'Confirmar',
+        deleteTastingTitle: '¿Eliminar cata en progreso?',
       };
     }
   }
@@ -396,6 +458,11 @@ export class TranslationService {
   public translate(key: string, params?: { [key: string]: string | number }): string {
     const translations = this.translations();
     let translation = translations[key] || key;
+    
+    // Debug: Log cuando no se encuentra una traducción
+    if (!translations[key]) {
+      console.warn(`Translation key not found: ${key}. Available keys:`, Object.keys(translations));
+    }
     
     // Reemplazar parámetros si se proporcionan
     if (params) {

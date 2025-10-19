@@ -38,10 +38,7 @@ router-outlet {
 
 /* When child route is active, show router-outlet and make it fill available space */
 .dashboard-main.has-child-route router-outlet {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  flex: 1;
+  display: none
 }
 
 /* Welcome Section */
@@ -475,5 +472,9 @@ router-outlet {
 
   .empty-state-description {
     font-size: 1rem;
+  }
+
+  .dashboard-main.has-child-route router-outlet {
+    display: none;
   }
 }

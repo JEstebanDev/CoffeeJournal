@@ -1090,6 +1090,178 @@
           <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
+
+      <!-- Auth Page Translations -->
+      <trans-unit id="backButton" datatype="html">
+        <source>Volver</source>
+        <target>Volver</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginTitle" datatype="html">
+        <source>Iniciar Sesión</source>
+        <target>Iniciar Sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signupTitle" datatype="html">
+        <source>Crear Cuenta</source>
+        <target>Crear Cuenta</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginSubtitle" datatype="html">
+        <source>Accede a tu bitácora cafetera</source>
+        <target>Accede a tu bitácora cafetera</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signupSubtitle" datatype="html">
+        <source>Comienza tu viaje cafetero</source>
+        <target>Comienza tu viaje cafetero</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usernameLabel" datatype="html">
+        <source>Nombre de Usuario</source>
+        <target>Nombre de Usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="usernamePlaceholder" datatype="html">
+        <source>Ingresa tu nombre de usuario</source>
+        <target>Ingresa tu nombre de usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emailLabel" datatype="html">
+        <source>Correo Electrónico</source>
+        <target>Correo Electrónico</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="emailPlaceholder" datatype="html">
+        <source>tu@email.com</source>
+        <target>tu@email.com</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordLabel" datatype="html">
+        <source>Contraseña</source>
+        <target>Contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="passwordPlaceholder" datatype="html">
+        <source>Mínimo 6 caracteres</source>
+        <target>Mínimo 6 caracteres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmPasswordLabel" datatype="html">
+        <source>Confirmar Contraseña</source>
+        <target>Confirmar Contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmPasswordPlaceholder" datatype="html">
+        <source>Repite tu contraseña</source>
+        <target>Repite tu contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signInButton" datatype="html">
+        <source>Iniciar Sesión</source>
+        <target>Iniciar Sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signUpButton" datatype="html">
+        <source>Crear Cuenta</source>
+        <target>Crear Cuenta</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">132,167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="magicLinkButton" datatype="html">
+        <source>Enviar Enlace Mágico</source>
+        <target>Enviar Enlace Mágico</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noAccountText" datatype="html">
+        <source>¿No tienes cuenta?</source>
+        <target>¿No tienes cuenta?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hasAccountText" datatype="html">
+        <source>¿Ya tienes cuenta?</source>
+        <target>¿Ya tienes cuenta?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/auth/auth.page.html</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+      </trans-unit>
+
+      <!-- Confirmation Dialog -->
+      <trans-unit id="cancelButton" datatype="html">
+        <source>Cancelar</source>
+        <target>Cancelar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/confirmation-dialog/confirmation-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmButton" datatype="html">
+        <source>Confirmar</source>
+        <target>Confirmar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/confirmation-dialog/confirmation-dialog.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteTastingTitle" datatype="html">
+        <source>¿Eliminar cata en progreso?</source>
+        <target>¿Eliminar cata en progreso?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/molecule/header/header.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
