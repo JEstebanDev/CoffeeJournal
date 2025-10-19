@@ -4,11 +4,10 @@ const { resolve } = require('path');
 
 const targetPath = resolve(__dirname, './src/environment/environment.prod.ts');
 
-const envFileContent = `
-export const environment = {
+const envFileContent = `export const environment = {
   production: true,
-  supabaseUrl: '${process.env.NG_APP_SUPABASE_URL}',
-  supabaseKey: '${process.env.NG_APP_SUPABASE_KEY}',
+  supabaseUrl: _NGX_ENV_.NG_APP_PUBLIC_SUPABASE_URL,
+  supabaseKey: _NGX_ENV_.NG_APP_PUBLIC_SUPABASE_ANON_KEY,
 };
 `;
 

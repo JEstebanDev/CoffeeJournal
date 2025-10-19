@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  supabaseUrl: 'url',
-  supabaseKey: 'key',
+  supabaseKey: _NGX_ENV_.NG_APP_PUBLIC_SUPABASE_ANON_KEY,
+  supabaseUrl: _NGX_ENV_.NG_APP_PUBLIC_SUPABASE_URL,
 };
