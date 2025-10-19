@@ -30,11 +30,6 @@
   align-items: center
 }
 
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(195, 142, 90, 0.2);
-}
-
 .stat-icon {
   width: 48px;
   height: 48px;

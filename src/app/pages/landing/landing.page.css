@@ -193,13 +193,6 @@
   backdrop-filter: blur(10px);
 }
 
-.feature-card:hover {
-  background: rgba(212, 165, 116, 0.1);
-  border-color: rgba(212, 165, 116, 0.4);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(212, 165, 116, 0.2);
-}
-
 .feature-icon {
   width: 3rem;
   height: 3rem;
