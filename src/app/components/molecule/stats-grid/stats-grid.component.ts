@@ -30,23 +30,22 @@ export class StatsGridComponent implements OnInit, OnDestroy {
   currentInsightIndex = 0;
   private intervalId: any;
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private countriesService: CountriesService
-  ) {}
-
+  constructor(private cdr: ChangeDetectorRef, private countriesService: CountriesService) {}
   // Mapeo de métodos de preparación a imágenes
   brewMethodImages: Record<string, string> = {
-    'V60': '/assets/brew_method/pourover.png',
-    'Espresso': '/assets/brew_method/espresso.png',
+    V60: '/assets/brew_method/pourover.png',
+    Espresso: '/assets/brew_method/espresso.png',
     'Prensa Francesa': '/assets/brew_method/french_press.png',
-    'Chemex': '/assets/brew_method/chemex.png',
-    'Aeropress': '/assets/brew_method/aeropress.png',
-    'Moka': '/assets/brew_method/moka_pot.png',
-    'Cold Brew': '/assets/brew_method/cold_brew.png'
+    Chemex: '/assets/brew_method/chemex.png',
+    Aeropress: '/assets/brew_method/aeropress.png',
+    Moka: '/assets/brew_method/moka_pot.png',
+    'Cold Brew': '/assets/brew_method/cold_brew.png',
   };
 
   getCountryFlag(country: string): string {
+    if (country.split(',').length !== 1) {
+      country = country.split(',')[0].toString();
+    }
     return this.countriesService.getCountryFlag(country);
   }
 

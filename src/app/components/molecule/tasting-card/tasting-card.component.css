@@ -94,7 +94,7 @@
 
 /* Title Section */
 .tasting-title-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
@@ -143,7 +143,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin: 0rem 4rem 1rem 4rem;
   justify-content: center;
 }
 
@@ -177,15 +177,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex: 1;
+  margin-bottom: 0.4rem;
 }
 
 .metric-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
@@ -268,6 +267,16 @@
   line-height: 1.6;
   margin: 0;
   font-style: italic;
+  flex: 1 1 auto; /* permite que el <p> tome el ancho restante */
+  display: -webkit-box; /* required for line-clamp */
+  -webkit-line-clamp: 3; /* número de líneas visibles */
+  -webkit-box-orient: vertical; /* required for line-clamp */
+  overflow: hidden; /* oculta lo que excede */
+  text-overflow: ellipsis; /* muestra ... cuando recorta */
+  line-height: 1.4; /* ajusta según tu tipografía */
+  max-height: calc(5.4em * 2); /* evita saltos extra (line-height * lines) */
+  white-space: normal; /* permitir salto de línea */
+  word-break: break-word;
 }
 
 /* Responsive Design */
@@ -301,9 +310,14 @@
   .tasting-info-chips {
     gap: 0.4rem;
   }
-
   .info-chip {
     font-size: 0.75rem;
     padding: 0.3rem 0.6rem;
+  }
+  .metric-item {
+    padding-bottom: 0.5rem;
+  }
+  .tasting-impression p {
+    -webkit-line-clamp: 2;
   }
 }

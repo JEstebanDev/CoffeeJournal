@@ -41,7 +41,24 @@
     <span class="validation-message">{{ 'acidityError' | translate }}</span>
     }
   </div>
+  <!-- Aftertaste textarea -->
+  <div class="sensory-section">
+    <div class="section-header">
+      <span class="section-title">{{ 'aftertasteLabel' | translate }}</span>
+      <span class="section-description">{{ 'aftertasteDescription' | translate }}</span>
+    </div>
 
+    <div class="text-input-container">
+      <textarea
+        class="sensory-textarea"
+        [placeholder]="'aftertasteDescPlaceholder' | translate"
+        [value]="flavorData().aftertasteDescription"
+        (input)="onAfterTasteDescChange($any($event.target).value)"
+        rows="2"
+        maxlength="200"
+      ></textarea>
+    </div>
+  </div>
   <!-- Aftertaste Section -->
   <div class="sensory-section">
     <div class="section-header" [class.invalid]="shouldShowAftertasteError()">
@@ -79,22 +96,5 @@
     @if (shouldShowAftertasteError()) {
     <span class="validation-message">{{ 'aftertasteError' | translate }}</span>
     }
-  </div>
-  <div class="sensory-section">
-    <div class="section-header">
-      <span class="section-title">{{ 'aftertasteLabel' | translate }}</span>
-      <span class="section-description">{{ 'aftertasteDescription' | translate }}</span>
-    </div>
-
-    <div class="text-input-container">
-      <textarea
-        class="sensory-textarea"
-        [placeholder]="'aftertasteDescPlaceholder' | translate"
-        [value]="flavorData().aftertasteDescription"
-        (input)="onAfterTasteDescChange($any($event.target).value)"
-        rows="2"
-        maxlength="200"
-      ></textarea>
-    </div>
   </div>
 </div>

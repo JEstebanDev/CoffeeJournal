@@ -14,7 +14,7 @@ export class TranslationService {
 
   constructor(private languageService: LanguageService) {
     this.loadTranslations();
-    
+
     // Escuchar cambios de idioma usando effect
     effect(() => {
       // Leer el idioma actual para activar el effect
@@ -28,7 +28,7 @@ export class TranslationService {
    */
   private async loadTranslations(): Promise<void> {
     this.isLoading.set(true);
-    
+
     try {
       const currentLanguage = this.languageService.language();
       const translations = await this.fetchTranslations(currentLanguage);
@@ -48,13 +48,13 @@ export class TranslationService {
    */
   private async fetchTranslations(language: SupportedLanguage): Promise<TranslationData> {
     const fileName = language === 'es' ? 'messages.es.xlf' : 'messages.en.xlf';
-    
+
     try {
       const response = await fetch(`/assets/locale/${fileName}`);
       if (!response.ok) {
         throw new Error(`Error cargando archivo de traducción: ${fileName}`);
       }
-      
+
       const xmlText = await response.text();
       return this.parseXlfFile(xmlText);
     } catch (error) {
@@ -68,34 +68,35 @@ export class TranslationService {
    */
   private parseXlfFile(xmlText: string): TranslationData {
     const translations: TranslationData = {};
-    
+
     try {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-      
+
       // Verificar si hay errores de parsing
       const parserError = xmlDoc.querySelector('parsererror');
       if (parserError) {
         console.error('XML parsing error:', parserError.textContent);
         return translations;
       }
-      
+
       const transUnits = xmlDoc.querySelectorAll('trans-unit');
-      
+
       transUnits.forEach((unit) => {
         const id = unit.getAttribute('id');
         const targetElement = unit.querySelector('target');
-        
+
         if (id && targetElement) {
           translations[id] = targetElement.textContent || '';
         } else if (id) {
-          console.warn(`Translation unit ${id} has no target element`);
+          // TODO: Revisar porque sale tanto el error
+          //  console.warn(`Translation unit ${id} has no target element`);
         }
       });
     } catch (error) {
       console.error('Error parseando archivo XLF:', error);
     }
-    
+
     return translations;
   }
 
@@ -104,7 +105,7 @@ export class TranslationService {
    */
   private getFallbackTranslations(): TranslationData {
     const currentLanguage = this.languageService.language();
-    
+
     if (currentLanguage === 'en') {
       return {
         appName: 'Coffee Journal',
@@ -222,28 +223,28 @@ export class TranslationService {
         coffeeNameAriaLabel: 'Coffee name',
         coffeeOriginAriaLabel: 'Coffee origin',
         brewMethodsAriaLabel: 'Brewing methods',
-         clearSearchAriaLabel: 'Clear search',
-         sortByRecentAriaLabel: 'Most recent first',
-         logoutAriaLabel: 'Logout',
-         footerDevelopedBy: 'Developed with Angular by',
-         // Body Level Descriptions
-         bodyLevelSoftDescription: 'Watery or very soft',
-         bodyLevelLightDescription: 'Soft but with presence',
-         bodyLevelMediumDescription: 'Balanced texture',
-         bodyLevelFullDescription: 'Creamy and round',
-         bodyLevelDenseDescription: 'Heavy, oily',
-         // Acidity Level Descriptions
-         acidityLevelNoneDescription: 'Flat, no sparkle',
-         acidityLevelLowDescription: 'Soft, balanced',
-         acidityLevelMediumDescription: 'Bright but harmonious',
-         acidityLevelHighDescription: 'Lively and sharp',
-         acidityLevelIntenseDescription: 'Dominant, vibrant',
-         // Aftertaste Level Descriptions
-         aftertasteLevelShortDescription: 'Disappears quickly',
-         aftertasteLevelSoftDescription: 'Mild persistence',
-         aftertasteLevelMediumDescription: 'Good finish, no bitterness',
-         aftertasteLevelLongDescription: 'Remains pleasant',
-         aftertasteLevelComplexDescription: 'Evolves over time',
+        clearSearchAriaLabel: 'Clear search',
+        sortByRecentAriaLabel: 'Most recent first',
+        logoutAriaLabel: 'Logout',
+        footerDevelopedBy: 'Developed with Angular by',
+        // Body Level Descriptions
+        bodyLevelSoftDescription: 'Watery or very soft',
+        bodyLevelLightDescription: 'Soft but with presence',
+        bodyLevelMediumDescription: 'Balanced texture',
+        bodyLevelFullDescription: 'Creamy and round',
+        bodyLevelDenseDescription: 'Heavy, oily',
+        // Acidity Level Descriptions
+        acidityLevelNoneDescription: 'Flat, no sparkle',
+        acidityLevelLowDescription: 'Soft, balanced',
+        acidityLevelMediumDescription: 'Bright but harmonious',
+        acidityLevelHighDescription: 'Lively and sharp',
+        acidityLevelIntenseDescription: 'Dominant, vibrant',
+        // Aftertaste Level Descriptions
+        aftertasteLevelShortDescription: 'Disappears quickly',
+        aftertasteLevelSoftDescription: 'Mild persistence',
+        aftertasteLevelMediumDescription: 'Good finish, no bitterness',
+        aftertasteLevelLongDescription: 'Remains pleasant',
+        aftertasteLevelComplexDescription: 'Evolves over time',
         // Score Slide
         coffeeImageTitle: 'Coffee Image',
         uploadImageText: 'Click to upload an image',
@@ -391,28 +392,28 @@ export class TranslationService {
         coffeeNameAriaLabel: 'Nombre del café',
         coffeeOriginAriaLabel: 'Origen del café',
         brewMethodsAriaLabel: 'Métodos de preparación',
-         clearSearchAriaLabel: 'Limpiar búsqueda',
-         sortByRecentAriaLabel: 'Más recientes primero',
-         logoutAriaLabel: 'Cerrar Sesión',
-         footerDevelopedBy: 'Desarrollado con Angular por',
-         // Body Level Descriptions
-         bodyLevelSoftDescription: 'Acuoso o muy suave',
-         bodyLevelLightDescription: 'Suave pero con presencia',
-         bodyLevelMediumDescription: 'Textura balanceada',
-         bodyLevelFullDescription: 'Cremoso y redondo',
-         bodyLevelDenseDescription: 'Pesado, aceitoso',
-         // Acidity Level Descriptions
-         acidityLevelNoneDescription: 'Plana, sin chispa',
-         acidityLevelLowDescription: 'Suave, equilibrada',
-         acidityLevelMediumDescription: 'Brillante pero armónica',
-         acidityLevelHighDescription: 'Viva y punzante',
-         acidityLevelIntenseDescription: 'Dominante, vibrante',
-         // Aftertaste Level Descriptions
-         aftertasteLevelShortDescription: 'Desaparece rápido',
-         aftertasteLevelSoftDescription: 'Persistencia leve',
-         aftertasteLevelMediumDescription: 'Buen final, sin amargor',
-         aftertasteLevelLongDescription: 'Permanece agradable',
-         aftertasteLevelComplexDescription: 'Evoluciona con el tiempo',
+        clearSearchAriaLabel: 'Limpiar búsqueda',
+        sortByRecentAriaLabel: 'Más recientes primero',
+        logoutAriaLabel: 'Cerrar Sesión',
+        footerDevelopedBy: 'Desarrollado con Angular por',
+        // Body Level Descriptions
+        bodyLevelSoftDescription: 'Acuoso o muy suave',
+        bodyLevelLightDescription: 'Suave pero con presencia',
+        bodyLevelMediumDescription: 'Textura balanceada',
+        bodyLevelFullDescription: 'Cremoso y redondo',
+        bodyLevelDenseDescription: 'Pesado, aceitoso',
+        // Acidity Level Descriptions
+        acidityLevelNoneDescription: 'Plana, sin chispa',
+        acidityLevelLowDescription: 'Suave, equilibrada',
+        acidityLevelMediumDescription: 'Brillante pero armónica',
+        acidityLevelHighDescription: 'Viva y punzante',
+        acidityLevelIntenseDescription: 'Dominante, vibrante',
+        // Aftertaste Level Descriptions
+        aftertasteLevelShortDescription: 'Desaparece rápido',
+        aftertasteLevelSoftDescription: 'Persistencia leve',
+        aftertasteLevelMediumDescription: 'Buen final, sin amargor',
+        aftertasteLevelLongDescription: 'Permanece agradable',
+        aftertasteLevelComplexDescription: 'Evoluciona con el tiempo',
         // Score Slide
         coffeeImageTitle: 'Imagen del Café',
         uploadImageText: 'Haz clic para subir una imagen',
@@ -452,12 +453,13 @@ export class TranslationService {
   public translate(key: string, params?: { [key: string]: string | number }): string {
     const translations = this.translations();
     let translation = translations[key] || key;
-    
+
     // Debug: Log cuando no se encuentra una traducción
     if (!translations[key]) {
-      console.warn(`Translation key not found: ${key}. Available keys:`, Object.keys(translations));
+      // TODO: Revisar porque sale tanto el error
+      // console.warn(`Translation key not found: ${key}. Available keys:`, Object.keys(translations));
     }
-    
+
     // Reemplazar parámetros si se proporcionan
     if (params) {
       Object.keys(params).forEach((paramKey) => {
@@ -465,7 +467,7 @@ export class TranslationService {
         translation = translation.replace(new RegExp(placeholder, 'g'), String(params[paramKey]));
       });
     }
-    
+
     return translation;
   }
 

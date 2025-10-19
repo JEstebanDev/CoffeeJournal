@@ -259,7 +259,7 @@ export class SlidesPage implements OnInit {
 
     // Auto-navigate to next slide if all fields are filled
     // Uses debounce to wait until user stops typing
-    this.scheduleAutoNavigation(0);
+    this.scheduleAutoNavigation(0, 3000);
   }
 
   // Roast slide handlers
@@ -276,7 +276,7 @@ export class SlidesPage implements OnInit {
 
     // Auto-navigate if both roast level and brew method are selected
     // Uses debounce to wait until user stops interacting
-    this.scheduleAutoNavigation(1);
+    this.scheduleAutoNavigation(1, 1800);
   }
 
   // Sensory slide handlers

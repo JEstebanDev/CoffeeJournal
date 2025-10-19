@@ -89,11 +89,19 @@ export class StatisticsService {
     const favoriteOrigin = Object.entries(originCount).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
 
     // Top 3 orígenes más catados
-    const topOrigins = Object.entries(originCount)
+    const mergedOrigins: Record<string, number> = {};
+
+    Object.entries(originCount).forEach(([name, count]) => {
+      const mainName = name.includes(',') ? name.split(',')[0].trim() : name.trim();
+
+      // suma el conteo si ya existe
+      mergedOrigins[mainName] = (mergedOrigins[mainName] || 0) + count;
+    });
+
+    const topOrigins = Object.entries(mergedOrigins)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 3);
-
     // Tueste favorito
     const roastCount = tastings.reduce((acc, tasting) => {
       const roast = tasting.roast_level || this.getTranslation('unknownRoast');
