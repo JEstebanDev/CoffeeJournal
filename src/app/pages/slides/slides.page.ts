@@ -259,7 +259,7 @@ export class SlidesPage implements OnInit {
 
     // Auto-navigate to next slide if all fields are filled
     // Uses debounce to wait until user stops typing
-    this.scheduleAutoNavigation(0, 3000);
+    this.scheduleAutoNavigation(0, 2300);
   }
 
   // Roast slide handlers
